@@ -13,37 +13,33 @@ const Navbar = () => {
                         {/* Para que todo el contenido se vea alineado y organizado hacia el centro */}
                         <div className="uk-navbar-center uk-flex uk-flex-center">
                             {/* Ahora empezamos a dividir el centro en izquierda y derecha */}
-                            <div className="uk-navbar-center-left">
-                                <ul className="uk-navbar-nav">
-                                    <li>
-                                        <NavLink to="/api" end>
-                                            <strong>API</strong>
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/menu" end>
-                                            <strong>Menu</strong>
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul className="uk-navbar-nav">
+                                <li>
+                                    <NavLink to="/api" end>
+                                        <strong>API</strong>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/menu" end>
+                                        <strong>Menu</strong>
+                                    </NavLink>
+                                </li>
+                            </ul>
                             <NavLink to="/suggest" end>
                                 <strong>Recomendado</strong>
                             </NavLink>
-                            <div className="uk-navbar-center-right">
-                                <ul className="uk-navbar-nav">
-                                    <li>
-                                        <NavLink to="/blog" end>
-                                            <strong>Blog</strong>
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to="/about" end>
-                                            <strong>Nosotros</strong>
-                                        </NavLink>
-                                    </li>
-                                </ul>
-                            </div>
+                            <ul className="uk-navbar-nav">
+                                <li>
+                                    <NavLink to="/blog" end>
+                                        <strong>Blog</strong>
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/about" end>
+                                        <strong>Nosotros</strong>
+                                    </NavLink>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

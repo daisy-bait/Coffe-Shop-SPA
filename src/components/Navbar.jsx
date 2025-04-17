@@ -1,5 +1,7 @@
 import { NavLink } from "react-router";
 
+import coffeLogo from "../assets/img/coffe-user-logo.svg"
+
 const Navbar = () => {
 
     return (
@@ -11,7 +13,21 @@ const Navbar = () => {
                     {/* Ahora definimos el componente Navbar */}
                     <div uk-navbar="mode: click">
                         {/* Para que todo el contenido se vea alineado y organizado hacia el centro */}
-                        <div className="uk-navbar-center uk-flex uk-flex-center">
+                        <div className="uk-navbar-left">
+                            <div className="uk-navbar-item uk-light">
+                                <NavLink
+                                    className="uk-flex uk-link-heading"
+                                    to="/" end>
+                                    <img src={coffeLogo} />
+                                    <button className="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
+                                        <strong>
+                                            Chocolate<br></br>Nicolle
+                                        </strong>
+                                    </button>
+                                </NavLink>
+                            </div>
+                        </div>
+                        <div className="uk-navbar-center">
                             {/* Ahora empezamos a dividir el centro en izquierda y derecha */}
                             <div className="uk-navbar-item uk-dark">
                                 <NavLink
@@ -46,6 +62,22 @@ const Navbar = () => {
                                     className="uk-text-capitalize uk-button uk-button-text uk-light"
                                     to="/about" end>
                                     Nosotros
+                                </NavLink>
+                            </div>
+                        </div>
+                        <div className="uk-navbar-right">
+                            <div className="uk-navbar-item uk-light">
+                                <NavLink
+                                    className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
+                                    to="#" end>
+                                    Iniciar Seción
+                                </NavLink>
+                            </div>
+                            <div className="uk-navbar-item uk-dark">
+                                <NavLink
+                                    className="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
+                                    to="#" end>
+                                    Registrarse
                                 </NavLink>
                             </div>
                         </div>

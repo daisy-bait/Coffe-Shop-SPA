@@ -6,14 +6,14 @@ const Navbar = () => {
         <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
             {/* Hacemos que el Navbar sea fijo */}
             {/* Definimos el contenedor navbar padre para poder aplicarle backgound */}
-            <nav className="uk-navbar-container uk-navbar-transparent">
-                <div className="uk-container uk-width-1-1">
+            <nav className="uk-navbar-container uk-navbar-transparent" >
+                <div className="uk-container uk-width-1-1 background-opaque">
                     {/* Ahora definimos el componente Navbar */}
                     <div uk-navbar="mode: click">
                         {/* Para que todo el contenido se vea alineado y organizado hacia el centro */}
                         <div className="uk-navbar-center uk-flex uk-flex-center">
                             {/* Ahora empezamos a dividir el centro en izquierda y derecha */}
-                            <div className="uk-navbar-item">
+                            <div className="uk-navbar-item uk-dark">
                                 <NavLink
                                     className="uk-button uk-button-secondary uk-border-rounded"
                                     to="/api" end>

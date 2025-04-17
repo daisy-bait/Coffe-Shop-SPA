@@ -13,15 +13,23 @@ function App() {
     return (
         <>
             <Router>
-            <Navbar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/api" element={<Api />} />
-                    <Route path="/menu" element={<Menu />} />
-                    <Route path="/suggest" element={<Recomendado />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/about" element={<Nosotros />} />
-                </Routes>
+                <Navbar />
+                {/**
+                Este div es para que los componentes tengan texto claro al igual que
+                todos los componentes, ¿Por qué? Por el uk-background-secondary y la
+                imágen que hay de fondo, en caso de querer utilizar elementos oscuros
+                añadirles al className uk-dark
+                **/}
+                <div className="uk-light">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/api" element={<Api />} />
+                        <Route path="/menu" element={<Menu />} />
+                        <Route path="/suggest" element={<Recomendado />} />
+                        <Route path="/blog" element={<Blog />} />
+                        <Route path="/about" element={<Nosotros />} />
+                    </Routes>
+                </div>
             </Router>
         </>
     )

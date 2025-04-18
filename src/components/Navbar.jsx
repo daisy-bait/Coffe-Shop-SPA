@@ -6,7 +6,7 @@ const Navbar = () => {
 
     return (
         <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
-        className="uk-position-cover">
+        className="uk-position-top">
             {/* Hacemos que el Navbar sea fijo */}
             {/* Definimos el contenedor navbar padre para poder aplicarle backgound */}
             <nav className="uk-navbar-container uk-navbar-transparent" >

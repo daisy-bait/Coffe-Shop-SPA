@@ -1,12 +1,20 @@
-# React + Vite
+# Home Component and Navbar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- This project uses [UIkit](https://getuikit.com/) CSS Framework for styles.
 
-Currently, two official plugins are available:
+## Hello I'm daisy-dev
+My tasks in this project has been
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [x] Make the Navbar Component.
+- [x] Make the Navbar Component Responsive.
+- [x] Implement Routing in the app with [React Router v7](https://reactrouter.com/)
+- [ ] Make the Home Component.
+    - [x] Implement the Big Background principal Image
+    - [ ] Fix father component position relative bug
+    - [ ] Make the link Cards for Menu and Blog
+    - [ ] Fill the first child component with a lot of juicy information
+- [ ] Make the Footer Component.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+>[!note]
+> The Readme looks better on my neo-vim 😎🛠️
+> <img src="https://drive.google.com/uc?export=view&id=1zBUd9hCPw_3NOMrzL8inv7SnIYTmmV5p"/>

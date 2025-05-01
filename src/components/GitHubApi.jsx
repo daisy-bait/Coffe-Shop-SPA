@@ -22,6 +22,7 @@ const GitHubApi = () => {
 
     return (
         <>
+            <p>Busqueda de usuarios de GitHub</p>
             <Buscador setQuery={setQuery} />
             {error && <Error>Hubo un error al consultar la API</Error>}
             {loading ? (

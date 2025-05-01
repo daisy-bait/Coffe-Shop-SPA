@@ -19,7 +19,7 @@ const fetchMangaDex = async (query) => {
     params.append("includes[]", "cover_art");
     params.append("order[latestUploadedChapter]", "desc");
 
-    const url = `https://api.mangadex.org/manga?${params.toString()}`;
+    const url = `api/mangadex/manga?${params.toString()}`;
 
     const response = await fetch(url);
     const data = await response.json();

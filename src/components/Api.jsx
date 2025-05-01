@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-import Buscador from "./Buscador";
-import Error from "./Error";
-import ResultadoApi from "./ResultadoApi";
 import GitHubApi from "./GitHubApi";
+import MangaDexApi from "./MangaDexApi";
 
 const Api = () => {
 
@@ -25,7 +22,7 @@ const Api = () => {
           <li>
             <a href="" className="uk-accordion-title">MangaDex API</a>
             <div className="uk-accordion-content">
-              <p>Para más rato</p>
+              <MangaDexApi />
             </div>
           </li>
         </ul>

@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import UIkit from "uikit";
-import "uikit/dist/css/uikit.min.css";
-import Icons from "uikit/dist/js/uikit-icons";
 /* imagenes */
 import avatarDefault from "../assets/img/avatars/default.jpg";
 import blogPrueba from "../assets/img/blog-prueba.jpg";
 import blogBackground from "../assets/img/blog-Background.png";
 
-UIkit.use(Icons);
 /* LUEGO CAMBIO LAS IMAGENES POR LAS DE MI PENE */
 const Blog = () => {
   const [modalOpen, setModalOpen] = useState(false);

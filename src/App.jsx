@@ -15,12 +15,15 @@ function App() {
             <Router>
                 <Navbar />
                 {/**
-                Este div es para que los componentes tengan texto claro al igual que
-                todos los componentes, ¿Por qué? Por el uk-background-secondary y la
-                imágen que hay de fondo, en caso de querer utilizar elementos oscuros
-                añadirles al className uk-dark
+                    Se ha eliminado el div que obligaba a todos los elementos
+                    a tomar un color oscuro, tener cuidado con esto y utilizar
+                    sabiamente el uk-background-secondary (fondo oscuro), el
+                    uk-light para obligar a los elementos a ser claros y el
+                    uk-dark para obligarlos a ser oscuros
+
+                    ---> AHORA TODOS LOS ESTILOS DEPENDEN DE USTEDES CHICOS
+                    No tienen que preocuparse por superestilos
                 **/}
-                <div className="uk-light">
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/api" element={<Api />} />
@@ -29,7 +32,6 @@ function App() {
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/about" element={<Nosotros />} />
                     </Routes>
-                </div>
             </Router>
         </>
     )

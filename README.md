@@ -23,6 +23,7 @@ A modern coffee shop website built with React, React Router v7, and UIkit CSS fr
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/coffee-shop.git
    cd Coffe-Shop-SPA

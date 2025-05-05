@@ -5,8 +5,7 @@ import coffeLogo from "../assets/img/coffe-user-logo.svg"
 const Navbar = () => {
 
     return (
-        <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky"
-        className="uk-position-top">
+        <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" >
             {/* Hacemos que el Navbar sea fijo */}
             {/* Definimos el contenedor navbar padre para poder aplicarle backgound */}
             <nav className="uk-navbar-container uk-navbar-transparent" >
@@ -41,7 +40,7 @@ const Navbar = () => {
                                 <NavLink
                                     className="uk-text-capitalize uk-button uk-button-text uk-light"
                                     to="/menu" end>
-                                    Menu
+                                    Menú
                                 </NavLink>
                             </div>
                             <div className="uk-navbar-item uk-light">
@@ -102,7 +101,7 @@ const Navbar = () => {
                                             <NavLink
                                                 className="uk-text-capitalize uk-button uk-button-text uk-light"
                                                 to="/menu" end>
-                                                Menu
+                                                Menú
                                             </NavLink>
                                         </div>
                                         <div className="uk-flex-left uk-margin-small-left">

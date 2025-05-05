@@ -7,6 +7,14 @@ export default defineConfig({
     server: {
         watch: {
             usePolling: true
+        },
+        proxy: {
+            '/api/mangadex': {
+                target: 'https://api.mangadex.org',
+                changeOrigin: true,
+                secure: false,
+                rewrite: (path) => path.replace(/^\/api\/mangadex/, '')
+            }
         }
     }
 })

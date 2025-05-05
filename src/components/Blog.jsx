@@ -2,7 +2,7 @@ import React, { useState } from "react";
 /* imagenes */
 import avatarDefault from "../assets/img/avatars/default.jpg";
 import blogPrueba from "../assets/img/blog-prueba.jpg";
-import blogBackground from "../assets/img/blog-Background.png";
+import blogBackground from "../assets/img/blog-background.png";
 
 /* LUEGO CAMBIO LAS IMAGENES POR LAS DE MI PENE */
 const Blog = () => {

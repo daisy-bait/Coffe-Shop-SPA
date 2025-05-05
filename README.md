@@ -1,12 +1,31 @@
-# React + Vite
+# Coffee Shop Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern coffee shop website built with React, React Router v7, and UIkit CSS framework. Features include a blog, menu, recommendations, and an API consumption page.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Navbar**: Responsive navigation with UIkit styling
+- **Blog**: Displays coffee-related articles
+- **Menu**: Showcases coffee offerings with prices
+- **Recommendations**: Highlights special items
+- **API Page**: Fetches and displays data from an external API
+- **Responsive Design**: Works on all device sizes
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- React Router v7
+- UIkit CSS Framework
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/coffee-shop.git
+   cd Coffe-Shop-SPA
+   npm i
+   npm run dev
+   ```

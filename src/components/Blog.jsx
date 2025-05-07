@@ -49,6 +49,7 @@ const Blog = () => {
         backgroundPosition: "center",
         minHeight: "100vh",
         padding: "40px 0",
+        margin: "-80px 0",
       }}
     >
       <div className="uk-container uk-text-default" style={{ color: "black" }}>

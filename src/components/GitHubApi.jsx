@@ -23,7 +23,7 @@ const GitHubApi = () => {
     return (
         <>
             <p>Busqueda de usuarios de GitHub</p>
-            <Buscador setQuery={setQuery} />
+            <Buscador setQuery={setQuery} textHint={"Buscar un usuario (ej: midudev)"} />
             {error && <Error>Hubo un error al consultar la API</Error>}
             {loading ? (
                 <p className="uk-text-center">Cargando...</p>

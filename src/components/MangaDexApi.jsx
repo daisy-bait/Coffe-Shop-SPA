@@ -13,7 +13,7 @@ const fetchMangaDex = async (query) => {
 
     if (query) params.append("title", query);
     params.append("offset", 0);
-    params.append("limit", 10);
+    params.append("limit", 12);
     contentRating.forEach(rating => params.append("contentRating[]", rating));
     translatedLanguage.forEach(lang => params.append("availableTranslatedLanguage[]", lang));
     params.append("includes[]", "cover_art");
@@ -47,8 +47,8 @@ const MangaDexApi = () => {
     const { result, loading, error } = useApiSearch(query, fetchMangaDex);
     return (
         <>
-            <p>Busqueda de mnagas de MangaDex</p>
-            <Buscador setQuery={setQuery} />
+            <p>Busqueda de mangas de MangaDex</p>
+            <Buscador setQuery={setQuery} textHint={"Buscar un manga (ej: Bleach)"} />
             {error && <Error>Hubo un error al consultar la API</Error>}
             {loading ? (
                 <p className="uk-text-center">Cargando...</p>

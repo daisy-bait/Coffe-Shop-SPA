@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Buscador = ({ setQuery }) => {
+const Buscador = ({ setQuery, textHint }) => {
   const [input, setInput] = useState("");
 
   const handleSubmit = (e) => {
@@ -14,7 +14,7 @@ const Buscador = ({ setQuery }) => {
     <form onSubmit={handleSubmit} className="uk-search uk-search-default uk-margin">
       <input
         type="text"
-        placeholder="Buscar un usuario (ej: midudev)"
+        placeholder={`${textHint}...`}
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className="uk-search-input"

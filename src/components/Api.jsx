@@ -1,15 +1,20 @@
 import GitHubApi from "./GitHubApi";
 import MangaDexApi from "./MangaDexApi";
-import animeBackground from "../assets/img/fondo_3.jpg"
+import animeBackground from "../assets/img/fondo_6.jpg"
 
 const Api = () => {
 
   return (
     <div className="">
-      <div className="uk-container" >
-        <div className="uk-section" >
+      <div className="uk-background-cover uk-height-viewport"
+        style={{
+          backgroundImage: `url(${animeBackground})`,
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="uk-container uk-section">
           {/* Título de la página */}
-          <h1 className="uk-heading-line uk-text-center ul-margin-large-bottom">Explora APIs</h1>
+          <h1 className="uk-heading-line uk-text-center uk-margin-large-bottom" style={{ color: 'white' }} >Explora APIs</h1>
           {/* Acordeón de APIs */}
           <ul className="uk-accordion" uk-accordion="multiple: true">
             {/* GitHub API  */}

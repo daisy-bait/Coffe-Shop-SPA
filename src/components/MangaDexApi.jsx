@@ -44,16 +44,23 @@ const fetchMangaDex = async (query) => {
 
 const MangaDexApi = () => {
     const [query, setQuery] = useState("");
-    const { result, loading, error } = useApiSearch(query, fetchMangaDex);
+    const [enabled, setEnabled] = useState(false);
+    const { result, loading, error } = useApiSearch(query, fetchMangaDex, enabled);
+
+    const handleSearch = (newQuery) => {
+        setQuery(newQuery);
+        setEnabled(true);
+    };
+
     return (
         <>
             <p>Busqueda de mangas de MangaDex</p>
-            <Buscador setQuery={setQuery} textHint={"Buscar un manga (ej: Bleach)"} />
+            <Buscador onSearch={handleSearch} textHint={"Buscar un manga (ej: Bleach)"} />
             {error && <Error>Hubo un error al consultar la API</Error>}
-            {loading ? (
-                <p className="uk-text-center">Cargando...</p>
-            ) : (
-                <ResultadoMangaDex mangas={result} />
+            {!error && enabled && loading && <p className="uk-text-center">Cargando...</p>}
+            {!error && enabled && !loading && result.length > 0 && <ResultadoMangaDex mangas={result} />}
+            {!error && enabled && !loading && result.length === 0 && (
+                <p className="uk-text-center uk-text-muted">No se encontraron resultados</p>
             )}
         </>
     )

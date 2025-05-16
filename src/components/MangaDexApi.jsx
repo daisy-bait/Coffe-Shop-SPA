@@ -13,7 +13,7 @@ const fetchMangaDex = async (query) => {
 
     if (query) params.append("title", query);
     params.append("offset", 0);
-    params.append("limit", 10);
+    params.append("limit", 12);
     contentRating.forEach(rating => params.append("contentRating[]", rating));
     translatedLanguage.forEach(lang => params.append("availableTranslatedLanguage[]", lang));
     params.append("includes[]", "cover_art");
@@ -44,16 +44,23 @@ const fetchMangaDex = async (query) => {
 
 const MangaDexApi = () => {
     const [query, setQuery] = useState("");
-    const { result, loading, error } = useApiSearch(query, fetchMangaDex);
+    const [enabled, setEnabled] = useState(false);
+    const { result, loading, error } = useApiSearch(query, fetchMangaDex, enabled);
+
+    const handleSearch = (newQuery) => {
+        setQuery(newQuery);
+        setEnabled(true);
+    };
+
     return (
         <>
-            <p>Busqueda de mnagas de MangaDex</p>
-            <Buscador setQuery={setQuery} />
+            <p>Busqueda de mangas de MangaDex</p>
+            <Buscador onSearch={handleSearch} textHint={"Buscar un manga (ej: Bleach)"} />
             {error && <Error>Hubo un error al consultar la API</Error>}
-            {loading ? (
-                <p className="uk-text-center">Cargando...</p>
-            ) : (
-                <ResultadoMangaDex mangas={result} />
+            {!error && enabled && loading && <p className="uk-text-center">Cargando...</p>}
+            {!error && enabled && !loading && result.length > 0 && <ResultadoMangaDex mangas={result} />}
+            {!error && enabled && !loading && result.length === 0 && (
+                <p className="uk-text-center uk-text-muted">No se encontraron resultados</p>
             )}
         </>
     )

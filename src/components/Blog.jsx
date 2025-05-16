@@ -41,8 +41,9 @@ const Blog = () => {
   };
 
   return (
+        <div className="uk-position-top">
     <div
-      className="uk-section uk-light" /*poner todo el putas texto negro como me la pela el texto */
+      className="first-child-adjustment uk-section uk-light" /*poner todo el putas texto negro como me la pela el texto */
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${blogBackground})`,
         backgroundSize: "cover",
@@ -179,6 +180,7 @@ const Blog = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

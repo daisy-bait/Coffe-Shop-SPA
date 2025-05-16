@@ -2,8 +2,8 @@ import mainCoffeBackground from "../assets/img/coffe-soft-header.svg"
 
 const Home = () => {
     return (
-        <div className="provisional-view-adjustment">
-            <div className="uk-background-cover uk-height-large uk-light provisional-first-child-adjustment uk-flex"
+        <div className="uk-position-top">
+            <div className="uk-background-cover uk-height-large uk-light first-child-adjustment uk-flex"
                 style={{
                     backgroundImage: `url(${mainCoffeBackground})`,
                 }}

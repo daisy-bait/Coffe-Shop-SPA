@@ -5,8 +5,8 @@ import animeBackground from "../assets/img/fondo_6.jpg"
 const Api = () => {
 
   return (
-    <div className="">
-      <div className="uk-background-cover uk-height-viewport"
+    <div className="uk-position-top">
+      <div className="uk-background-cover uk-height-viewport first-child-adjustment"
         style={{
           backgroundImage: `url(${animeBackground})`,
           backgroundAttachment: 'fixed'

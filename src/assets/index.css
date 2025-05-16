@@ -12,19 +12,10 @@
 }
 
 /**
-    Útil para ajustar las vistas de acorde con el navbar para que este pueda
-    ser sticky
-**/
-.provisional-view-adjustment {
-    top: -80px;
-    position: relative; /* Cambiar a absolute o usar uk-position-top */
-}
-
-/**
     Útil para que el primer hijo de un elemento con el estilo anterior se ajuste
     al tamaño del navbar y pueda mostrar bien su contenido
 **/
-.provisional-first-child-adjustment {
-    height: 1000px;
-    padding-top: 6rem;
+.first-child-adjustment {
+    height: 100%;
+    padding-top: 6rem !important;
 }

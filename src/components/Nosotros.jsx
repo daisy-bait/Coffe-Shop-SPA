@@ -6,16 +6,14 @@ import juan from '../assets/img/nosotros/juan.jpg';
 import maria from '../assets/img/nosotros/maria.jpg';
 import styled from '@emotion/styled'
 
-
-
 const Contenedor = styled.div`
     background-image: linear-gradient(to bottom, #1e1e1e, #2c2c2c);
 
 `
 const Nosotros = () => {
   return (
-    <Contenedor>
-    <div className="uk-container uk-container-large uk-padding uk-light" 
+    <Contenedor className="uk-position-top">
+    <div className="first-child-adjustment uk-container uk-container-large uk-padding uk-light" 
          style={{ background: 'linear-gradient(to bottom, #1e1e1e, #2c2c2c)' }}>
       
       {/* Sección del título */}

@@ -271,24 +271,13 @@ const Menu = () => {
                     background: 'linear-gradient(to bottom, #1e1e1e, #2c2c2c)',
                 }}>
 
-                <div className="uk-container uk-container-xlarge uk-padding-small uk-light"
-                    style={{
-                        background: 'linear-gradient(to bottom, #1e1e1e, #2c2c2c)'
-                    }}>
-
+                <div className="uk-container uk-container-xlarge uk-padding-small uk-light">
                     {/* Encabezado */}
                     <div className="uk-text-center uk-margin-large-bottom">
                         <h2 className="uk-heading-small uk-text-uppercase"
-                            style={{
-                                letterSpacing: '3px',
-                                fontWeight: 300,
-                                marginBottom: '10px'
-                            }}>
+                            style={{ letterSpacing: '3px', fontWeight: 300, marginBottom: '10px' }}>
                             <span className="uk-display-inline-block uk-padding-small"
-                                style={{
-                                    borderBottom: '2px solid rgba(212, 167, 98, 0.7)',
-                                    color: '#f5f5f5'
-                                }}>
+                                style={{ borderBottom: '2px solid rgba(212, 167, 98, 0.7)', color: '#f5f5f5' }}>
                                 Nuestro Menú
                             </span>
                         </h2>
@@ -306,49 +295,16 @@ const Menu = () => {
                         {coffeeItems.map((item, index) => (
                             <div key={index}>
                                 {/* Card del producto */}
-                                <div className="uk-card uk-card-default uk-card-hover"
-                                    style={{
-                                        backgroundColor: '#2c2c2c',
-                                        border: '1px solid rgba(212, 167, 98, 0.1)',
-                                        borderRadius: '8px',
-                                        height: '100%',
-                                        display: 'flex',
-                                        flexDirection: 'column'
-                                    }}>
+                                <div className="uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1"
+                                    style={{ backgroundColor: '#2c2c2c', border: '1px solid rgba(212, 167, 98, 0.1)', borderRadius: '8px', padding: '15px' }}>
 
-                                    {/* Contenido principal */}
-                                    <div className="uk-flex uk-flex-middle"
-                                        style={{
-                                            flexGrow: 1,
-                                            padding: '15px'
-                                        }}>
-
-                                        {/* Imagen circular */}
-                                        <div className="uk-margin-right"
-                                            style={{
-                                                width: '150px',
-                                                minWidth: '150px',
-                                                height: '150px',
-                                                display: 'flex',
-                                                justifyContent: 'center',
-                                                alignItems: 'center'
-                                            }}>
+                                    <div className="uk-flex uk-flex-middle uk-flex-wrap uk-child-width-expand@m uk-grid-small" data-uk-grid>
+                                        {/* Imagen */}
+                                        <div className="uk-flex uk-flex-center uk-width-1-3@s uk-width-1-4@m">
                                             <div className="uk-border-circle uk-overflow-hidden"
-                                                style={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    border: '2px solid #d4a762',
-                                                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                                                }}>
-                                                <img src={item.img}
-                                                    alt={item.title}
-                                                    className='uk-cover'
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        objectFit: 'cover',
-                                                        objectPosition: 'center'
-                                                    }} />
+                                                style={{ width: '100px', height: '100px', minWidth: '80px', border: '2px solid #d4a762', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}>
+                                                <img src={item.img} alt={item.title} className="uk-cover"
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
                                             </div>
                                         </div>
 

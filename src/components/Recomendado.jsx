@@ -19,10 +19,7 @@ import cappuccinoFrioImg from "../assets/img/menu/cappuccino-frio.jpg";
 import saborizadoFrioImg from "../assets/img/menu/saborizado-frio.jpg";
 import almendraIceImg from "../assets/img/menu/almendra-ice.jpg";
 const Recomendado = () => {
-    useEffect(() => {
-        UIkit.use(Icons);
-    }, []);
-
+ 
     const coffeeItems = [
         {
             id: 1,
@@ -217,10 +214,9 @@ const Recomendado = () => {
     const handleImageError = () => setImageError(true);
 
     return (
-        <div className="view-adjustment uk-position-top">
-            <div
-                className="first-child-adjustment uk-section uk-light uk-background-secondary uk-height-viewport"
-                style={{
+        <div className="first-child-adjustment uk-section uk-background-secondary uk-light uk-padding-small">
+            <div className="uk-container uk-container-xlarge uk-light uk-background-secondary"
+                style={{ background: 'linear-gradient(to bottom, #1e1e1e, #2c2c2c)',
                     backgroundColor: '#1e1e1e',
                     padding: '40px 0',
                     display: 'flex',

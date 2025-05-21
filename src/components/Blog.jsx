@@ -41,7 +41,6 @@ const Blog = () => {
   };
 
   return (
-        <div className="uk-position-top">
     <div
       className="first-child-adjustment uk-section uk-light" /*poner todo el putas texto negro como me la pela el texto */
       style={{
@@ -180,7 +179,6 @@ const Blog = () => {
           </div>
         </div>
       )}
-    </div>
     </div>
   );
 };

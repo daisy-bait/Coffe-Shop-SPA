@@ -18,4 +18,5 @@
 .first-child-adjustment {
     height: 100%;
     padding-top: 6rem !important;
+    margin-top: -6rem !important;
 }

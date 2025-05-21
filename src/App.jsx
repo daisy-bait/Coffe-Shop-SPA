@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 import Home from "./components/Home"
 import Api from "./components/Api"
 import Menu from "./components/Menu"
@@ -13,8 +14,8 @@ function App() {
     return (
         <>
             <Router>
-                <Navbar />
-                {/**
+                    <Navbar />
+                    {/**
                     Se ha eliminado el div que obligaba a todos los elementos
                     a tomar un color oscuro, tener cuidado con esto y utilizar
                     sabiamente el uk-background-secondary (fondo oscuro), el
@@ -32,6 +33,7 @@ function App() {
                         <Route path="/blog" element={<Blog />} />
                         <Route path="/about" element={<Nosotros />} />
                     </Routes>
+                <Footer />
             </Router>
         </>
     )

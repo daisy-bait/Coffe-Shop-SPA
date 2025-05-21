@@ -1,6 +1,6 @@
 const ResultadoMangaDex = ({ mangas }) => {
     return (
-        <div className="uk-grid uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-grid-match" data-uk-grid>
+        <div className="uk-grid uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-grid-match" data-uk-grid="">
             {mangas.map(manga => (
                 <div key={manga.id}>
                     <div className="uk-card uk-card-default uk-card-hover uk-box-shadow-hover-large uk-border-rounded" style={{ height: '100%' }}>

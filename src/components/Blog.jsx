@@ -148,7 +148,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="uk-section uk-dark blog-background">
+    <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
         {/* Botón para cerrar sesión */}
         {isLoggedIn && (

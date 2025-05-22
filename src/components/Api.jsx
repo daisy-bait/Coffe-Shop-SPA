@@ -6,7 +6,7 @@ const Api = () => {
 
   return (
 
-    <div className="uk-background-cover first-child-adjustment"
+    <div className="uk-background-cover first-child-adjustment uk-height-viewport"
       style={{
         backgroundImage: `url(${animeBackground})`,
         backgroundAttachment: 'fixed'

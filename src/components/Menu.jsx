@@ -1,269 +1,8 @@
 import 'uikit/dist/css/uikit.min.css';
 
-import espressoImg from "../assets/img/menu/espresso.jpg";
-import americanoImg from "../assets/img/menu/americano.jpg";
-import macchiatoImg from "../assets/img/menu/macchiato.jpg";
-import espressoDobleImg from "../assets/img/menu/espresso-doble.jpg";
-import campesinoImg from "../assets/img/menu/campesino.jpg";
-import irlandesImg from "../assets/img/menu/irlandes.jpg";
-import bombonImg from "../assets/img/menu/bombon.jpg";
-import carajilloImg from "../assets/img/menu/carajillo.jpg";
-import cappuccinoImg from "../assets/img/menu/cappuccino.jpg";
-import mocaccinoImg from "../assets/img/menu/mocaccino.jpg";
+import coffeeItems from "../data/coffeeItems"; // Asegúrate de que esta ruta sea correcta
 
 const Menu = () => {
-
-    const coffeeItems = [
-        {
-            id: 1,
-            title: "Espresso Sencillo",
-            price: "$5.200",
-            origin: "Colombia",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Fuerte y Audaz",
-            description: "La esencia pura del café en su forma más concentrada.",
-            detailedDescription: "Un shot intenso de café recién molido, extraído a alta presión para obtener todos los sabores y aromas.",
-            ingredients: [
-                "18g de café molido fino",
-                "30ml de agua a 90°C"
-            ],
-            preparation: "Extracción a 9 bares de presión durante 25-30 segundos",
-            volume: "30ml",
-            caffeineContent: "Alto",
-            img: espressoImg,
-            isPopular: false,
-            isNew: false,
-            category: "espresso",
-            rating: 4.5,
-            brewTime: "30 segundos"
-        },
-        {
-            id: 2,
-            title: "Café Americano",
-            price: "$6.000",
-            origin: "Colombia",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Suave y Balanceado",
-            description: "Versión alargada del espresso, perfecta para disfrutar lentamente.",
-            detailedDescription: "Un espresso diluido en agua caliente para crear una bebida más larga pero manteniendo la intensidad del café.",
-            ingredients: [
-                "1 shot de espresso (30ml)",
-                "150ml de agua caliente"
-            ],
-            preparation: "Preparar un espresso y agregar agua caliente",
-            volume: "180ml",
-            caffeineContent: "Moderado",
-            img: americanoImg,
-            isPopular: true,
-            isNew: false,
-            category: "espresso",
-            rating: 4.2,
-            brewTime: "1 minuto"
-        },
-        {
-            id: 3,
-            title: "Macchiato",
-            price: "$5.500",
-            origin: "Colombia",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Cremoso y Rico",
-            description: "El equilibrio perfecto entre espresso y espuma de leche.",
-            detailedDescription: "Un espresso 'manchado' con una pequeña cantidad de espuma de leche para suavizar su intensidad.",
-            ingredients: [
-                "1 shot de espresso (30ml)",
-                "10ml de espuma de leche"
-            ],
-            preparation: "Preparar espresso y agregar una cucharada de espuma de leche",
-            volume: "40ml",
-            caffeineContent: "Alto",
-            img: macchiatoImg,
-            isPopular: false,
-            isNew: true,
-            category: "espresso",
-            rating: 4.3,
-            brewTime: "2 minutos"
-        },
-        {
-            id: 4,
-            title: "Espresso Doble",
-            price: "$6.500",
-            origin: "Colombia",
-            roastLevel: "Tostado Oscuro",
-            flavorProfile: "Intenso y Robusto",
-            description: "Doble dosis de energía y sabor concentrado.",
-            detailedDescription: "Dos shots de espresso en una sola taza, para los amantes del café fuerte y con carácter.",
-            ingredients: [
-                "36g de café molido fino",
-                "60ml de agua a 90°C"
-            ],
-            preparation: "Extracción doble a 9 bares de presión durante 25-30 segundos",
-            volume: "60ml",
-            caffeineContent: "Muy alto",
-            img: espressoDobleImg,
-            isPopular: false,
-            isNew: false,
-            category: "espresso",
-            rating: 4.7,
-            brewTime: "35 segundos"
-        },
-        {
-            id: 5,
-            title: "Café Campesino",
-            price: "$10.500",
-            origin: "Colombia",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Especiado y Dulce",
-            description: "Tradición colombiana en cada sorbo.",
-            detailedDescription: "Una preparación típica de la zona cafetera colombiana que combina café con especias y panela.",
-            ingredients: [
-                "1 shot de espresso",
-                "150ml de agua caliente",
-                "1 rama de canela",
-                "2 estrellas de anís",
-                "15g de panela"
-            ],
-            preparation: "Preparar espresso, agregar agua caliente y mezclar con especias y panela",
-            volume: "180ml",
-            caffeineContent: "Moderado",
-            img: campesinoImg,
-            isPopular: true,
-            isNew: false,
-            category: "especialidad",
-            rating: 4.8,
-            brewTime: "3 minutos",
-            traditional: "Bebida tradicional colombiana"
-        },
-        {
-            id: 6,
-            title: "Café Irlandés",
-            price: "$14.000",
-            origin: "Mezcla Especial",
-            roastLevel: "Tostado Oscuro",
-            flavorProfile: "Alcohólico y Cremoso",
-            description: "La combinación perfecta de café y whiskey.",
-            detailedDescription: "Un clásico irlandés que combina café, whiskey y crema batida para una experiencia reconfortante.",
-            ingredients: [
-                "1 shot de espresso",
-                "30ml de whiskey irlandés",
-                "10ml de jarabe de azúcar",
-                "Crema batida"
-            ],
-            preparation: "Mezclar espresso caliente con whiskey y azúcar, coronar con crema batida",
-            volume: "150ml",
-            caffeineContent: "Moderado",
-            img: irlandesImg,
-            isPopular: true,
-            isNew: false,
-            category: "especialidad",
-            rating: 4.9,
-            brewTime: "4 minutos",
-            alcoholContent: "15%"
-        },
-        {
-            id: 7,
-            title: "Café Bombón",
-            price: "$7.800",
-            origin: "Colombia",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Dulce y Cremoso",
-            description: "La tentación dulce para los amantes del café.",
-            detailedDescription: "Espresso combinado con leche condensada y coronado con espuma de leche para un contraste de sabores.",
-            ingredients: [
-                "1 shot de espresso",
-                "20ml de leche condensada",
-                "20ml de espuma de leche"
-            ],
-            preparation: "Verter leche condensada en fondo de taza, agregar espresso y coronar con espuma",
-            volume: "70ml",
-            caffeineContent: "Moderado",
-            img: bombonImg,
-            isPopular: false,
-            isNew: true,
-            category: "dulce",
-            rating: 4.6,
-            brewTime: "2 minutos",
-            sweetnessLevel: "Alto"
-        },
-        {
-            id: 8,
-            title: "Café Carajillo",
-            price: "$11.000",
-            origin: "Colombia",
-            roastLevel: "Tostado Oscuro",
-            flavorProfile: "Fuerte y con Alcohol",
-            description: "Energía y tradición en una sola taza.",
-            detailedDescription: "Preparación española adaptada con aguardiente colombiano para un toque local vigorizante.",
-            ingredients: [
-                "1 shot de espresso",
-                "30ml de aguardiente",
-                "1 cucharadita de azúcar (opcional)"
-            ],
-            preparation: "Mezclar espresso recién preparado con aguardiente y azúcar al gusto",
-            volume: "60ml",
-            caffeineContent: "Alto",
-            img: carajilloImg,
-            isPopular: false,
-            isNew: false,
-            category: "especialidad",
-            rating: 4.4,
-            brewTime: "2 minutos",
-            alcoholContent: "20%"
-        },
-        {
-            id: 9,
-            title: "Capuccino Caliente Saborizado",
-            price: "$11.000",
-            origin: "Mezcla Especial",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Saborizado y Espumoso",
-            description: "La versión más aromática del clásico capuccino.",
-            detailedDescription: "Capuccino tradicional con un toque de sabores como vainilla, avellana o caramelo para una experiencia única.",
-            ingredients: [
-                "1 shot de espresso",
-                "100ml de leche vaporizada",
-                "20ml de espuma de leche",
-                "Siropes de sabores a elección"
-            ],
-            preparation: "Preparar espresso, agregar leche vaporizada y espuma, mezclar con sirope",
-            volume: "150ml",
-            caffeineContent: "Moderado",
-            img: cappuccinoImg,
-            isPopular: true,
-            isNew: false,
-            category: "capuccino",
-            rating: 4.5,
-            brewTime: "3 minutos",
-            flavorOptions: ["Vainilla", "Avellana", "Caramelo", "Chocolate"]
-        },
-        {
-            id: 10,
-            title: "Mocaccino",
-            price: "$15.000",
-            origin: "Mezcla Especial",
-            roastLevel: "Tostado Medio",
-            flavorProfile: "Chocolateado y Dulce",
-            description: "El matrimonio perfecto entre café y chocolate.",
-            detailedDescription: "Deliciosa combinación de espresso, chocolate derretido y leche texturizada para los amantes del dulce.",
-            ingredients: [
-                "1 shot de espresso",
-                "20g de chocolate negro",
-                "150ml de leche texturizada",
-                "Crema batida (opcional)"
-            ],
-            preparation: "Mezclar chocolate derretido con espresso, agregar leche texturizada y coronar con crema",
-            volume: "180ml",
-            caffeineContent: "Moderado",
-            img: mocaccinoImg,
-            isPopular: true,
-            isNew: false,
-            category: "dulce",
-            rating: 4.8,
-            brewTime: "4 minutos",
-            sweetnessLevel: "Moderado"
-        }
-
-    ];
-
     return (
         <div className="first-child-adjustment uk-section uk-background-secondary uk-light uk-padding-small"
             style={{
@@ -291,7 +30,7 @@ const Menu = () => {
                     data-uk-height-match="target: > div > .uk-card"
                     style={{ marginTop: '20px' }}>
 
-                    {coffeeItems.map((item, index) => (
+                    {Array.isArray(coffeeItems) && coffeeItems.map((item, index) => (
                         <div key={index}>
                             {/* Card del producto */}
                             <div className="uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1"
@@ -441,7 +180,7 @@ const Menu = () => {
                                                 </h3>
                                                 <ul className="uk-list uk-list-bullet"
                                                     style={{ color: 'rgba(245, 245, 245, 0.8)' }}>
-                                                    {item.ingredients.map((ing, i) => (
+                                                    {(item.ingredients || []).map((ing, i) => (
                                                         <li key={i}>{ing}</li>
                                                     ))}
                                                 </ul>
@@ -459,7 +198,7 @@ const Menu = () => {
                                                     color: 'rgba(245, 245, 245, 0.8)',
                                                     lineHeight: '1.6'
                                                 }}>
-                                                    {item.preparation}
+                                                    {item.preparation || "Información no disponible."}
                                                 </p>
                                             </div>
 
@@ -501,4 +240,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default Menu;

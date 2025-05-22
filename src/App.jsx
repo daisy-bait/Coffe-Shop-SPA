@@ -6,13 +6,14 @@ import Menu from "./components/Menu"
 import Recomendado from "./components/Recomendado"
 import Blog from "./components/Blog"
 import Nosotros from "./components/Nosotros"
+import { AuthProvider } from "./context/AuthContext"
 
 import { BrowserRouter as Router, Route, Routes } from "react-router"
 
 function App() {
 
     return (
-        <>
+        <AuthProvider>
             <Router>
                     <Navbar />
                     {/**
@@ -35,7 +36,7 @@ function App() {
                     </Routes>
                 <Footer />
             </Router>
-        </>
+        </AuthProvider>
     )
 }
 

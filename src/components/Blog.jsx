@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import LoginModal from "../components/LoginModal";
 import avatarDefault from "../assets/img/avatars/default.jpg";
-import blogExample from "../assets/img/blog-prueba.jpg";
+import blogDefault from "../assets/img/blog/blogDefault.jpg";
+import blogExample1 from "../assets/img/blog/blog-example1.jpg";
+import blogExample2 from "../assets/img/blog/blog-example2.jpg";
 
 const Blog = () => {
+  const { currentUser, login } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
 
   const [visibleComments, setVisibleComments] = useState({});
   const [commentInputs, setCommentInputs] = useState({});
@@ -17,7 +19,7 @@ const Blog = () => {
       id: 1,
       title: "5 Consejos para Mejorar tu Café Casero",
       author: "Natalia Ruiz",
-      imageUrl: blogExample,
+      imageUrl: blogExample1,
       avatarUrl: avatarDefault,
       excerpt:
         "Descubre técnicas simples pero efectivas para preparar un mejor café en casa.",
@@ -26,7 +28,7 @@ const Blog = () => {
       id: 2,
       title: "Guía Básica de Fotografía para Principiantes",
       author: "Kaleth Narváez",
-      imageUrl: blogExample,
+      imageUrl: blogExample2,
       avatarUrl: avatarDefault,
       excerpt:
         "Aprende a sacar el máximo provecho de tu cámara desde el primer día.",
@@ -40,27 +42,9 @@ const Blog = () => {
     image: null,
   });
 
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) {
-      const parsed = JSON.parse(savedUser);
-      setUser(parsed);
-      setIsLoggedIn(true);
-    }
-  }, []);
-
   const handleLogin = (username) => {
-    const userData = { username };
-    localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData);
-    setIsLoggedIn(true);
+    login(username); // Usa el contexto
     setModalOpen(false);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-    setIsLoggedIn(false);
   };
 
   const toggleComments = (id) => {
@@ -78,7 +62,7 @@ const Blog = () => {
   };
 
   const handleCommentSubmit = (id) => {
-    if (!isLoggedIn) {
+    if (!currentUser) {
       UIkit.notification({
         message: "Debes iniciar sesión para comentar.",
         status: "warning",
@@ -90,7 +74,7 @@ const Blog = () => {
 
     const newComment = {
       text: commentInputs[id],
-      author: user?.username || "Usuario",
+      author: currentUser,
     };
 
     setCommentsByBlog((prev) => ({
@@ -112,7 +96,7 @@ const Blog = () => {
 
   const handleBlogSubmit = (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
+    if (!currentUser) {
       UIkit.notification({
         message: "Debes iniciar sesión para publicar un blog.",
         status: "warning",
@@ -125,9 +109,9 @@ const Blog = () => {
     const blogToAdd = {
       id: Date.now(),
       title: newBlog.title,
-      author: user?.username || "Usuario",
+      author: currentUser,
       excerpt: newBlog.excerpt,
-      imageUrl: newBlog.image || blogExample,
+      imageUrl: newBlog.image || blogDefault,
       avatarUrl: avatarDefault,
     };
 
@@ -150,29 +134,22 @@ const Blog = () => {
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
-        {/* Botón para cerrar sesión */}
-        {isLoggedIn && (
-          <div className="uk-margin-bottom">
-            <button
-              className="uk-button uk-button-danger blog-container-round"
-              onClick={handleLogout}
-            >
-              Cerrar sesión ({user?.username})
-            </button>
-          </div>
-        )}
-
-        {/* Formulario para nuevo blog */}
-        <div className="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black">
+        <div className="uk-card uk-card-default uk-card-body uk-margin-bottom blog-container-round color-text-black blog-form-spacing">
           <h3 className="uk-card-title">Agregar nuevo blog</h3>
-          <form className="uk-grid-small" data-uk-grid onSubmit={handleBlogSubmit}>
+          <form
+            className="uk-grid-small"
+            data-uk-grid
+            onSubmit={handleBlogSubmit}
+          >
             <div className="uk-width-1-2@s">
               <input
                 className="uk-input"
                 type="text"
                 placeholder="Título del blog"
                 value={newBlog.title}
-                onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, title: e.target.value })
+                }
                 required
               />
             </div>
@@ -182,7 +159,9 @@ const Blog = () => {
                 type="text"
                 placeholder="Autor"
                 value={newBlog.author}
-                onChange={(e) => setNewBlog({ ...newBlog, author: e.target.value })}
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, author: e.target.value })
+                }
                 required
               />
             </div>
@@ -192,7 +171,9 @@ const Blog = () => {
                 rows="3"
                 placeholder="Resumen o introducción"
                 value={newBlog.excerpt}
-                onChange={(e) => setNewBlog({ ...newBlog, excerpt: e.target.value })}
+                onChange={(e) =>
+                  setNewBlog({ ...newBlog, excerpt: e.target.value })
+                }
                 required
               ></textarea>
             </div>
@@ -201,12 +182,18 @@ const Blog = () => {
                 type="file"
                 accept="image/*"
                 onChange={(e) =>
-                  setNewBlog({ ...newBlog, image: URL.createObjectURL(e.target.files[0]) })
+                  setNewBlog({
+                    ...newBlog,
+                    image: URL.createObjectURL(e.target.files[0]),
+                  })
                 }
               />
             </div>
             <div className="uk-width-1-1">
-              <button type="submit" className="uk-button uk-button-secondary blog-container-round">
+              <button
+                type="submit"
+                className="uk-button uk-button-secondary blog-container-round"
+              >
                 Publicar blog
               </button>
             </div>
@@ -214,12 +201,47 @@ const Blog = () => {
         </div>
 
         {/* Mostrar blogs */}
-        <div className="uk-child-width-1-2@s" uk-grid="masonry: pack" data-uk-grid>
+        <div
+          className="uk-child-width-1-2@s"
+          uk-grid="masonry: pack"
+          data-uk-grid
+        >
           {blogsData.map((blog) => (
             <div key={blog.id}>
               <div className="uk-card uk-card-default uk-card-hover blog-container-round color-text-black">
-                <div className="blog-image-container">
-                  <img src={blog.imageUrl} alt={blog.title} />
+                <div className="uk-card-media-top blog-image-container">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const modal = window.UIkit.modal(
+                        document.getElementById(`modal-media-image-${blog.id}`)
+                      );
+                      if (modal) modal.show();
+                    }}
+                    style={{
+                      border: "none",
+                      background: "transparent",
+                      padding: 0,
+                      cursor: "pointer",
+                    }}
+                  >
+                    <img src={blog.imageUrl} alt={blog.title} />
+                  </button>
+
+                  <div
+                    id={`modal-media-image-${blog.id}`}
+                    className="uk-flex-top"
+                    uk-modal="true"
+                  >
+                    <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
+                      <button
+                        className="uk-modal-close-outside"
+                        type="button"
+                        uk-close="true"
+                      ></button>
+                      <img src={blog.imageUrl} alt={blog.title} />
+                    </div>
+                  </div>
                 </div>
                 <div className="uk-card-body">
                   <h3 className="uk-card-title">{blog.title}</h3>
@@ -238,7 +260,9 @@ const Blog = () => {
                     className="uk-button uk-button-secondary uk-margin-small-top blog-container-round"
                     onClick={() => toggleComments(blog.id)}
                   >
-                    {visibleComments[blog.id] ? "Cerrar comentarios" : "Ver comentarios"}
+                    {visibleComments[blog.id]
+                      ? "Cerrar comentarios"
+                      : "Ver comentarios"}
                   </button>
 
                   {visibleComments[blog.id] && (
@@ -252,7 +276,7 @@ const Blog = () => {
                           alt="Usuario"
                         />
                         <span className="uk-margin-left">
-                          {user?.username || "Invitado"}
+                          {currentUser || "Invitado"}
                         </span>
                       </div>
 
@@ -274,7 +298,10 @@ const Blog = () => {
                       </button>
 
                       {(commentsByBlog[blog.id] || []).map((comment, index) => (
-                        <article className="uk-comment uk-margin-top" key={index}>
+                        <article
+                          className="uk-comment uk-margin-top"
+                          key={index}
+                        >
                           <header className="uk-comment-header uk-flex uk-flex-middle">
                             <img
                               className="uk-comment-avatar uk-border-circle"
@@ -289,7 +316,9 @@ const Blog = () => {
                               </h4>
                               <ul className="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
                                 <li>
-                                  <span className="color-text-black">Hace un momento</span>
+                                  <span className="color-text-black">
+                                    Hace un momento
+                                  </span>
                                 </li>
                               </ul>
                             </div>

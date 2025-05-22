@@ -1,8 +1,19 @@
 import { NavLink } from "react-router";
+import { useAuth } from '../context/AuthContext';
+import { useState } from 'react';
+import LoginModal from './LoginModal';
 
 import coffeLogo from "../assets/img/coffe-user-logo.svg"
 
 const Navbar = () => {
+
+    const { currentUser, login, logout } = useAuth();
+    const [showModal, setShowModal] = useState(false);
+
+    const handleLogin = (username) => {
+        login(username);
+        setShowModal(false);
+    };
 
     return (
         <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky" >
@@ -21,7 +32,7 @@ const Navbar = () => {
                                     <img src={coffeLogo} />
                                     <button className="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
                                         <strong>
-                                            Chocolate<br></br>Nicolle
+                                            Chocolate<br></br>{currentUser}
                                         </strong>
                                     </button>
                                 </NavLink>
@@ -66,13 +77,25 @@ const Navbar = () => {
                             </div>
                         </div>
                         <div className="uk-navbar-right uk-visible@l">
-                            <div className="uk-navbar-item uk-light">
-                                <NavLink
-                                    className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
-                                    to="#" end>
-                                    Iniciar Sesión
-                                </NavLink>
-                            </div>
+                            {currentUser ? (
+                                <div className="uk-navbar-item uk-light">
+                                    <button
+                                        className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
+                                        onClick={logout}
+                                    >
+                                        Cerrar Sesión
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="uk-navbar-item uk-light">
+                                    <button
+                                        className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
+                                        onClick={() => setShowModal(true)}
+                                    >
+                                        Iniciar Sesión
+                                    </button>
+                                </div>
+                            )}
                             <div className="uk-navbar-item uk-dark">
                                 <NavLink
                                     className="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
@@ -148,6 +171,11 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav >
+            <LoginModal
+                isOpen={showModal}
+                onClose={() => setShowModal(false)}
+                onLogin={handleLogin}
+            />
         </div >
     );
 };

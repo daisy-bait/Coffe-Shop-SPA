@@ -295,6 +295,13 @@
 }
 
 @media (max-width: 640px) {
+  .coffee-modal-body {
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: 20px !important;
+    padding: 20px !important;
+  }
+
   .coffee-modal-image-container {
     width: 200px !important;
     height: 200px !important;

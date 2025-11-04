@@ -18,7 +18,7 @@ const UserCard = ({ usuarios }) => {
               href={usuario.html_url}
               target="_blank"
               rel="noreferrer"
-              className="uk-button uk-button-primary api-button"
+              className="btn-golden-primary"
             >
               Ver perfil
             </a>

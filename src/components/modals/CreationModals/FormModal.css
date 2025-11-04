@@ -542,6 +542,11 @@
     border-width: 2px !important;
   }
 
+  .login-modal-container .btn-golden-primary {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+  }
+
   .btn-cancel-product {
     padding: 12px 24px !important;
     font-size: 0.9rem !important;

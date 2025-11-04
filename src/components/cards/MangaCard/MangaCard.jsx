@@ -26,7 +26,7 @@ const MangaCard = ({ mangas }) => {
                 href={manga.url}
                 target="_blank"
                 rel="noreferrer"
-                className="uk-button uk-button-primary uk-border-rounded uk-width-1-1"
+                className="btn-golden-primary uk-width-1-1"
               >
                 Ver manga
               </a>

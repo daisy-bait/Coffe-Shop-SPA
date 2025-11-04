@@ -67,6 +67,17 @@ const Navbar = () => {
                     API
                   </NavLink>
                 </div>
+                {isAuth && roles.includes("ADMIN") && (
+                  <div className="uk-navbar-item uk-light">
+                    <NavLink
+                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      to="/admin/products"
+                      end
+                    >
+                      Admin
+                    </NavLink>
+                  </div>
+                )}
                 {(!isAuth || !roles.includes("ADMIN")) && (
                   <div className="uk-navbar-item uk-light">
                     <NavLink
@@ -105,17 +116,6 @@ const Navbar = () => {
                     Nosotros
                   </NavLink>
                 </div>
-                {isAuth && roles.includes("ADMIN") && (
-                  <div className="uk-navbar-item uk-light">
-                    <NavLink
-                      className="uk-text-capitalize uk-button uk-button-text uk-light"
-                      to="/admin/products"
-                      end
-                    >
-                      Admin
-                    </NavLink>
-                  </div>
-                )}
               </div>
               <div className="uk-navbar-right uk-visible@l">
                 {isAuth && roles ? (
@@ -194,6 +194,17 @@ const Navbar = () => {
                           <strong>API</strong>
                         </NavLink>
                       </div>
+                      {isAuth && roles.includes("ADMIN") && (
+                        <div>
+                          <NavLink
+                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            to="/admin/products"
+                            end
+                          >
+                            Admin
+                          </NavLink>
+                        </div>
+                      )}
                       {(!isAuth || !roles.includes("ADMIN")) && (
                         <div>
                           <NavLink
@@ -233,17 +244,6 @@ const Navbar = () => {
                         </NavLink>
                       </div>
                       <hr className="uk-divider-icon" />
-                      {isAuth && roles.includes("ADMIN") && (
-                        <div className="uk-light">
-                          <NavLink
-                            className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                            to="/admin/products"
-                            end
-                          >
-                            Panel de Administración
-                          </NavLink>
-                        </div>
-                      )}
                       {isAuth && roles.includes("CUSTOMER") && (
                         <div className="uk-light">
                           <button

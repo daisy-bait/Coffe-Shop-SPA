@@ -312,6 +312,17 @@
   .nosotros-team-image {
     height: 200px !important;
   }
+
+  .nosotros-location-card .btn-golden-primary {
+    padding: 10px 16px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .nosotros-location-card .btn-golden-primary span[data-uk-icon] {
+    width: 18px !important;
+    height: 18px !important;
+  }
 }
 
 /* ========================================

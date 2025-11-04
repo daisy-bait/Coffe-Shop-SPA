@@ -72,6 +72,12 @@ button.btn-golden-primary:hover *,
   cursor: pointer !important;
 }
 
+.uk-button-large.btn-coffee-secondary {
+  padding: 14px 32px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+}
+
 .label-price {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
   color: #2c1608 !important;

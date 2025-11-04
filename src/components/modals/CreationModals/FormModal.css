@@ -562,4 +562,14 @@
     font-size: 0.8rem !important;
     min-width: 80px;
   }
+
+  .login-modal-container .uk-flex-between {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .login-modal-container .uk-flex-between .btn-golden-primary,
+  .login-modal-container .uk-flex-between .btn-cancel-product {
+    width: 100% !important;
+  }
 }

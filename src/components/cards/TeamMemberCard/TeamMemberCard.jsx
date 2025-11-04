@@ -1,11 +1,14 @@
 import "../cards.css";
 
 const TeamMemberCard = ({ member, index }) => {
-  const handleImageClick = () => {
-    const modal = window.UIkit?.modal(
-      document.getElementById(`modal-team-member-${index}`)
-    );
-    if (modal) modal.show();
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    const modalElement = document.getElementById(`modal-team-member-${index}`);
+    const modal = window.UIkit?.modal(modalElement);
+
+    if (modal && !modalElement.classList.contains('uk-open')) {
+      modal.show();
+    }
   };
 
   return (
@@ -36,8 +39,12 @@ const TeamMemberCard = ({ member, index }) => {
         id={`modal-team-member-${index}`}
         className="uk-modal uk-flex-top"
         data-uk-modal="true"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical nosotros-modal-dialog-relative">
+        <div
+          className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical nosotros-modal-dialog-relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             className="modal-close-golden"
             type="button"

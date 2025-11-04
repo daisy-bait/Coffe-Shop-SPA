@@ -67,9 +67,13 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
   const handleFormSubmit = async (data) => {
     try {
+      const selectedCategory = categories.find(
+        (cat) => cat.name === data.category
+      );
+
       const parsedData = {
         name: data.name,
-        category: data.category,
+        category: selectedCategory?._id || data.category,
         image: data.image,
         description: data.description,
         roast_level: data.roastLevel,

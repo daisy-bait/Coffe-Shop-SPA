@@ -6,11 +6,14 @@ const BlogPostCard = ({
   isCommentsVisible,
   children,
 }) => {
-  const handleImageClick = () => {
-    const modal = window.UIkit?.modal(
-      document.getElementById(`modal-media-image-${blog.id}`)
-    );
-    if (modal) modal.show();
+  const handleImageClick = (e) => {
+    e.stopPropagation();
+    const modalElement = document.getElementById(`modal-media-image-${blog.id}`);
+    const modal = window.UIkit?.modal(modalElement);
+
+    if (modal && !modalElement.classList.contains('uk-open')) {
+      modal.show();
+    }
   };
 
   return (
@@ -53,8 +56,12 @@ const BlogPostCard = ({
         id={`modal-media-image-${blog.id}`}
         className="uk-modal uk-flex-top"
         data-uk-modal="true"
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative">
+        <div
+          className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative"
+          onClick={(e) => e.stopPropagation()}
+        >
           <button
             className="modal-close-golden"
             type="button"

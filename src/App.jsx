@@ -62,7 +62,6 @@ function App() {
                 <Route path="/forbidden" element={<Forbidden />} />
                 <Route element={<ProtectedRoute requiredRoles={["ADMIN"]} />}>
                   <Route path="/admin" element={<AdminProducts />} />
-                  <Route path="/admin/products" element={<AdminProducts />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>

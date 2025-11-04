@@ -20,7 +20,6 @@ export const ProductProvider = ({ children }) => {
   const [modifiedProducts, setModifiedProducts] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  // Refresh Products
   useEffect(() => {
     searchProducts();
     searchAllCategories();
@@ -28,7 +27,6 @@ export const ProductProvider = ({ children }) => {
     setErrors([]);
   }, [modifiedProducts]);
 
-  // Create
   const createProduct = async (productData) => {
     try {
       const res = await createProductRequest(productData);

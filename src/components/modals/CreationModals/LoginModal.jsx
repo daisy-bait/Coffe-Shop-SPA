@@ -141,7 +141,6 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
             )}
           </div>
 
-          {/* Errores del backend */}
           {authErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
               {authErrors.map((err, idx) => (

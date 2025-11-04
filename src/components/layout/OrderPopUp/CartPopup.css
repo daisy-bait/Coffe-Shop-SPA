@@ -1,10 +1,8 @@
-/* Notificaciones - Posición */
 .uk-notification {
   top: 100px;
   z-index: 9999;
 }
 
-/* Notificaciones - Base */
 .uk-notification-message {
   border-radius: 14px !important;
   font-weight: 700 !important;
@@ -44,7 +42,6 @@
   }
 }
 
-/* Success - Dorado */
 .uk-notification-message-success {
   background: linear-gradient(135deg, rgba(212, 167, 98, 0.98), rgba(184, 147, 90, 0.98)) !important;
   color: #2c1608 !important;
@@ -52,7 +49,6 @@
   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* Warning - Rojo */
 .uk-notification-message-warning {
   background: linear-gradient(135deg, rgba(220, 20, 60, 0.98), rgba(178, 34, 34, 0.98)) !important;
   color: #ffffff !important;
@@ -60,7 +56,6 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Primary - Azul */
 .uk-notification-message-primary {
   background: linear-gradient(135deg, rgba(52, 152, 219, 0.98), rgba(41, 128, 185, 0.98)) !important;
   color: #ffffff !important;
@@ -68,7 +63,6 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Danger - Rojo oscuro */
 .uk-notification-message-danger {
   background: linear-gradient(135deg, rgba(231, 76, 60, 0.98), rgba(192, 57, 43, 0.98)) !important;
   color: #ffffff !important;
@@ -76,7 +70,6 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Notification close button - Custom design */
 .uk-notification-close {
   width: 32px !important;
   height: 32px !important;
@@ -111,7 +104,6 @@
   transform: rotate(-45deg) !important;
 }
 
-/* Success notification close button - Golden */
 .uk-notification-message-success .uk-notification-close {
   background: rgba(139, 90, 43, 0.95) !important;
   border: 2px solid rgba(245, 217, 141, 0.4) !important;
@@ -129,7 +121,6 @@
   border-color: rgba(245, 217, 141, 0.6) !important;
 }
 
-/* Warning notification close button - Dark Red */
 .uk-notification-message-warning .uk-notification-close {
   background: rgba(139, 0, 0, 0.95) !important;
   border: 2px solid rgba(255, 120, 120, 0.4) !important;
@@ -147,7 +138,6 @@
   border-color: rgba(255, 120, 120, 0.6) !important;
 }
 
-/* Primary notification close button - Dark Blue */
 .uk-notification-message-primary .uk-notification-close {
   background: rgba(21, 87, 153, 0.95) !important;
   border: 2px solid rgba(120, 180, 255, 0.4) !important;
@@ -165,7 +155,6 @@
   border-color: rgba(120, 180, 255, 0.6) !important;
 }
 
-/* Danger notification close button - Dark Red */
 .uk-notification-message-danger .uk-notification-close {
   background: rgba(146, 43, 33, 0.95) !important;
   border: 2px solid rgba(255, 130, 110, 0.4) !important;
@@ -184,7 +173,7 @@
 }
 
 /* ========================================
-   MODAL DEL CARRITO - REDISEÑADO
+   MODAL DEL CARRITO
    ======================================== */
 .cart-modal-overlay {
   background: rgba(0, 0, 0, 0.85) !important;
@@ -219,7 +208,6 @@
   }
 }
 
-/* Título del modal */
 .cart-modal-title {
   color: #d4a762 !important;
   font-weight: 700 !important;
@@ -231,7 +219,6 @@
   padding-bottom: 15px;
 }
 
-/* Empty state */
 .cart-empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -267,7 +254,6 @@
   box-shadow: 0 6px 18px rgba(212, 167, 98, 0.5);
 }
 
-/* Contenedor de items */
 .cart-items-container {
   max-height: 400px;
   overflow-y: auto;
@@ -293,7 +279,6 @@
   background: rgba(212, 167, 98, 0.7);
 }
 
-/* Card de item individual */
 .cart-item-card {
   background: linear-gradient(
     135deg,
@@ -335,7 +320,6 @@
   transform: translateY(-2px);
 }
 
-/* Imagen del producto */
 .cart-item-image {
   width: 80px;
   height: 80px;
@@ -355,7 +339,6 @@
   transform: scale(1.1);
 }
 
-/* Detalles del producto */
 .cart-item-details {
   flex: 1;
 }
@@ -379,7 +362,6 @@
   margin: 0;
 }
 
-/* Controles de cantidad */
 .cart-item-quantity {
   display: flex;
   align-items: center;
@@ -434,7 +416,6 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* Subtotal */
 .cart-item-subtotal {
   text-align: right;
 }
@@ -452,7 +433,6 @@
   margin: 0;
 }
 
-/* Botón eliminar */
 .cart-item-remove-btn {
   position: absolute;
   top: 18px;
@@ -477,7 +457,6 @@
   box-shadow: 0 4px 12px rgba(231, 76, 60, 0.5);
 }
 
-/* Resumen del carrito */
 .cart-summary {
   border-top: 3px solid rgba(212, 167, 98, 0.3);
   padding-top: 20px;
@@ -505,7 +484,6 @@
   font-weight: 700;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .cart-modal-dialog {
     max-width: 95% !important;

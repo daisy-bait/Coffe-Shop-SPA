@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Clear Errors after 5 seconds
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => setErrors([]), 5000);
@@ -28,7 +27,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
-  // Register
   const signUp = async (userData) => {
     try {
       const res = await registerRequest(userData);
@@ -63,7 +61,6 @@ export const AuthProvider = ({ children }) => {
     setIsAuth(false);
   };
 
-  // Verify Token at App Start
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");

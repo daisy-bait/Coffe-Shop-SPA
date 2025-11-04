@@ -67,13 +67,12 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
   const handleFormSubmit = async (data) => {
     try {
-      // Transform data to match backend format (snake_case)
       const parsedData = {
         name: data.name,
         category: data.category,
         image: data.image,
         description: data.description,
-        roast_level: data.roastLevel, // Transform to snake_case
+        roast_level: data.roastLevel,
         price: data.price,
         stock: data.stock,
         enabled: data.enabled,
@@ -129,7 +128,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
                 key={cat._id}
                 className="uk-flex uk-flex-between uk-flex-middle"
                 onClick={() => {
-                  setValue("category", cat.name); // establecemos el nombre visible
+                  setValue("category", cat.name);
                   setShowCategoryModal(false);
                 }}
               >
@@ -216,7 +215,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
           className="uk-form-stacked"
           onSubmit={handleSubmit(handleFormSubmit)}
         >
-          {/* Nombre */}
           <div className="uk-margin">
             <label className="uk-form-label">Nombre</label>
             <input
@@ -230,7 +228,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Categoría */}
           <div className="uk-margin">
             <label className="uk-form-label">Categoría</label>
             <div className="uk-flex">
@@ -255,7 +252,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Imagen */}
           <div className="uk-margin">
             <label className="uk-form-label">Imagen</label>
             <div className="uk-flex uk-flex-middle">
@@ -287,7 +283,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Descripción */}
           <div className="uk-margin">
             <label className="uk-form-label">Descripción</label>
             <textarea
@@ -300,7 +295,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Roast Level */}
           <div className="uk-margin">
             <label className="uk-form-label">Nivel de Tostado</label>
             <input
@@ -314,7 +308,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Precio */}
           <div className="uk-margin">
             <label className="uk-form-label">Precio</label>
             <input
@@ -329,7 +322,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Stock */}
           <div className="uk-margin">
             <label className="uk-form-label">Stock</label>
             <input
@@ -345,7 +337,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Producto habilitado */}
           <div className="uk-margin">
             <label className="uk-flex uk-flex-middle">
               <input
@@ -363,7 +354,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* País de origen */}
           <div className="uk-margin">
             <label className="uk-form-label">País de origen</label>
             <input
@@ -377,7 +367,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Recomendaciones */}
           <div className="uk-margin">
             <label className="uk-form-label">Recomendaciones</label>
             <textarea
@@ -390,7 +379,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Beneficios dinámicos */}
           <div className="uk-margin">
             <label className="uk-form-label">Beneficios</label>
 
@@ -428,7 +416,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Errores del backend */}
           {productErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
               {productErrors.map((err, idx) => (
@@ -437,7 +424,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             </div>
           )}
 
-          {/* Botones */}
           <div className="uk-flex uk-flex-between uk-flex-middle uk-margin-top">
             <button className="btn-golden-primary" type="submit">
               {isModifying ? "Guardar cambios" : "Registrar"}

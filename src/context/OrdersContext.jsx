@@ -19,7 +19,7 @@ export const useOrders = () => {
 
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
-  const [allOrders, setAllOrders] = useState([]); // Para admin
+  const [allOrders, setAllOrders] = useState([]);
   const [actualOrder, setActualOrder] = useState({
     orderDetails: [],
     totalPrice: 0,
@@ -173,7 +173,6 @@ export const OrdersProvider = ({ children }) => {
     }
   };
 
-  // Funciones de administración
   const searchAllOrders = async (params) => {
     try {
       const res = await searchOrdersRequest(params);

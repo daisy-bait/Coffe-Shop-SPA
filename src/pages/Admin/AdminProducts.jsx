@@ -18,7 +18,6 @@ const AdminProducts = () => {
   const [activeTab, setActiveTab] = useState("products");
   const [confirmModal, setConfirmModal] = useState({ show: false, message: "", onConfirm: null });
 
-  // Cargar pedidos cuando el tab esté activo
   useEffect(() => {
     if (activeTab === "orders") {
       searchAllOrders();
@@ -26,7 +25,6 @@ const AdminProducts = () => {
     }
   }, [activeTab, modifiedOrders]);
 
-  // Cargar usuarios cuando el tab esté activo
   useEffect(() => {
     if (activeTab === "users") {
       searchUsers();
@@ -371,7 +369,6 @@ const AdminProducts = () => {
                         </button>
                       </div>
 
-                      {/* Comentarios del blog */}
                       {blogComments.length > 0 && (
                         <div className="admin-comments-section">
                           <h5 className="admin-comments-title">

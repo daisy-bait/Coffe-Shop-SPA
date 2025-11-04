@@ -518,7 +518,7 @@ const AdminProducts = () => {
             style={{ maxWidth: '500px' }}
           >
             <button
-              className="login-modal-close"
+              className="modal-close-golden"
               type="button"
               onClick={handleConfirmClose}
               aria-label="Cerrar"

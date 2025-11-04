@@ -17,6 +17,10 @@ button.btn-golden-primary,
   transition: all 0.3s ease !important;
   text-shadow: none !important;
   cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
 }
 
 .btn-golden-primary *,
@@ -56,6 +60,10 @@ button.btn-golden-primary:hover *,
   font-weight: 600 !important;
   transition: all 0.3s ease !important;
   cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
 }
 
 .btn-coffee-secondary:hover {

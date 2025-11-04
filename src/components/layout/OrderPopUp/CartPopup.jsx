@@ -2,7 +2,7 @@ import { useOrders } from "../../../context/OrdersContext";
 import "./CartPopup.css";
 
 export const CartPopup = () => {
-  const { actualOrder, removeFromCart, createOrder, isCartOpen, setIsCartOpen } = useOrders();
+  const { actualOrder, removeFromCart, createOrder, isCartOpen, setIsCartOpen, addToCart } = useOrders();
 
   if (!isCartOpen) return null;
 
@@ -25,6 +25,7 @@ export const CartPopup = () => {
             {actualOrder.orderDetails.map((item) => (
               <li key={item.product._id}>
                 <strong>{item.product.name}</strong> — {item.quantity} × ${item.product.price.toLocaleString()}
+                <a onClick={() => {addToCart(item.product, -1)}}>-</a>
                 <br />
                 <button
                   className="uk-button uk-button-text uk-text-danger"

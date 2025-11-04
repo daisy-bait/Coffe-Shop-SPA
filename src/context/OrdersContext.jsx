@@ -48,6 +48,11 @@ export const OrdersProvider = ({ children }) => {
 
     let updatedDetails;
 
+    if (existing.quantity === 1 && quantity < 0) {
+      removeFromCart(product._id);
+      return;
+    }
+
     if (existing) {
       const newQuantity = existing.quantity + quantity;
 

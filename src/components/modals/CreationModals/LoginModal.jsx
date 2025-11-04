@@ -78,7 +78,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
         ></button>
 
         <h2 className="uk-modal-title">
-          {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+          {isRegistering ? "Registrarse" : mode === "login" ? "Iniciar Sesión" : "Vuelve a Iniciar Sesión"}
         </h2>
 
         <form
@@ -160,9 +160,9 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
               type="button"
               onClick={() => setIsRegistering(!isRegistering)}
             >
-              {isRegistering
+              {(mode !== "refresh") ? isRegistering
                 ? "¿Ya tienes cuenta?"
-                : "¿No tienes cuenta? Regístrate"}
+                : "¿No tienes cuenta? Regístrate": ""}
             </button>
           </div>
         </form>

@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
-import LoginModal from "../../modals/CreationModals/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
+import { useLogin } from "../../../context/LoginContext";
 
 const Navbar = () => {
-  const [ showLoginModal, setShowLoginModal ] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const { openLogin, openRegister } = useLogin();
   const { user, isAuth, logout, roles, loading } = useAuth();
 
   const { actualOrder, setIsCartOpen } = useOrders();
@@ -17,18 +15,6 @@ const Navbar = () => {
     (acc, item) => acc + item.quantity,
     0
   );
-
-  const handleOpenLogin = () => {
-    setShowLoginModal(true);
-    const offcanvas = document.getElementById("burger-menu");
-    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
-  };
-
-  const handleOpenRegister = () => {
-    setShowRegisterModal(true);
-    const offcanvas = document.getElementById("burger-menu");
-    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
-  };
 
   const handleCloseOffcanvas = () => {
     const offcanvas = document.getElementById("burger-menu");
@@ -133,7 +119,7 @@ const Navbar = () => {
                     <div className="uk-navbar-item uk-light">
                       <button
                         className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
-                        onClick={handleOpenLogin}
+                        onClick={openLogin}
                       >
                         Iniciar Sesión
                       </button>
@@ -141,7 +127,7 @@ const Navbar = () => {
                     <div className="uk-navbar-item uk-dark">
                       <button
                         className="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
-                        onClick={handleOpenRegister}
+                        onClick={openRegister}
                       >
                         Registrarse
                       </button>
@@ -232,7 +218,7 @@ const Navbar = () => {
                           <div className="uk-light">
                             <button
                               className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                              onClick={handleOpenLogin}
+                              onClick={openLogin}
                             >
                               Iniciar Sesión
                             </button>
@@ -240,7 +226,7 @@ const Navbar = () => {
                           <div className="uk-dark">
                             <button
                               className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                              onClick={handleOpenRegister}
+                              onClick={openRegister}
                             >
                               Registrarse
                             </button>
@@ -254,14 +240,6 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
-        <LoginModal
-          isOpen={showLoginModal || showRegisterModal}
-          mode={showRegisterModal ? "register" : "login"}
-          onClose={() => {
-            setShowLoginModal(false);
-            setShowRegisterModal(false);
-          }}
-        />
       </div>
     );
 };

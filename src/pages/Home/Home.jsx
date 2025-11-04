@@ -192,7 +192,7 @@ const Home = () => {
               <div>
                 <a
                   href="/about"
-                  className="uk-button btn-golden-border uk-button-large"
+                  className="uk-button btn-coffee-secondary uk-button-large"
                 >
                   <span data-uk-icon="icon: info"></span> Conocer Más
                 </a>

@@ -288,33 +288,21 @@ const AdminProducts = () => {
                       <div className="uk-width-1-3@m uk-width-1-1">
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                           <button
-                            className="btn-golden-primary"
-                            style={{
-                              background: order.status === "PENDIENTE" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #f39c12, #e67e22)",
-                              opacity: order.status === "PENDIENTE" ? 0.6 : 1
-                            }}
+                            className="admin-order-pending-btn"
                             onClick={() => handleUpdateOrderStatus(order._id || order.id, "PENDIENTE")}
                             disabled={order.status === "PENDIENTE"}
                           >
                             Marcar Pendiente
                           </button>
                           <button
-                            className="btn-golden-primary"
-                            style={{
-                              background: order.status === "COMPLETADO" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #27ae60, #2ecc71)",
-                              opacity: order.status === "COMPLETADO" ? 0.6 : 1
-                            }}
+                            className="admin-order-completed-btn"
                             onClick={() => handleUpdateOrderStatus(order._id || order.id, "COMPLETADO")}
                             disabled={order.status === "COMPLETADO"}
                           >
                             Marcar Completado
                           </button>
                           <button
-                            className="btn-golden-primary"
-                            style={{
-                              background: order.status === "CANCELADO" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #e74c3c, #c0392b)",
-                              opacity: order.status === "CANCELADO" ? 0.6 : 1
-                            }}
+                            className="admin-order-cancelled-btn"
                             onClick={() => handleUpdateOrderStatus(order._id || order.id, "CANCELADO")}
                             disabled={order.status === "CANCELADO"}
                           >
@@ -469,32 +457,21 @@ const AdminProducts = () => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
                       <button
-                        className="btn-golden-primary"
-                        style={{
-                          background: user.roles?.some(r => r.name === "ADMIN") ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #e74c3c, #c0392b)",
-                          opacity: user.roles?.some(r => r.name === "ADMIN") ? 0.6 : 1
-                        }}
+                        className="admin-make-admin-btn"
                         onClick={() => handleUpdateUserRole(user._id || user.id, "ADMIN")}
                         disabled={user.roles?.some(r => r.name === "ADMIN")}
                       >
                         Hacer Admin
                       </button>
                       <button
-                        className="btn-golden-primary"
-                        style={{
-                          background: user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN") ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #3498db, #2980b9)",
-                          opacity: user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN") ? 0.6 : 1
-                        }}
+                        className="admin-make-customer-btn"
                         onClick={() => handleUpdateUserRole(user._id || user.id, "CUSTOMER")}
                         disabled={user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN")}
                       >
                         Hacer Customer
                       </button>
                       <button
-                        className="btn-golden-primary"
-                        style={{
-                          background: user.isActive ? "linear-gradient(135deg, #f39c12, #e67e22)" : "linear-gradient(135deg, #27ae60, #2ecc71)"
-                        }}
+                        className={`admin-toggle-status-btn ${user.isActive ? 'suspend' : 'activate'}`}
                         onClick={() => handleToggleUserStatus(user._id || user.id)}
                       >
                         {user.isActive ? "Suspender" : "Activar"}

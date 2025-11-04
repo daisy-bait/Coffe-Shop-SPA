@@ -249,6 +249,22 @@
 }
 
 /* ========================================
+   ICONOS ANIMADOS
+   ======================================== */
+.icon-golden {
+  color: var(--coffee-golden) !important;
+}
+
+.icon-animated {
+  transition: var(--transition-default);
+}
+
+.icon-animated:hover {
+  color: var(--golden-light) !important;
+  transform: scale(1.1) translateY(-2px);
+}
+
+/* ========================================
    INPUTS NUMÉRICOS - QUITAR FLECHITAS
    ======================================== */
 

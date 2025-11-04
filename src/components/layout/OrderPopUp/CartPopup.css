@@ -301,10 +301,10 @@
   );
   border: 2px solid rgba(212, 167, 98, 0.2);
   border-radius: 12px;
-  padding: 18px;
+  padding: 18px 60px 18px 18px;
   margin-bottom: 15px;
   display: grid;
-  grid-template-columns: 80px 1fr auto auto 40px;
+  grid-template-columns: 80px 1fr auto auto;
   gap: 18px;
   align-items: center;
   transition: all 0.3s ease;
@@ -453,6 +453,9 @@
 
 /* Botón eliminar */
 .cart-item-remove-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
   width: 36px;
   height: 36px;
   background: rgba(231, 76, 60, 0.2);

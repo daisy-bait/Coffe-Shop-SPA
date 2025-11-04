@@ -812,6 +812,17 @@
     padding: 10px 20px;
     font-size: 0.85rem;
   }
+
+  .admin-confirm-modal-width .uk-flex-between {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .admin-confirm-btn-left,
+  .admin-confirm-btn-right {
+    width: 100% !important;
+    margin: 0 !important;
+  }
 }
 
 /* ========================================

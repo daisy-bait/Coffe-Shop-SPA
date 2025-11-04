@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { CartPopup } from "./components/layout/OrderPopUp/CartPopup";
 import AdminProducts from "./pages/Admin/AdminProducts";
 import { ProtectedRoute } from "./routesControl/routes";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 function App() {
   useEffect(() => {
@@ -47,6 +48,7 @@ function App() {
           <OrdersProvider>
             <BlogProvider>
               <Router>
+              <ScrollToTop />
               <Navbar />
               <CartPopup />
               <Routes>
@@ -59,6 +61,7 @@ function App() {
                 <Route path="/unauthorized" element={<Unauthorized />} />
                 <Route path="/forbidden" element={<Forbidden />} />
                 <Route element={<ProtectedRoute requiredRoles={["ADMIN"]} />}>
+                  <Route path="/admin" element={<AdminProducts />} />
                   <Route path="/admin/products" element={<AdminProducts />} />
                 </Route>
                 <Route path="*" element={<NotFound />} />

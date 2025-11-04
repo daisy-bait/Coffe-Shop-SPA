@@ -20,6 +20,7 @@ button.btn-golden-primary,
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
+  text-decoration: none !important;
 }
 
 .btn-golden-primary *,
@@ -39,6 +40,7 @@ button.btn-golden-primary:hover,
   box-shadow: 0 6px 20px rgba(212, 167, 98, 0.4);
   color: #000000 !important;
   text-shadow: none !important;
+  text-decoration: none !important;
 }
 
 .btn-golden-primary:hover *,

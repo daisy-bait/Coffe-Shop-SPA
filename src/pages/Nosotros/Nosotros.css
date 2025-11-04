@@ -284,48 +284,6 @@
   object-fit: contain !important;
 }
 
-.nosotros-image-modal-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-}
-
-.nosotros-image-modal-close::before,
-.nosotros-image-modal-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.nosotros-image-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.nosotros-image-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.nosotros-image-modal-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
-}
-
 /* ========================================
    RESPONSIVE
    ======================================== */

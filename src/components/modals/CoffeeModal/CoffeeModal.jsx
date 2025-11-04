@@ -30,7 +30,7 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="uk-modal-close-default coffee-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={handleClose}
         ></button>

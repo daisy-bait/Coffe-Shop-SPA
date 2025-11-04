@@ -385,51 +385,6 @@
    BOTONES DEL BLOG
    ======================================== */
 
-.blog-button-primary {
-  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  color: #2c1608 !important;
-  border-radius: 12px !important;
-  border: none !important;
-  font-weight: 700 !important;
-  padding: 12px 24px !important;
-  font-size: 1rem !important;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4);
-}
-
-.blog-button-primary::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
-  z-index: 0;
-}
-
-.blog-button-primary:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.blog-button-primary:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(212, 167, 98, 0.6);
-  color: #2c1608 !important;
-}
-
-.blog-button-primary span {
-  position: relative;
-  z-index: 1;
-}
-
 .blog-button-secondary,
 .uk-button-primary.blog-button-comment {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -517,48 +472,6 @@
   max-height: 90vh;
   border-radius: 12px;
   display: block;
-}
-
-.blog-image-modal-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-}
-
-.blog-image-modal-close::before,
-.blog-image-modal-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.blog-image-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.blog-image-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.blog-image-modal-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
 }
 
 /* ========================================
@@ -718,20 +631,5 @@
 
   .blog-image-container {
     height: 250px;
-  }
-
-  .blog-image-modal-close {
-    width: 38px !important;
-    height: 38px !important;
-  }
-
-  .blog-image-modal-close::before,
-  .blog-image-modal-close::after {
-    width: 18px !important;
-  }
-
-  .blog-button-primary {
-    padding: 10px 20px !important;
-    font-size: 0.95rem !important;
   }
 }

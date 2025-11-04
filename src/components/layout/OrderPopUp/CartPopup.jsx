@@ -55,7 +55,7 @@ export const CartPopup = () => {
     <div className="uk-modal uk-open cart-modal-overlay" style={{ display: "block" }}>
       <div className="uk-modal-dialog uk-modal-body cart-modal-dialog">
         <button
-          className="cart-modal-close-btn"
+          className="modal-close-golden"
           type="button"
           onClick={() => setIsCartOpen(false)}
           aria-label="Cerrar carrito"
@@ -166,7 +166,7 @@ export const CartPopup = () => {
                 </span>
               </div>
 
-              <button className="cart-confirm-btn" onClick={() => createOrder()}>
+              <button className="btn-golden-primary" onClick={() => createOrder()}>
                 <span data-uk-icon="icon: check" className="uk-margin-small-right"></span>
                 Confirmar Compra
               </button>

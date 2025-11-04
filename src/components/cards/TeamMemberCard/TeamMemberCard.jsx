@@ -39,7 +39,7 @@ const TeamMemberCard = ({ member, index }) => {
       >
         <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical nosotros-modal-dialog-relative">
           <button
-            className="nosotros-image-modal-close"
+            className="modal-close-golden"
             type="button"
             data-uk-toggle={`target: #modal-team-member-${index}`}
             aria-label="Cerrar"

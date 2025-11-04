@@ -175,50 +175,6 @@
   display: inline-block;
 }
 
-/* Botón cerrar personalizado */
-.login-modal-close {
-  position: absolute !important;
-  top: 15px !important;
-  right: 15px !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 1 !important;
-  padding: 0 !important;
-  border: none;
-}
-
-.login-modal-close::before,
-.login-modal-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 18px !important;
-  height: 2px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.login-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.login-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.login-modal-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.6);
-}
-
 /* Modal center position */
 .login-modal-center {
   max-width: 700px !important;
@@ -253,57 +209,6 @@
 /* ========================================
    BOTONES DEL MODAL DE PRODUCTOS
    ======================================== */
-
-/* Botón de submit principal */
-.btn-submit-product {
-  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  color: #1a0a04 !important;
-  border: none !important;
-  border-radius: 12px !important;
-  padding: 15px 40px !important;
-  font-weight: 700 !important;
-  font-size: 1.05rem !important;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 6px 20px rgba(212, 167, 98, 0.4);
-}
-
-.btn-submit-product * {
-  color: #1a0a04 !important;
-}
-
-.btn-submit-product::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.5s, height 0.5s;
-}
-
-.btn-submit-product:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.btn-submit-product:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(212, 167, 98, 0.6);
-  color: #1a0a04 !important;
-}
-
-.btn-submit-product:hover * {
-  color: #1a0a04 !important;
-}
 
 /* Botón de cancelar */
 .btn-cancel-product {
@@ -624,19 +529,6 @@
     border-width: 2px !important;
   }
 
-  .login-modal-close {
-    width: 35px !important;
-    height: 35px !important;
-    top: 10px !important;
-    right: 10px !important;
-  }
-
-  .login-modal-close::before,
-  .login-modal-close::after {
-    width: 16px !important;
-  }
-
-  .btn-submit-product,
   .btn-cancel-product {
     padding: 12px 24px !important;
     font-size: 0.9rem !important;

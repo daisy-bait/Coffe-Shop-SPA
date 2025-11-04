@@ -71,7 +71,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={handleClose}
           aria-label="Cerrar"

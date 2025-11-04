@@ -116,7 +116,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
       >
         <h3 className="uk-modal-title">Seleccionar Categoría</h3>
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={() => setShowCategoryModal(false)}
           aria-label="Cerrar"
@@ -156,7 +156,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
       >
         <h3 className="uk-modal-title">Seleccionar Imagen del Producto</h3>
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={() => setShowImageModal(false)}
           aria-label="Cerrar"
@@ -203,7 +203,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={handleClose}
           aria-label="Cerrar"
@@ -446,7 +446,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
           {/* Botones */}
           <div className="uk-flex uk-flex-between uk-flex-middle uk-margin-top">
-            <button className="btn-submit-product" type="submit">
+            <button className="btn-golden-primary" type="submit">
               {isModifying ? "Guardar cambios" : "Registrar"}
             </button>
             <button

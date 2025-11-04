@@ -428,7 +428,6 @@
    BOTONES MEJORADOS
    ======================================== */
 
-.admin-edit-btn,
 .admin-delete-btn {
   border: none;
   border-radius: 10px;
@@ -446,7 +445,6 @@
   z-index: 2;
 }
 
-.admin-edit-btn::before,
 .admin-delete-btn::before {
   content: "";
   position: absolute;
@@ -460,22 +458,9 @@
   transition: width 0.5s, height 0.5s;
 }
 
-.admin-edit-btn:hover::before,
 .admin-delete-btn:hover::before {
   width: 400px;
   height: 400px;
-}
-
-.admin-edit-btn {
-  background: linear-gradient(135deg, #d4a762, #b8935a);
-  color: #2c1608;
-  box-shadow: 0 4px 15px rgba(212, 167, 98, 0.3);
-}
-
-.admin-edit-btn:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(212, 167, 98, 0.6);
 }
 
 .admin-delete-btn {
@@ -650,7 +635,6 @@
     font-size: 0.9rem;
   }
 
-  .admin-edit-btn,
   .admin-delete-btn {
     padding: 10px 20px;
     font-size: 0.85rem;

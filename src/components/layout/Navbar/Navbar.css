@@ -251,51 +251,6 @@
   text-shadow: 0 0 10px rgba(212, 167, 98, 0.6);
 }
 
-/* ========================================
-   BOTÓN CERRAR PERSONALIZADO
-   ======================================== */
-.navbar-offcanvas-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 1002 !important;
-  padding: 0 !important;
-}
-
-.navbar-offcanvas-close::before,
-.navbar-offcanvas-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.navbar-offcanvas-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.navbar-offcanvas-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.navbar-offcanvas-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
-}
-
 .uk-offcanvas-close {
   display: none !important;
 }

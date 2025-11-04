@@ -175,7 +175,7 @@ const Navbar = () => {
                 >
                   <div className="uk-offcanvas-bar">
                     <button
-                      className="navbar-offcanvas-close"
+                      className="modal-close-golden"
                       type="button"
                       onClick={handleCloseOffcanvas}
                       aria-label="Cerrar menú"

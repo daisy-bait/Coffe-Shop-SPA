@@ -165,7 +165,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
           <div className="uk-width-1-1">
             <button
               type="submit"
-              className="uk-button blog-button-primary uk-width-1-1"
+              className="uk-button btn-golden-primary uk-width-1-1"
             >
               <span
                 uk-icon="icon: file-edit"

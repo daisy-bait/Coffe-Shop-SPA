@@ -224,7 +224,7 @@ const AdminProducts = () => {
                       </p>
 
                       <button
-                        className="admin-edit-btn uk-margin-top"
+                        className="btn-golden-primary uk-margin-top"
                         onClick={() => handleModifyClick(item)}
                       >
                         Modificar
@@ -288,7 +288,7 @@ const AdminProducts = () => {
                       <div className="uk-width-1-3@m uk-width-1-1">
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                           <button
-                            className="admin-edit-btn"
+                            className="btn-golden-primary"
                             style={{
                               background: order.status === "PENDIENTE" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #f39c12, #e67e22)",
                               opacity: order.status === "PENDIENTE" ? 0.6 : 1
@@ -299,7 +299,7 @@ const AdminProducts = () => {
                             Marcar Pendiente
                           </button>
                           <button
-                            className="admin-edit-btn"
+                            className="btn-golden-primary"
                             style={{
                               background: order.status === "COMPLETADO" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #27ae60, #2ecc71)",
                               opacity: order.status === "COMPLETADO" ? 0.6 : 1
@@ -310,7 +310,7 @@ const AdminProducts = () => {
                             Marcar Completado
                           </button>
                           <button
-                            className="admin-edit-btn"
+                            className="btn-golden-primary"
                             style={{
                               background: order.status === "CANCELADO" ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #e74c3c, #c0392b)",
                               opacity: order.status === "CANCELADO" ? 0.6 : 1
@@ -365,7 +365,7 @@ const AdminProducts = () => {
                       <p className="admin-blog-excerpt">{blog.excerpt}</p>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '15px' }}>
                         <button
-                          className="admin-edit-btn"
+                          className="btn-golden-primary"
                           onClick={() => {
                             window.UIkit.notification({
                               message: "Funcionalidad de edición lista para conectar con backend",
@@ -469,7 +469,7 @@ const AdminProducts = () => {
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
                       <button
-                        className="admin-edit-btn"
+                        className="btn-golden-primary"
                         style={{
                           background: user.roles?.some(r => r.name === "ADMIN") ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #e74c3c, #c0392b)",
                           opacity: user.roles?.some(r => r.name === "ADMIN") ? 0.6 : 1
@@ -480,7 +480,7 @@ const AdminProducts = () => {
                         Hacer Admin
                       </button>
                       <button
-                        className="admin-edit-btn"
+                        className="btn-golden-primary"
                         style={{
                           background: user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN") ? "linear-gradient(135deg, #95a5a6, #7f8c8d)" : "linear-gradient(135deg, #3498db, #2980b9)",
                           opacity: user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN") ? 0.6 : 1
@@ -491,7 +491,7 @@ const AdminProducts = () => {
                         Hacer Customer
                       </button>
                       <button
-                        className="admin-edit-btn"
+                        className="btn-golden-primary"
                         style={{
                           background: user.isActive ? "linear-gradient(135deg, #f39c12, #e67e22)" : "linear-gradient(135deg, #27ae60, #2ecc71)"
                         }}

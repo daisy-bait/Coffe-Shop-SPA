@@ -56,7 +56,7 @@ const BlogPostCard = ({
       >
         <div className="uk-modal-dialog uk-width-auto uk-margin-auto-vertical blog-modal-dialog-relative">
           <button
-            className="blog-image-modal-close"
+            className="modal-close-golden"
             type="button"
             data-uk-toggle={`target: #modal-media-image-${blog.id}`}
             aria-label="Cerrar"

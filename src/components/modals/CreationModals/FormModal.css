@@ -513,6 +513,19 @@
   display: inline-block;
 }
 
+/* Preview pequeño de imagen */
+.product-preview-small {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+}
+
+/* Label de checkbox sin margen inferior */
+.checkbox-label-no-margin {
+  margin-bottom: 0 !important;
+}
+
 /* ========================================
    RESPONSIVE
    ======================================== */

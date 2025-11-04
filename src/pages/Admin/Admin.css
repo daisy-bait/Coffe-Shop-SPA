@@ -859,3 +859,156 @@
     font-size: 1rem !important;
   }
 }
+
+/* ========================================
+   UTILIDADES PARA ADMIN
+   ======================================== */
+
+/* Estados de pedidos */
+.admin-status-completed {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.admin-status-pending {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.admin-status-cancelled {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Estados de usuarios */
+.admin-role-admin {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.admin-role-customer {
+  color: #3498db;
+  font-weight: bold;
+}
+
+.admin-user-active {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.admin-user-inactive {
+  color: #95a5a6;
+  font-weight: bold;
+}
+
+/* Lista de productos en pedidos */
+.admin-product-list {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+/* Total del pedido */
+.admin-order-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+/* Contenedor de botones en columna */
+.admin-button-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Mensaje de no hay datos */
+.admin-empty-message {
+  color: #d4a762;
+  padding: 40px;
+  text-align: center;
+}
+
+/* Sección de comentarios */
+.admin-comments-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(212, 167, 98, 0.3);
+}
+
+/* Título de comentarios */
+.admin-comments-title {
+  color: #d4a762;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+/* Card de comentario individual */
+.admin-comment-card {
+  background: rgba(212, 167, 98, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(212, 167, 98, 0.2);
+}
+
+/* Contenedor de comentario con botón */
+.admin-comment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+/* Contenido del comentario */
+.admin-comment-content {
+  flex: 1;
+}
+
+/* Info del autor del comentario */
+.admin-comment-info {
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+}
+
+/* Texto del comentario */
+.admin-comment-text {
+  font-size: 0.9rem;
+}
+
+/* Botón eliminar comentario pequeño */
+.admin-delete-btn-small {
+  min-width: auto;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+/* Modal de confirmación */
+.admin-confirm-modal-width {
+  max-width: 500px;
+}
+
+/* Título centrado del modal */
+.admin-modal-title-centered {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Mensaje del modal de confirmación */
+.admin-confirm-message {
+  color: #f5f5f5;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Botones del modal de confirmación */
+.admin-confirm-btn-left {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.admin-confirm-btn-right {
+  flex: 1;
+  margin-left: 10px;
+}

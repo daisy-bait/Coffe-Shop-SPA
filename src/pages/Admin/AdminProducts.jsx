@@ -256,12 +256,11 @@ const AdminProducts = () => {
                         </p>
                         <p className="admin-card-info">
                           <strong>Estado:</strong>{" "}
-                          <span style={{
-                            color: order.status === "COMPLETADO" ? "#27ae60" :
-                                   order.status === "PENDIENTE" ? "#f39c12" :
-                                   order.status === "CANCELADO" ? "#e74c3c" : "#95a5a6",
-                            fontWeight: "bold"
-                          }}>
+                          <span className={
+                            order.status === "COMPLETADO" ? "admin-status-completed" :
+                            order.status === "PENDIENTE" ? "admin-status-pending" :
+                            order.status === "CANCELADO" ? "admin-status-cancelled" : ""
+                          }>
                             {order.status}
                           </span>
                         </p>
@@ -271,7 +270,7 @@ const AdminProducts = () => {
 
                         <div className="admin-blog-excerpt">
                           <strong>Productos:</strong>
-                          <ul style={{ marginTop: '10px', paddingLeft: '20px' }}>
+                          <ul className="admin-product-list">
                             {order.orderDetails?.map((detail, idx) => (
                               <li key={idx}>
                                 {detail.productId?.name || "Producto"} - Cantidad: {detail.quantity} - ${detail.total_price || (detail.quantity * (detail.productId?.price || 0))}
@@ -280,13 +279,13 @@ const AdminProducts = () => {
                           </ul>
                         </div>
 
-                        <p className="admin-card-info" style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: '15px' }}>
+                        <p className="admin-card-info admin-order-total">
                           <strong>Total:</strong> ${order.totalPrice || order.orderDetails?.reduce((acc, d) => acc + (d.total_price || 0), 0) || 0}
                         </p>
                       </div>
 
                       <div className="uk-width-1-3@m uk-width-1-1">
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                        <div className="admin-button-column">
                           <button
                             className="admin-order-pending-btn"
                             onClick={() => handleUpdateOrderStatus(order._id || order.id, "PENDIENTE")}
@@ -321,7 +320,7 @@ const AdminProducts = () => {
                 </div>
               ))
             ) : (
-              <div className="uk-width-1-1 uk-text-center" style={{ color: '#d4a762', padding: '40px' }}>
+              <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>No hay pedidos para mostrar. Los pedidos se mostrarán aquí cuando el backend esté configurado.</p>
               </div>
             )}
@@ -351,7 +350,7 @@ const AdminProducts = () => {
                         <strong>Fecha:</strong> {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('es-ES') : blog.date || "N/A"}
                       </p>
                       <p className="admin-blog-excerpt">{blog.excerpt}</p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '15px' }}>
+                      <div className="admin-button-column">
                         <button
                           className="btn-golden-primary"
                           onClick={() => {
@@ -374,31 +373,24 @@ const AdminProducts = () => {
 
                       {/* Comentarios del blog */}
                       {blogComments.length > 0 && (
-                        <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '2px solid rgba(212, 167, 98, 0.3)' }}>
-                          <h5 style={{ color: '#d4a762', marginBottom: '15px', fontSize: '1.1rem' }}>
+                        <div className="admin-comments-section">
+                          <h5 className="admin-comments-title">
                             Comentarios ({blogComments.length})
                           </h5>
                           {blogComments.map((comment) => (
-                            <div key={comment._id || comment.id} style={{
-                              background: 'rgba(212, 167, 98, 0.05)',
-                              padding: '12px',
-                              borderRadius: '8px',
-                              marginBottom: '10px',
-                              border: '1px solid rgba(212, 167, 98, 0.2)'
-                            }}>
-                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '10px' }}>
-                                <div style={{ flex: 1 }}>
-                                  <p className="admin-card-info" style={{ marginBottom: '5px', fontSize: '0.85rem' }}>
+                            <div key={comment._id || comment.id} className="admin-comment-card">
+                              <div className="admin-comment-container">
+                                <div className="admin-comment-content">
+                                  <p className="admin-comment-info">
                                     <strong>{comment.author}</strong> - {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString('es-ES') : "N/A"}
                                   </p>
-                                  <div className="admin-comment-text" style={{ fontSize: '0.9rem' }}>
+                                  <div className="admin-comment-text">
                                     {comment.text || comment.content}
                                   </div>
                                 </div>
                                 <button
-                                  className="admin-delete-btn"
+                                  className="admin-delete-btn admin-delete-btn-small"
                                   onClick={() => handleDeleteComment(comment._id || comment.id)}
-                                  style={{ minWidth: 'auto', padding: '6px 12px', fontSize: '0.8rem' }}
                                 >
                                   Eliminar
                                 </button>
@@ -412,7 +404,7 @@ const AdminProducts = () => {
                 );
               })
             ) : (
-              <div className="uk-width-1-1 uk-text-center" style={{ color: '#d4a762', padding: '40px' }}>
+              <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>No hay blogs para mostrar. Los blogs se mostrarán aquí cuando el backend esté configurado.</p>
               </div>
             )}
@@ -435,19 +427,13 @@ const AdminProducts = () => {
                     </p>
                     <p className="admin-card-info">
                       <strong>Rol:</strong>{" "}
-                      <span style={{
-                        color: user.roles?.some(r => r.name === "ADMIN") ? "#e74c3c" : "#3498db",
-                        fontWeight: "bold"
-                      }}>
+                      <span className={user.roles?.some(r => r.name === "ADMIN") ? "admin-role-admin" : "admin-role-customer"}>
                         {user.roles?.map(r => r.name).join(", ") || "N/A"}
                       </span>
                     </p>
                     <p className="admin-card-info">
                       <strong>Estado:</strong>{" "}
-                      <span style={{
-                        color: user.isActive ? "#27ae60" : "#95a5a6",
-                        fontWeight: "bold"
-                      }}>
+                      <span className={user.isActive ? "admin-user-active" : "admin-user-inactive"}>
                         {user.isActive ? "Activo" : "Suspendido"}
                       </span>
                     </p>
@@ -455,7 +441,7 @@ const AdminProducts = () => {
                       <strong>Fecha de registro:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-ES') : "N/A"}
                     </p>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
+                    <div className="admin-button-column">
                       <button
                         className="admin-make-admin-btn"
                         onClick={() => handleUpdateUserRole(user._id || user.id, "ADMIN")}
@@ -487,7 +473,7 @@ const AdminProducts = () => {
                 </div>
               ))
             ) : (
-              <div className="uk-width-1-1 uk-text-center" style={{ color: '#d4a762', padding: '40px' }}>
+              <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>No hay usuarios para mostrar. Los usuarios se mostrarán aquí cuando el backend esté configurado.</p>
               </div>
             )}
@@ -513,9 +499,8 @@ const AdminProducts = () => {
           onClick={handleConfirmClose}
         >
           <div
-            className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center"
+            className="uk-modal-dialog uk-modal-body login-modal-container login-modal-center admin-confirm-modal-width"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '500px' }}
           >
             <button
               className="modal-close-golden"
@@ -524,28 +509,26 @@ const AdminProducts = () => {
               aria-label="Cerrar"
             ></button>
 
-            <h2 className="uk-modal-title" style={{ textAlign: 'center', marginBottom: '25px' }}>
+            <h2 className="uk-modal-title admin-modal-title-centered">
               Confirmación
             </h2>
 
-            <p style={{ color: '#f5f5f5', fontSize: '1.1rem', textAlign: 'center', marginBottom: '30px', lineHeight: '1.6' }}>
+            <p className="admin-confirm-message">
               {confirmModal.message}
             </p>
 
             <div className="uk-flex uk-flex-between uk-flex-middle">
               <button
-                className="btn-submit-product"
+                className="btn-golden-primary admin-confirm-btn-left"
                 type="button"
                 onClick={handleConfirmAccept}
-                style={{ flex: '1', marginRight: '10px' }}
               >
                 Confirmar
               </button>
               <button
-                className="btn-cancel-product"
+                className="btn-cancel-product admin-confirm-btn-right"
                 type="button"
                 onClick={handleConfirmClose}
-                style={{ flex: '1', marginLeft: '10px' }}
               >
                 Cancelar
               </button>

@@ -128,7 +128,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
               <li
                 key={cat._id}
                 className="uk-flex uk-flex-between uk-flex-middle"
-                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setValue("category", cat.name); // establecemos el nombre visible
                   setShowCategoryModal(false);
@@ -278,14 +277,8 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
               {selectedImage && (
                 <img
                   src={imagesMenu.find((src) => src.includes(selectedImage))}
-                  className="uk-margin-left"
+                  className="uk-margin-left product-preview-small"
                   alt="preview"
-                  style={{
-                    width: "60px",
-                    height: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
                 />
               )}
             </div>
@@ -361,7 +354,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
                 {...register("enabled")}
                 defaultChecked={true}
               />
-              <span className="uk-form-label" style={{ marginBottom: 0 }}>
+              <span className="uk-form-label checkbox-label-no-margin">
                 Producto habilitado (visible en el menú)
               </span>
             </label>

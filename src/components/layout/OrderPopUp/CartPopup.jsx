@@ -52,7 +52,7 @@ export const CartPopup = () => {
   };
 
   return (
-    <div className="uk-modal uk-open cart-modal-overlay" style={{ display: "block" }}>
+    <div className="uk-modal uk-open cart-modal-overlay">
       <div className="uk-modal-dialog uk-modal-body cart-modal-dialog">
         <button
           className="modal-close-golden"

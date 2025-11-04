@@ -189,6 +189,7 @@
 .cart-modal-overlay {
   background: rgba(0, 0, 0, 0.85) !important;
   backdrop-filter: blur(8px);
+  display: block !important;
 }
 
 .cart-modal-dialog {

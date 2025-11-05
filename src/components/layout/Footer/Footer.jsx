@@ -1,7 +1,14 @@
 import "./Footer.css";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
+import { useLocation } from "react-router";
+import { useAuth } from "../../../context/AuthContext";
 
 const Footer = () => {
+  const location = useLocation();
+  const { roles } = useAuth();
+  const isAdminUser = roles.includes("ADMIN");
+  const isAdminPage = location.pathname.includes("/admin");
+
   return (
     <footer className="uk-section uk-section-small footer-container">
       <div className="uk-container">
@@ -22,28 +29,69 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="footer-title">Enlaces Rápidos</h4>
+            <h4 className="footer-title">
+              {isAdminPage ? "Panel Admin" : "Enlaces Rápidos"}
+            </h4>
             <ul className="uk-list uk-list-divider footer-list">
-              <li>
-                <a href="/menu" className="uk-link-muted footer-link">
-                  Menú
-                </a>
-              </li>
-              <li>
-                <a href="/suggest" className="uk-link-muted footer-link">
-                  Recomendado
-                </a>
-              </li>
-              <li>
-                <a href="/blog" className="uk-link-muted footer-link">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="uk-link-muted footer-link">
-                  Nosotros
-                </a>
-              </li>
+              {isAdminPage ? (
+                <>
+                  <li>
+                    <a href="/admin" className="uk-link-muted footer-link">
+                      Admin
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/admin#products"
+                      className="uk-link-muted footer-link"
+                    >
+                      Productos
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/admin#orders"
+                      className="uk-link-muted footer-link"
+                    >
+                      Pedidos
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/admin#users"
+                      className="uk-link-muted footer-link"
+                    >
+                      Usuarios
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <a
+                      href={isAdminUser ? "/admin/products" : "/menu"}
+                      className="uk-link-muted footer-link"
+                    >
+                      {isAdminUser ? "Admin" : "Menú"}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/suggest" className="uk-link-muted footer-link">
+                      Recomendado
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/blog" className="uk-link-muted footer-link">
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/about" className="uk-link-muted footer-link">
+                      Nosotros
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 

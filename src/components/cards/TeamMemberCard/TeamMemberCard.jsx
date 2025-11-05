@@ -6,7 +6,7 @@ const TeamMemberCard = ({ member, index }) => {
     const modalElement = document.getElementById(`modal-team-member-${index}`);
     const modal = window.UIkit?.modal(modalElement);
 
-    if (modal && !modalElement.classList.contains('uk-open')) {
+    if (modal && !modalElement.classList.contains("uk-open")) {
       modal.show();
     }
   };

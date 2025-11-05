@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useBlogs } from "../../context/BlogsContext";
-import LoginModal from "../../components/modals/CreationModals/LoginModal";
+import LoginModal from "../../components/modals/CreationModals/LoginModal/LoginModal";
 import BlogForm from "../../components/features/Blog/BlogForm/BlogForm";
 import BlogPostCard from "../../components/features/Blog/BlogPostCard/BlogPostCard";
 import CommentSection from "../../components/features/Blog/CommentSection/CommentSection";
@@ -59,7 +59,7 @@ const Blog = () => {
     const commentData = {
       text: commentInputs[blogId],
       author: user?.username || currentUser || "Usuario",
-      blogId: blogId
+      blogId: blogId,
     };
 
     const success = await createComment(commentData);
@@ -120,15 +120,17 @@ const Blog = () => {
             />
           ) : (
             <div className="blog-login-message">
-              <p>
-                Inicia sesión para publicar tu propio blog
-              </p>
+              <p>Inicia sesión para publicar tu propio blog</p>
             </div>
           )}
         </div>
 
         {Array.isArray(blogs) && blogs.length > 0 ? (
-          <div className="uk-child-width-1-2@s" data-uk-grid="masonry: pack" data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 200; repeat: true">
+          <div
+            className="uk-child-width-1-2@s"
+            data-uk-grid="masonry: pack"
+            data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 200; repeat: true"
+          >
             {blogs.map((blog) => (
               <div key={blog._id || blog.id}>
                 <BlogPostCard
@@ -136,10 +138,12 @@ const Blog = () => {
                     ...blog,
                     id: blog._id || blog.id,
                     imageUrl: blog.imageUrl || blog.image || blogDefault,
-                    avatarUrl: avatarDefault
+                    avatarUrl: avatarDefault,
                   }}
                   onToggleComments={() => toggleComments(blog._id || blog.id)}
-                  isCommentsVisible={visibleComments[blog._id || blog.id] || false}
+                  isCommentsVisible={
+                    visibleComments[blog._id || blog.id] || false
+                  }
                 >
                   <CommentSection
                     currentUser={user?.username || currentUser}
@@ -147,7 +151,9 @@ const Blog = () => {
                     onCommentChange={(value) =>
                       handleCommentChange(blog._id || blog.id, value)
                     }
-                    onCommentSubmit={() => handleCommentSubmit(blog._id || blog.id)}
+                    onCommentSubmit={() =>
+                      handleCommentSubmit(blog._id || blog.id)
+                    }
                     comments={commentsByBlog[blog._id || blog.id] || []}
                   />
                 </BlogPostCard>
@@ -160,9 +166,7 @@ const Blog = () => {
               <div className="blog-empty-icon">
                 <span data-uk-icon="icon: file-text; ratio: 3.5"></span>
               </div>
-              <h3 className="blog-empty-title">
-                No hay blogs para mostrar
-              </h3>
+              <h3 className="blog-empty-title">No hay blogs para mostrar</h3>
               <p className="blog-empty-message">
                 {isAuth
                   ? "¡Sé el primero en publicar un blog!"

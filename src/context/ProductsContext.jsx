@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-    createProductRequest,
-    modifyProductRequest,
-    searchAllProductCategoriesRequest,
-    searchProductsRequest
+  createProductRequest,
+  modifyProductRequest,
+  searchAllProductCategoriesRequest,
+  searchProductsRequest,
 } from "../api/requests/products.request";
 
 const ProductContext = createContext();
 
 export const useProducts = () => {
   const context = useContext(ProductContext);
-  if (!context) throw new Error("useProducts must be used within an ProductsProvider");
+  if (!context)
+    throw new Error("useProducts must be used within an ProductsProvider");
   return context;
 };
 
@@ -79,7 +80,7 @@ export const ProductProvider = ({ children }) => {
       setErrors([error.response.data.message]);
       return false;
     }
-  }
+  };
 
   return (
     <ProductContext.Provider
@@ -91,7 +92,7 @@ export const ProductProvider = ({ children }) => {
         modifyProduct,
         setModifiedProducts,
         searchProducts,
-        searchAllCategories
+        searchAllCategories,
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import {
   createOrderRequest,
   searchOrdersRequest,
   updateOrderStatusRequest,
-  deleteOrderRequest
+  deleteOrderRequest,
 } from "../api/requests/orders.request";
 import { useAuth } from "./AuthContext";
 import { useEffect } from "react";
@@ -13,7 +13,8 @@ const OrderContext = createContext();
 
 export const useOrders = () => {
   const context = useContext(OrderContext);
-  if (!context) throw new Error("useOrders must be used within an OrdersProvider");
+  if (!context)
+    throw new Error("useOrders must be used within an OrdersProvider");
   return context;
 };
 
@@ -36,7 +37,7 @@ export const OrdersProvider = ({ children }) => {
       orderDetails: [],
       totalPrice: 0,
     });
-  }, [isAuth])
+  }, [isAuth]);
 
   const addToCart = (product, quantity = 1) => {
     if (quantity <= 0) {
@@ -189,14 +190,18 @@ export const OrdersProvider = ({ children }) => {
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await updateOrderStatusRequest(orderId, { status: newStatus });
+      const res = await updateOrderStatusRequest(orderId, {
+        status: newStatus,
+      });
       if (res.status === 200 || res.status === 204) {
         setModifiedOrders(true);
         return true;
       }
     } catch (error) {
       console.error(error);
-      setErrors([error.response?.data?.message || "Error al actualizar estado"]);
+      setErrors([
+        error.response?.data?.message || "Error al actualizar estado",
+      ]);
       return false;
     }
   };

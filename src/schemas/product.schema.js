@@ -28,9 +28,7 @@ export const productSchema = z.object({
         "El Nivel de Tostado debe comenzar con mayúscula y solo puede contener letras y espacios",
     }),
 
-  image: z
-    .string()
-    .optional(),
+  image: z.string().optional(),
 
   category: z
     .string({
@@ -91,10 +89,9 @@ export const productSchema = z.object({
 
   ingredients: z
     .array(
-      z
-        .string({
-          invalid_type_error: "Cada imagen debe ser parte de una URL",
-        })
+      z.string({
+        invalid_type_error: "Cada imagen debe ser parte de una URL",
+      })
     )
     .max(1, { message: "Máximo 10 beneficios permitidos" })
     .optional(),

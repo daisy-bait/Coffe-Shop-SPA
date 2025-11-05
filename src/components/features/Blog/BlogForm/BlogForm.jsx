@@ -67,9 +67,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             />
           </div>
           <div className="uk-width-1-2@s">
-            <label className="uk-form-label blog-form-label">
-              Autor
-            </label>
+            <label className="uk-form-label blog-form-label">Autor</label>
             <input
               className="uk-input blog-login-input"
               type="text"

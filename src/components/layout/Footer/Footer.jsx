@@ -6,8 +6,8 @@ import { useAuth } from "../../../context/AuthContext";
 const Footer = () => {
   const location = useLocation();
   const { roles } = useAuth();
-  const isAdminUser = roles.includes('ADMIN');
-  const isAdminPage = location.pathname.includes('/admin');
+  const isAdminUser = roles.includes("ADMIN");
+  const isAdminPage = location.pathname.includes("/admin");
 
   return (
     <footer className="uk-section uk-section-small footer-container">
@@ -29,27 +29,38 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="footer-title">{isAdminPage ? 'Panel Admin' : 'Enlaces Rápidos'}</h4>
+            <h4 className="footer-title">
+              {isAdminPage ? "Panel Admin" : "Enlaces Rápidos"}
+            </h4>
             <ul className="uk-list uk-list-divider footer-list">
               {isAdminPage ? (
                 <>
                   <li>
-                    <a href="/admin/products" className="uk-link-muted footer-link">
+                    <a href="/admin" className="uk-link-muted footer-link">
                       Admin
                     </a>
                   </li>
                   <li>
-                    <a href="/admin#products" className="uk-link-muted footer-link">
+                    <a
+                      href="/admin#products"
+                      className="uk-link-muted footer-link"
+                    >
                       Productos
                     </a>
                   </li>
                   <li>
-                    <a href="/admin#orders" className="uk-link-muted footer-link">
+                    <a
+                      href="/admin#orders"
+                      className="uk-link-muted footer-link"
+                    >
                       Pedidos
                     </a>
                   </li>
                   <li>
-                    <a href="/admin#users" className="uk-link-muted footer-link">
+                    <a
+                      href="/admin#users"
+                      className="uk-link-muted footer-link"
+                    >
                       Usuarios
                     </a>
                   </li>
@@ -57,7 +68,10 @@ const Footer = () => {
               ) : (
                 <>
                   <li>
-                    <a href={isAdminUser ? "/admin/products" : "/menu"} className="uk-link-muted footer-link">
+                    <a
+                      href={isAdminUser ? "/admin/products" : "/menu"}
+                      className="uk-link-muted footer-link"
+                    >
                       {isAdminUser ? "Admin" : "Menú"}
                     </a>
                   </li>

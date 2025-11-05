@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./FormModal.css";
-import "../../cards/cards.css";
-import { useProducts } from "../../../context/ProductsContext";
-import { productSchema } from "../../../schemas/product.schema";
+import "../FormModal.css";
+import "../../../cards/cards.css";
+import { useProducts } from "../../../../context/ProductsContext";
+import { productSchema } from "../../../../schemas/product.schema";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 

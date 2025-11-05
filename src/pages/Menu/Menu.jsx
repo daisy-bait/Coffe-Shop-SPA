@@ -4,7 +4,7 @@ import CoffeeModal from "../../components/modals/CoffeeModal/CoffeeModal";
 import MenuHeader from "../../components/features/Menu/MenuHeader/MenuHeader";
 import { useProducts } from "../../context/ProductsContext";
 import "./Menu.css";
-import ProductSearchForm from "../../components/features/Menu/MenuHeader/ProductSearchForm";
+import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
 
 const Menu = () => {
   const [showProductInfoModal, setShowProductInfoShowModal] = useState(false);

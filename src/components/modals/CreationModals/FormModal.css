@@ -1,5 +1,5 @@
 /* ========================================
-   MODAL DE LOGIN/REGISTRO - USANDO OVERLAY DE UIKIT
+   MODAL DE LOGIN/REGISTRO
    ======================================== */
 
 /* Modal display */
@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4) !important; /* Opacidad controlada */
+  background: rgba(0, 0, 0, 0.4) !important;
   z-index: -1;
 }
 
@@ -212,7 +212,11 @@
 
 /* Botón de cancelar */
 .btn-cancel-product {
-  background: linear-gradient(135deg, rgba(44, 44, 44, 0.8), rgba(30, 30, 30, 0.8)) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.8),
+    rgba(30, 30, 30, 0.8)
+  ) !important;
   color: #d4a762 !important;
   border: 2px solid rgba(212, 167, 98, 0.4) !important;
   border-radius: 12px !important;
@@ -247,7 +251,11 @@
 }
 
 .btn-cancel-product:hover {
-  background: linear-gradient(135deg, rgba(212, 167, 98, 0.15), rgba(184, 147, 90, 0.15)) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0.15),
+    rgba(184, 147, 90, 0.15)
+  ) !important;
   border-color: #d4a762 !important;
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(212, 167, 98, 0.3);
@@ -363,14 +371,30 @@
   animation: fadeInImage 0.3s ease backwards;
 }
 
-.login-modal-container .menu-product-image-container:nth-child(1) { animation-delay: 0.05s; }
-.login-modal-container .menu-product-image-container:nth-child(2) { animation-delay: 0.1s; }
-.login-modal-container .menu-product-image-container:nth-child(3) { animation-delay: 0.15s; }
-.login-modal-container .menu-product-image-container:nth-child(4) { animation-delay: 0.2s; }
-.login-modal-container .menu-product-image-container:nth-child(5) { animation-delay: 0.25s; }
-.login-modal-container .menu-product-image-container:nth-child(6) { animation-delay: 0.3s; }
-.login-modal-container .menu-product-image-container:nth-child(7) { animation-delay: 0.35s; }
-.login-modal-container .menu-product-image-container:nth-child(8) { animation-delay: 0.4s; }
+.login-modal-container .menu-product-image-container:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.login-modal-container .menu-product-image-container:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.login-modal-container .menu-product-image-container:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.login-modal-container .menu-product-image-container:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.login-modal-container .menu-product-image-container:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.login-modal-container .menu-product-image-container:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.login-modal-container .menu-product-image-container:nth-child(7) {
+  animation-delay: 0.35s;
+}
+.login-modal-container .menu-product-image-container:nth-child(8) {
+  animation-delay: 0.4s;
+}
 
 @keyframes fadeInImage {
   from {
@@ -390,7 +414,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(212, 167, 98, 0), rgba(212, 167, 98, 0.3));
+  background: linear-gradient(
+    135deg,
+    rgba(212, 167, 98, 0),
+    rgba(212, 167, 98, 0.3)
+  );
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 1;
@@ -474,14 +502,30 @@
   animation: fadeInCategory 0.4s ease backwards;
 }
 
-.login-modal-container .uk-list-divider > li:nth-child(1) { animation-delay: 0.05s; }
-.login-modal-container .uk-list-divider > li:nth-child(2) { animation-delay: 0.1s; }
-.login-modal-container .uk-list-divider > li:nth-child(3) { animation-delay: 0.15s; }
-.login-modal-container .uk-list-divider > li:nth-child(4) { animation-delay: 0.2s; }
-.login-modal-container .uk-list-divider > li:nth-child(5) { animation-delay: 0.25s; }
-.login-modal-container .uk-list-divider > li:nth-child(6) { animation-delay: 0.3s; }
-.login-modal-container .uk-list-divider > li:nth-child(7) { animation-delay: 0.35s; }
-.login-modal-container .uk-list-divider > li:nth-child(8) { animation-delay: 0.4s; }
+.login-modal-container .uk-list-divider > li:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(4) {
+  animation-delay: 0.2s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(7) {
+  animation-delay: 0.35s;
+}
+.login-modal-container .uk-list-divider > li:nth-child(8) {
+  animation-delay: 0.4s;
+}
 
 @keyframes fadeInCategory {
   from {

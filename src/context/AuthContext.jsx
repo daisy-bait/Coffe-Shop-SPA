@@ -74,9 +74,11 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await verifyToken();
         setUser(res.data);
-        setRoles(res.data.roles.map(role => {
-          return role.name;
-        }));
+        setRoles(
+          res.data.roles.map((role) => {
+            return role.name;
+          })
+        );
         setIsAuth(true);
         setLoading(false);
       } catch (error) {

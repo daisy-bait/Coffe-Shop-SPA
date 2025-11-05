@@ -2,12 +2,12 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
-import LoginModal from "../../modals/CreationModals/LoginModal";
+import LoginModal from "../../modals/CreationModals/LoginModal/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [ showLoginModal, setShowLoginModal ] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const { user, isAuth, logout, roles, loading } = useAuth();
 
@@ -71,7 +71,7 @@ const Navbar = () => {
                   <div className="uk-navbar-item uk-light">
                     <NavLink
                       className="uk-text-capitalize uk-button uk-button-text uk-light"
-                      to="/admin/products"
+                      to="/admin"
                       end
                     >
                       Admin
@@ -128,9 +128,7 @@ const Navbar = () => {
                         onClick={() => setIsCartOpen(true)}
                       >
                         {totalItems > 0 && (
-                          <span className="cart-counter">
-                            {totalItems}
-                          </span>
+                          <span className="cart-counter">{totalItems}</span>
                         )}
                       </button>
                     )}
@@ -198,7 +196,7 @@ const Navbar = () => {
                         <div>
                           <NavLink
                             className="uk-text-capitalize uk-button uk-button-text uk-light"
-                            to="/admin/products"
+                            to="/admin"
                             end
                           >
                             Admin

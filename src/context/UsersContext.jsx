@@ -4,7 +4,7 @@ import {
   getUserRequest,
   updateUserRoleRequest,
   toggleUserStatusRequest,
-  deleteUserRequest
+  deleteUserRequest,
 } from "../api/requests/users.request";
 
 const UsersContext = createContext();

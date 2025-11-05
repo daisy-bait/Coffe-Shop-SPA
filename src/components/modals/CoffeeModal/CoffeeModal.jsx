@@ -40,17 +40,22 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
             <div className="uk-padding uk-flex uk-flex-center">
               <div className="uk-border-circle uk-overflow-hidden coffee-modal-image-container">
                 <img
-                  src={item.img || (item.image ? `/src/assets/img/menu/${item.image}` : "/src/assets/img/coffe-image-1.jpg")}
+                  src={
+                    item.img ||
+                    (item.image
+                      ? `/src/assets/img/menu/${item.image}`
+                      : "/src/assets/img/coffe-image-1.jpg")
+                  }
                   alt={item.title || item.name}
                   className="uk-cover coffee-modal-image"
                 />
               </div>
             </div>
-                <div>
-                  <span className="uk-label coffee-modal-label">
-                    Origen: {item.origin}
-                  </span>
-                </div>
+            <div>
+              <span className="uk-label coffee-modal-label">
+                Origen: {item.origin}
+              </span>
+            </div>
           </div>
 
           <div className="uk-width-2-3@m uk-width-1-1@s uk-padding-large">
@@ -61,14 +66,18 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
             <div className="uk-margin-medium-top">
               <h3 className="coffee-modal-section-title">Ingredientes:</h3>
               <ul className="uk-list coffee-modal-list">
-                {item.ingredients.length > 0 ? (item.ingredients).map((ing, i) => (
-                  <li key={i}>{ing}</li>
-                )) : (<li key={1}>No se han registrado Ingredientes</li>)}
+                {item.ingredients.length > 0 ? (
+                  item.ingredients.map((ing, i) => <li key={i}>{ing}</li>)
+                ) : (
+                  <li key={1}>No se han registrado Ingredientes</li>
+                )}
               </ul>
             </div>
 
             <div className="uk-margin-medium-top">
-              <h3 className="coffee-modal-section-title">{item.preparation ? "Preparación:" : "Recomendación"}</h3>
+              <h3 className="coffee-modal-section-title">
+                {item.preparation ? "Preparación:" : "Recomendación"}
+              </h3>
               <p className="coffee-modal-text">
                 {item.preparation || item.recommendations}
               </p>

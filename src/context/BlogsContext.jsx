@@ -3,13 +3,13 @@ import {
   createBlogRequest,
   getAllBlogsRequest,
   deleteBlogRequest,
-  updateBlogRequest
+  updateBlogRequest,
 } from "../api/requests/blogs.request";
 import {
   createCommentRequest,
   getCommentsByBlogRequest,
   deleteCommentRequest,
-  getAllCommentsRequest
+  getAllCommentsRequest,
 } from "../api/requests/comments.request";
 
 const BlogContext = createContext();
@@ -56,7 +56,9 @@ export const BlogProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al actualizar el blog"]);
+      setErrors([
+        error.response?.data?.message || "Error al actualizar el blog",
+      ]);
       return false;
     }
   };
@@ -97,7 +99,9 @@ export const BlogProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al crear el comentario"]);
+      setErrors([
+        error.response?.data?.message || "Error al crear el comentario",
+      ]);
       return false;
     }
   };
@@ -111,7 +115,9 @@ export const BlogProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al eliminar el comentario"]);
+      setErrors([
+        error.response?.data?.message || "Error al eliminar el comentario",
+      ]);
       return false;
     }
   };
@@ -124,7 +130,9 @@ export const BlogProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al cargar comentarios"]);
+      setErrors([
+        error.response?.data?.message || "Error al cargar comentarios",
+      ]);
       return [];
     }
   };
@@ -137,7 +145,9 @@ export const BlogProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al cargar comentarios"]);
+      setErrors([
+        error.response?.data?.message || "Error al cargar comentarios",
+      ]);
       return false;
     }
   };
@@ -156,7 +166,7 @@ export const BlogProvider = ({ children }) => {
         deleteComment,
         fetchCommentsByBlog,
         fetchAllComments,
-        setModifiedBlogs
+        setModifiedBlogs,
       }}
     >
       {children}

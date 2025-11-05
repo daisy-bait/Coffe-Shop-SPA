@@ -318,7 +318,8 @@
 }
 
 @keyframes pulse-cart {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -343,7 +344,11 @@
    ======================================== */
 
 .uk-tooltip {
-  background: linear-gradient(135deg, rgba(44, 44, 44, 0.98), rgba(30, 30, 30, 0.98)) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.98),
+    rgba(30, 30, 30, 0.98)
+  ) !important;
   color: #d4a762 !important;
   border: 2px solid rgba(212, 167, 98, 0.5) !important;
   border-radius: 10px !important;

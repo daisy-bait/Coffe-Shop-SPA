@@ -19,8 +19,8 @@ const Home = () => {
                 data-uk-scrollspy="cls: uk-animation-slide-left; delay: 300"
               >
                 <p>
-                  Bienvenido a <strong>Expresso 24</strong>, un lugar donde
-                  cada taza de café cuenta una historia. Aquí encontrarás la
+                  Bienvenido a <strong>Expresso 24</strong>, un lugar donde cada
+                  taza de café cuenta una historia. Aquí encontrarás la
                   combinación perfecta de calidad, comodidad y calidez para
                   hacer de tus mañanas algo especial.
                 </p>

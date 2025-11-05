@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useProducts } from "../../../../context/ProductsContext";
-import { useAuth } from "../../../../context/AuthContext";
+import { useProducts } from "../../../context/ProductsContext";
+import { useAuth } from "../../../context/AuthContext";
 import "./ProductSearchForm.css";
 
 const ProductSearchForm = () => {
@@ -152,7 +152,9 @@ const ProductSearchForm = () => {
                 className="search-checkbox-input"
                 id="enabled-checkbox"
               />
-              <label htmlFor="enabled-checkbox">Solo productos habilitados</label>
+              <label htmlFor="enabled-checkbox">
+                Solo productos habilitados
+              </label>
             </div>
           </div>
         )}
@@ -162,7 +164,11 @@ const ProductSearchForm = () => {
         <button type="submit" className="search-btn-submit">
           Buscar
         </button>
-        <button type="button" onClick={handleClear} className="search-btn-clear">
+        <button
+          type="button"
+          onClick={handleClear}
+          className="search-btn-clear"
+        >
           Limpiar filtros
         </button>
       </div>

@@ -62,7 +62,10 @@ export const CartPopup = () => {
         ></button>
 
         <h2 className="cart-modal-title">
-          <span data-uk-icon="icon: cart; ratio: 1.5" className="uk-margin-small-right"></span>
+          <span
+            data-uk-icon="icon: cart; ratio: 1.5"
+            className="uk-margin-small-right"
+          ></span>
           Tu Carrito
         </h2>
 
@@ -102,7 +105,9 @@ export const CartPopup = () => {
                   <div className="cart-item-quantity">
                     <button
                       className="cart-qty-btn"
-                      onClick={() => handleDecrement(item.product._id, item.quantity)}
+                      onClick={() =>
+                        handleDecrement(item.product._id, item.quantity)
+                      }
                       disabled={item.quantity <= 1}
                     >
                       −
@@ -123,7 +128,10 @@ export const CartPopup = () => {
                       }
                       onKeyPress={(e) => {
                         if (e.key === "Enter") {
-                          handleQuantityBlur(item.product._id, item.product.stock);
+                          handleQuantityBlur(
+                            item.product._id,
+                            item.product.stock
+                          );
                         }
                       }}
                       min="1"
@@ -132,7 +140,11 @@ export const CartPopup = () => {
                     <button
                       className="cart-qty-btn"
                       onClick={() =>
-                        handleIncrement(item.product._id, item.quantity, item.product.stock)
+                        handleIncrement(
+                          item.product._id,
+                          item.quantity,
+                          item.product.stock
+                        )
                       }
                       disabled={item.quantity >= item.product.stock}
                     >
@@ -166,8 +178,14 @@ export const CartPopup = () => {
                 </span>
               </div>
 
-              <button className="btn-golden-primary" onClick={() => createOrder()}>
-                <span data-uk-icon="icon: check" className="uk-margin-small-right"></span>
+              <button
+                className="btn-golden-primary"
+                onClick={() => createOrder()}
+              >
+                <span
+                  data-uk-icon="icon: check"
+                  className="uk-margin-small-right"
+                ></span>
                 Confirmar Compra
               </button>
             </div>

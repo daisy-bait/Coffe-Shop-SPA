@@ -8,10 +8,12 @@ const BlogPostCard = ({
 }) => {
   const handleImageClick = (e) => {
     e.stopPropagation();
-    const modalElement = document.getElementById(`modal-media-image-${blog.id}`);
+    const modalElement = document.getElementById(
+      `modal-media-image-${blog.id}`
+    );
     const modal = window.UIkit?.modal(modalElement);
 
-    if (modal && !modalElement.classList.contains('uk-open')) {
+    if (modal && !modalElement.classList.contains("uk-open")) {
       modal.show();
     }
   };

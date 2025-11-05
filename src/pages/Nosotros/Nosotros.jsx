@@ -32,8 +32,16 @@ const Nosotros = () => {
       role: "Son los baristas principales, hacedores de todos los cafes, y orgullosamente jhon es el limpia suelos de la cafeteria, tiene una tecnica especial llamada la lengua trapero",
       img: jhon,
     },
-    { name: "Jorge Leon", role: "El mismisimo master chef de toda la cocina, carrea toda la comida, experto en creación de galletas", img: leon },
-    { name: "Kaleth Daniel", role: "El mero gerente de toda la tienda, encargado de que todos trabajen y no se la pasen echados en el suelo", img: kale },
+    {
+      name: "Jorge Leon",
+      role: "El mismisimo master chef de toda la cocina, carrea toda la comida, experto en creación de galletas",
+      img: leon,
+    },
+    {
+      name: "Kaleth Daniel",
+      role: "El mero gerente de toda la tienda, encargado de que todos trabajen y no se la pasen echados en el suelo",
+      img: kale,
+    },
   ];
 
   const locations = [

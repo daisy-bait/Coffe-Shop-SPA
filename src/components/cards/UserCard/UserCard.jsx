@@ -13,7 +13,9 @@ const UserCard = ({ usuarios }) => {
               width={80}
               className="uk-border-circle"
             />
-            <h3 className="uk-card-title uk-text-truncate api-card-title">{usuario.login}</h3>
+            <h3 className="uk-card-title uk-text-truncate api-card-title">
+              {usuario.login}
+            </h3>
             <a
               href={usuario.html_url}
               target="_blank"

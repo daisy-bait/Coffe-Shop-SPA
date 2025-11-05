@@ -3,20 +3,39 @@ import { useProducts } from "../../context/ProductsContext";
 import { useBlogs } from "../../context/BlogsContext";
 import { useOrders } from "../../context/OrdersContext";
 import { useUsers } from "../../context/UsersContext";
-import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal";
-import ProductSearchForm from "../../components/features/Menu/MenuHeader/ProductSearchForm";
+import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal/CreateProductModal";
+import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
 import "./Admin.css";
 
 const AdminProducts = () => {
   const { products } = useProducts();
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
-  const { allOrders, searchAllOrders, updateOrderStatus, deleteOrder, modifiedOrders, setModifiedOrders } = useOrders();
-  const { users, searchUsers, updateUserRole, toggleUserStatus, deleteUser, modifiedUsers, setModifiedUsers } = useUsers();
+  const {
+    allOrders,
+    searchAllOrders,
+    updateOrderStatus,
+    deleteOrder,
+    modifiedOrders,
+    setModifiedOrders,
+  } = useOrders();
+  const {
+    users,
+    searchUsers,
+    updateUserRole,
+    toggleUserStatus,
+    deleteUser,
+    modifiedUsers,
+    setModifiedUsers,
+  } = useUsers();
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalMode, setModalMode] = useState("create");
   const [activeTab, setActiveTab] = useState("products");
-  const [confirmModal, setConfirmModal] = useState({ show: false, message: "", onConfirm: null });
+  const [confirmModal, setConfirmModal] = useState({
+    show: false,
+    message: "",
+    onConfirm: null,
+  });
 
   useEffect(() => {
     if (activeTab === "orders") {
@@ -73,16 +92,19 @@ const AdminProducts = () => {
   };
 
   const handleDeleteComment = async (commentId) => {
-    showConfirm("¿Estás seguro de que deseas eliminar este comentario?", async () => {
-      const success = await deleteComment(commentId);
-      if (success && window.UIkit) {
-        window.UIkit.notification({
-          message: "Comentario eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
+    showConfirm(
+      "¿Estás seguro de que deseas eliminar este comentario?",
+      async () => {
+        const success = await deleteComment(commentId);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: "Comentario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+        }
       }
-    });
+    );
   };
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
@@ -97,16 +119,19 @@ const AdminProducts = () => {
   };
 
   const handleDeleteOrder = async (orderId) => {
-    showConfirm("¿Estás seguro de que deseas eliminar este pedido?", async () => {
-      const success = await deleteOrder(orderId);
-      if (success && window.UIkit) {
-        window.UIkit.notification({
-          message: "Pedido eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
+    showConfirm(
+      "¿Estás seguro de que deseas eliminar este pedido?",
+      async () => {
+        const success = await deleteOrder(orderId);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: "Pedido eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+        }
       }
-    });
+    );
   };
 
   const handleUpdateUserRole = async (userId, newRole) => {
@@ -132,16 +157,19 @@ const AdminProducts = () => {
   };
 
   const handleDeleteUser = async (userId) => {
-    showConfirm("¿Estás seguro de que deseas eliminar este usuario?", async () => {
-      const success = await deleteUser(userId);
-      if (success && window.UIkit) {
-        window.UIkit.notification({
-          message: "Usuario eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
+    showConfirm(
+      "¿Estás seguro de que deseas eliminar este usuario?",
+      async () => {
+        const success = await deleteUser(userId);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: "Usuario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+        }
       }
-    });
+    );
   };
 
   return (
@@ -153,25 +181,33 @@ const AdminProducts = () => {
 
         <div className="admin-tabs uk-margin-medium-bottom uk-flex uk-flex-center">
           <button
-            className={`admin-tab-button ${activeTab === "products" ? "active" : ""}`}
+            className={`admin-tab-button ${
+              activeTab === "products" ? "active" : ""
+            }`}
             onClick={() => setActiveTab("products")}
           >
             Productos
           </button>
           <button
-            className={`admin-tab-button ${activeTab === "orders" ? "active" : ""}`}
+            className={`admin-tab-button ${
+              activeTab === "orders" ? "active" : ""
+            }`}
             onClick={() => setActiveTab("orders")}
           >
             Pedidos
           </button>
           <button
-            className={`admin-tab-button ${activeTab === "blogs" ? "active" : ""}`}
+            className={`admin-tab-button ${
+              activeTab === "blogs" ? "active" : ""
+            }`}
             onClick={() => setActiveTab("blogs")}
           >
             Blogs y Comentarios
           </button>
           <button
-            className={`admin-tab-button ${activeTab === "users" ? "active" : ""}`}
+            className={`admin-tab-button ${
+              activeTab === "users" ? "active" : ""
+            }`}
             onClick={() => setActiveTab("users")}
           >
             Usuarios
@@ -209,7 +245,8 @@ const AdminProducts = () => {
                       />
                       <h4 className="admin-card-title">{item.name}</h4>
                       <p className="admin-card-info">
-                        <strong>Categoría:</strong> {item.category?.name || "Sin categoría"}
+                        <strong>Categoría:</strong>{" "}
+                        {item.category?.name || "Sin categoría"}
                       </p>
                       <p className="admin-card-info">
                         <strong>Precio:</strong> ${item.price}
@@ -250,20 +287,32 @@ const AdminProducts = () => {
                           Pedido #{order._id?.slice(-6) || order.id}
                         </h4>
                         <p className="admin-card-info">
-                          <strong>Cliente:</strong> {order.clientId?.username || order.clientId?.email || "N/A"}
+                          <strong>Cliente:</strong>{" "}
+                          {order.clientId?.username ||
+                            order.clientId?.email ||
+                            "N/A"}
                         </p>
                         <p className="admin-card-info">
                           <strong>Estado:</strong>{" "}
-                          <span className={
-                            order.status === "COMPLETADO" ? "admin-status-completed" :
-                            order.status === "PENDIENTE" ? "admin-status-pending" :
-                            order.status === "CANCELADO" ? "admin-status-cancelled" : ""
-                          }>
+                          <span
+                            className={
+                              order.status === "COMPLETADO"
+                                ? "admin-status-completed"
+                                : order.status === "PENDIENTE"
+                                ? "admin-status-pending"
+                                : order.status === "CANCELADO"
+                                ? "admin-status-cancelled"
+                                : ""
+                            }
+                          >
                             {order.status}
                           </span>
                         </p>
                         <p className="admin-card-info">
-                          <strong>Fecha:</strong> {order.createdAt ? new Date(order.createdAt).toLocaleString('es-ES') : "N/A"}
+                          <strong>Fecha:</strong>{" "}
+                          {order.createdAt
+                            ? new Date(order.createdAt).toLocaleString("es-ES")
+                            : "N/A"}
                         </p>
 
                         <div className="admin-blog-excerpt">
@@ -271,14 +320,24 @@ const AdminProducts = () => {
                           <ul className="admin-product-list">
                             {order.orderDetails?.map((detail, idx) => (
                               <li key={idx}>
-                                {detail.productId?.name || "Producto"} - Cantidad: {detail.quantity} - ${detail.total_price || (detail.quantity * (detail.productId?.price || 0))}
+                                {detail.productId?.name || "Producto"} -
+                                Cantidad: {detail.quantity} - $
+                                {detail.total_price ||
+                                  detail.quantity *
+                                    (detail.productId?.price || 0)}
                               </li>
                             ))}
                           </ul>
                         </div>
 
                         <p className="admin-card-info admin-order-total">
-                          <strong>Total:</strong> ${order.totalPrice || order.orderDetails?.reduce((acc, d) => acc + (d.total_price || 0), 0) || 0}
+                          <strong>Total:</strong> $
+                          {order.totalPrice ||
+                            order.orderDetails?.reduce(
+                              (acc, d) => acc + (d.total_price || 0),
+                              0
+                            ) ||
+                            0}
                         </p>
                       </div>
 
@@ -286,28 +345,45 @@ const AdminProducts = () => {
                         <div className="admin-button-column">
                           <button
                             className="admin-order-pending-btn"
-                            onClick={() => handleUpdateOrderStatus(order._id || order.id, "PENDIENTE")}
+                            onClick={() =>
+                              handleUpdateOrderStatus(
+                                order._id || order.id,
+                                "PENDIENTE"
+                              )
+                            }
                             disabled={order.status === "PENDIENTE"}
                           >
                             Marcar Pendiente
                           </button>
                           <button
                             className="admin-order-completed-btn"
-                            onClick={() => handleUpdateOrderStatus(order._id || order.id, "COMPLETADO")}
+                            onClick={() =>
+                              handleUpdateOrderStatus(
+                                order._id || order.id,
+                                "COMPLETADO"
+                              )
+                            }
                             disabled={order.status === "COMPLETADO"}
                           >
                             Marcar Completado
                           </button>
                           <button
                             className="admin-order-cancelled-btn"
-                            onClick={() => handleUpdateOrderStatus(order._id || order.id, "CANCELADO")}
+                            onClick={() =>
+                              handleUpdateOrderStatus(
+                                order._id || order.id,
+                                "CANCELADO"
+                              )
+                            }
                             disabled={order.status === "CANCELADO"}
                           >
                             Marcar Cancelado
                           </button>
                           <button
                             className="admin-delete-btn"
-                            onClick={() => handleDeleteOrder(order._id || order.id)}
+                            onClick={() =>
+                              handleDeleteOrder(order._id || order.id)
+                            }
                           >
                             Eliminar Pedido
                           </button>
@@ -319,7 +395,10 @@ const AdminProducts = () => {
               ))
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
-                <p>No hay pedidos para mostrar. Los pedidos se mostrarán aquí cuando el backend esté configurado.</p>
+                <p>
+                  No hay pedidos para mostrar. Los pedidos se mostrarán aquí
+                  cuando el backend esté configurado.
+                </p>
               </div>
             )}
           </div>
@@ -334,7 +413,12 @@ const AdminProducts = () => {
             {Array.isArray(blogs) && blogs.length > 0 ? (
               blogs.map((blog) => {
                 const blogComments = Array.isArray(comments)
-                  ? comments.filter(c => c.blogId === blog._id || c.blogId === blog.id || c.blogId?.title === blog.title)
+                  ? comments.filter(
+                      (c) =>
+                        c.blogId === blog._id ||
+                        c.blogId === blog.id ||
+                        c.blogId?.title === blog.title
+                    )
                   : [];
 
                 return (
@@ -345,7 +429,10 @@ const AdminProducts = () => {
                         <strong>Autor:</strong> {blog.author}
                       </p>
                       <p className="admin-card-info">
-                        <strong>Fecha:</strong> {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('es-ES') : blog.date || "N/A"}
+                        <strong>Fecha:</strong>{" "}
+                        {blog.createdAt
+                          ? new Date(blog.createdAt).toLocaleDateString("es-ES")
+                          : blog.date || "N/A"}
                       </p>
                       <p className="admin-blog-excerpt">{blog.excerpt}</p>
                       <div className="admin-button-column">
@@ -353,7 +440,8 @@ const AdminProducts = () => {
                           className="btn-golden-primary"
                           onClick={() => {
                             window.UIkit.notification({
-                              message: "Funcionalidad de edición lista para conectar con backend",
+                              message:
+                                "Funcionalidad de edición lista para conectar con backend",
                               status: "primary",
                               pos: "top-center",
                             });
@@ -375,11 +463,19 @@ const AdminProducts = () => {
                             Comentarios ({blogComments.length})
                           </h5>
                           {blogComments.map((comment) => (
-                            <div key={comment._id || comment.id} className="admin-comment-card">
+                            <div
+                              key={comment._id || comment.id}
+                              className="admin-comment-card"
+                            >
                               <div className="admin-comment-container">
                                 <div className="admin-comment-content">
                                   <p className="admin-comment-info">
-                                    <strong>{comment.author}</strong> - {comment.createdAt ? new Date(comment.createdAt).toLocaleDateString('es-ES') : "N/A"}
+                                    <strong>{comment.author}</strong> -{" "}
+                                    {comment.createdAt
+                                      ? new Date(
+                                          comment.createdAt
+                                        ).toLocaleDateString("es-ES")
+                                      : "N/A"}
                                   </p>
                                   <div className="admin-comment-text">
                                     {comment.text || comment.content}
@@ -387,7 +483,11 @@ const AdminProducts = () => {
                                 </div>
                                 <button
                                   className="admin-delete-btn admin-delete-btn-small"
-                                  onClick={() => handleDeleteComment(comment._id || comment.id)}
+                                  onClick={() =>
+                                    handleDeleteComment(
+                                      comment._id || comment.id
+                                    )
+                                  }
                                 >
                                   Eliminar
                                 </button>
@@ -402,7 +502,10 @@ const AdminProducts = () => {
               })
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
-                <p>No hay blogs para mostrar. Los blogs se mostrarán aquí cuando el backend esté configurado.</p>
+                <p>
+                  No hay blogs para mostrar. Los blogs se mostrarán aquí cuando
+                  el backend esté configurado.
+                </p>
               </div>
             )}
           </div>
@@ -424,38 +527,64 @@ const AdminProducts = () => {
                     </p>
                     <p className="admin-card-info">
                       <strong>Rol:</strong>{" "}
-                      <span className={user.roles?.some(r => r.name === "ADMIN") ? "admin-role-admin" : "admin-role-customer"}>
-                        {user.roles?.map(r => r.name).join(", ") || "N/A"}
+                      <span
+                        className={
+                          user.roles?.some((r) => r.name === "ADMIN")
+                            ? "admin-role-admin"
+                            : "admin-role-customer"
+                        }
+                      >
+                        {user.roles?.map((r) => r.name).join(", ") || "N/A"}
                       </span>
                     </p>
                     <p className="admin-card-info">
                       <strong>Estado:</strong>{" "}
-                      <span className={user.isActive ? "admin-user-active" : "admin-user-inactive"}>
+                      <span
+                        className={
+                          user.isActive
+                            ? "admin-user-active"
+                            : "admin-user-inactive"
+                        }
+                      >
                         {user.isActive ? "Activo" : "Suspendido"}
                       </span>
                     </p>
                     <p className="admin-card-info">
-                      <strong>Fecha de registro:</strong> {user.createdAt ? new Date(user.createdAt).toLocaleDateString('es-ES') : "N/A"}
+                      <strong>Fecha de registro:</strong>{" "}
+                      {user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("es-ES")
+                        : "N/A"}
                     </p>
 
                     <div className="admin-button-column">
                       <button
                         className="admin-make-admin-btn"
-                        onClick={() => handleUpdateUserRole(user._id || user.id, "ADMIN")}
-                        disabled={user.roles?.some(r => r.name === "ADMIN")}
+                        onClick={() =>
+                          handleUpdateUserRole(user._id || user.id, "ADMIN")
+                        }
+                        disabled={user.roles?.some((r) => r.name === "ADMIN")}
                       >
                         Hacer Admin
                       </button>
                       <button
                         className="admin-make-customer-btn"
-                        onClick={() => handleUpdateUserRole(user._id || user.id, "CUSTOMER")}
-                        disabled={user.roles?.some(r => r.name === "CUSTOMER") && !user.roles?.some(r => r.name === "ADMIN")}
+                        onClick={() =>
+                          handleUpdateUserRole(user._id || user.id, "CUSTOMER")
+                        }
+                        disabled={
+                          user.roles?.some((r) => r.name === "CUSTOMER") &&
+                          !user.roles?.some((r) => r.name === "ADMIN")
+                        }
                       >
                         Hacer Customer
                       </button>
                       <button
-                        className={`admin-toggle-status-btn ${user.isActive ? 'suspend' : 'activate'}`}
-                        onClick={() => handleToggleUserStatus(user._id || user.id)}
+                        className={`admin-toggle-status-btn ${
+                          user.isActive ? "suspend" : "activate"
+                        }`}
+                        onClick={() =>
+                          handleToggleUserStatus(user._id || user.id)
+                        }
                       >
                         {user.isActive ? "Suspender" : "Activar"}
                       </button>
@@ -471,7 +600,10 @@ const AdminProducts = () => {
               ))
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
-                <p>No hay usuarios para mostrar. Los usuarios se mostrarán aquí cuando el backend esté configurado.</p>
+                <p>
+                  No hay usuarios para mostrar. Los usuarios se mostrarán aquí
+                  cuando el backend esté configurado.
+                </p>
               </div>
             )}
           </div>
@@ -510,9 +642,7 @@ const AdminProducts = () => {
               Confirmación
             </h2>
 
-            <p className="admin-confirm-message">
-              {confirmModal.message}
-            </p>
+            <p className="admin-confirm-message">{confirmModal.message}</p>
 
             <div className="uk-flex uk-flex-between uk-flex-middle">
               <button

@@ -265,7 +265,7 @@
 }
 
 /* ========================================
-   INPUTS NUMÉRICOS - QUITAR FLECHITAS
+   INPUTS NUMÉRICOS
    ======================================== */
 
 /* Chrome, Safari, Edge, Opera */
@@ -276,7 +276,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield !important;
   appearance: textfield !important;
 }

@@ -1,5 +1,5 @@
 /* ========================================
-   MODAL DE CAFÉ - CON MÁS ANIMACIONES
+   MODAL DE CAFÉ
    ======================================== */
 
 /* Modal específico de Coffee */
@@ -18,51 +18,6 @@
     opacity: 1;
     transform: scale(1) translateY(0);
   }
-}
-
-/* ========================================
-   BOTÓN CERRAR ESTILO SURTIENVASES
-   ======================================== */
-.coffee-modal-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-}
-
-.coffee-modal-close::before,
-.coffee-modal-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.coffee-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.coffee-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.coffee-modal-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
 }
 
 /* Contenedor de imagen animado */
@@ -86,16 +41,6 @@
   to {
     opacity: 1;
     transform: scale(1) rotate(0deg);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
   }
 }
 
@@ -350,6 +295,13 @@
 }
 
 @media (max-width: 640px) {
+  .coffee-modal-body {
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: 20px !important;
+    padding: 20px !important;
+  }
+
   .coffee-modal-image-container {
     width: 200px !important;
     height: 200px !important;

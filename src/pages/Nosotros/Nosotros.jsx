@@ -1,7 +1,7 @@
 import TeamMemberCard from "../../components/cards/TeamMemberCard/TeamMemberCard";
-import sofia from "../../assets/img/nosotros/sofia.jpg";
-import juan from "../../assets/img/nosotros/juan.jpg";
-import maria from "../../assets/img/nosotros/maria.jpg";
+import jhon from "../../assets/img/nosotros/jhon.png";
+import kale from "../../assets/img/nosotros/kale.png";
+import leon from "../../assets/img/nosotros/leon.png";
 import "./Nosotros.css";
 
 const Nosotros = () => {
@@ -28,12 +28,20 @@ const Nosotros = () => {
 
   const teamMembers = [
     {
-      name: "Sofía Martínez",
-      role: "Barista Principal & Catadora",
-      img: sofia,
+      name: "Jhon Alexander y Yamil",
+      role: "Son los baristas principales, hacedores de todos los cafes, y orgullosamente jhon es el limpia suelos de la cafeteria, tiene una tecnica especial llamada la lengua trapero",
+      img: jhon,
     },
-    { name: "Juan Rodríguez", role: "Maestro Tostador", img: juan },
-    { name: "María López", role: "Gerente General", img: maria },
+    {
+      name: "Jorge Leon",
+      role: "El mismisimo master chef de toda la cocina, carrea toda la comida, experto en creación de galletas",
+      img: leon,
+    },
+    {
+      name: "Kaleth Daniel",
+      role: "El mero gerente de toda la tienda, encargado de que todos trabajen y no se la pasen echados en el suelo",
+      img: kale,
+    },
   ];
 
   const locations = [
@@ -68,7 +76,7 @@ const Nosotros = () => {
       <div className="uk-container uk-container-large uk-padding uk-light nosotros-container">
         <div
           className="uk-text-center uk-margin-large-bottom"
-          data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+          data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
         >
           <h2 className="uk-heading-small uk-text-uppercase nosotros-title">
             <span className="uk-display-inline-block uk-padding-small nosotros-title-underline">
@@ -83,7 +91,7 @@ const Nosotros = () => {
         <div
           className="uk-grid-medium uk-child-width-1-3@m uk-child-width-1-1"
           data-uk-grid
-          data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div; delay: 150;"
+          data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div; delay: 150;"
         >
           {infoCards.map((card, index) => (
             <div key={index}>
@@ -106,14 +114,14 @@ const Nosotros = () => {
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"
-            data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
           >
             Nuestras Sedes
           </h3>
           <div
             className="uk-grid-medium uk-child-width-1-2@m uk-margin-medium-top"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-left; target: > div; delay: 200;"
+            data-uk-scrollspy="cls: uk-animation-slide-left-medium; target: > div; delay: 200;"
           >
             {locations.map((location, index) => (
               <div key={index}>
@@ -187,7 +195,7 @@ const Nosotros = () => {
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"
-            data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
           >
             Conoce al Equipo
           </h3>
@@ -197,11 +205,11 @@ const Nosotros = () => {
           <div
             className="uk-grid-small uk-child-width-1-3@m uk-margin-medium-top"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 100;"
+            data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 180;"
           >
             {teamMembers.map((member, index) => (
               <div key={index}>
-                <TeamMemberCard member={member} />
+                <TeamMemberCard member={member} index={index} />
               </div>
             ))}
           </div>
@@ -210,14 +218,14 @@ const Nosotros = () => {
         <div className="uk-margin-xlarge-top">
           <h3
             className="uk-text-center nosotros-section-title section-title"
-            data-uk-scrollspy="cls: uk-animation-fade; delay: 100"
+            data-uk-scrollspy="cls: uk-animation-slide-top-medium; delay: 100"
           >
             Nuestros Valores
           </h3>
           <div
             className="uk-grid-medium uk-child-width-1-3@m uk-text-center uk-margin-medium-top"
             data-uk-grid
-            data-uk-scrollspy="cls: uk-animation-slide-bottom; target: > div; delay: 150;"
+            data-uk-scrollspy="cls: uk-animation-slide-bottom-medium; target: > div; delay: 150;"
           >
             <div>
               <div className="uk-card uk-card-default uk-card-body uk-card-hover nosotros-value-card">

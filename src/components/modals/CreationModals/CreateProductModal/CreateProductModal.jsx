@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./FormModal.css";
-import "../../cards/cards.css";
-import { useProducts } from "../../../context/ProductsContext";
-import { productSchema } from "../../../schemas/product.schema";
+import "../FormModal.css";
+import "../../../cards/cards.css";
+import { useProducts } from "../../../../context/ProductsContext";
+import { productSchema } from "../../../../schemas/product.schema";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -42,6 +42,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
         roastLevel: product.roast_level || "",
         price: product.price || 0,
         stock: product.stock || 0,
+        enabled: product.enabled !== undefined ? product.enabled : true,
         origin: product.origin || "",
         recommendations: product.recommendations || "",
         benefits: product.benefits || [],
@@ -66,7 +67,24 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
   const handleFormSubmit = async (data) => {
     try {
-      const parsedData = { ...data };
+      const selectedCategory = categories.find(
+        (cat) => cat.name === data.category
+      );
+
+      const parsedData = {
+        name: data.name,
+        category: selectedCategory?._id || data.category,
+        image: data.image,
+        description: data.description,
+        roast_level: data.roastLevel,
+        price: data.price,
+        stock: data.stock,
+        enabled: data.enabled,
+        origin: data.origin,
+        recommendations: data.recommendations,
+        benefits: data.benefits,
+      };
+
       let success = false;
 
       if (mode === "create") {
@@ -101,7 +119,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
       >
         <h3 className="uk-modal-title">Seleccionar Categoría</h3>
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={() => setShowCategoryModal(false)}
           aria-label="Cerrar"
@@ -113,9 +131,8 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
               <li
                 key={cat._id}
                 className="uk-flex uk-flex-between uk-flex-middle"
-                style={{ cursor: "pointer" }}
                 onClick={() => {
-                  setValue("category", cat.name); // establecemos el nombre visible
+                  setValue("category", cat.name);
                   setShowCategoryModal(false);
                 }}
               >
@@ -141,7 +158,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
       >
         <h3 className="uk-modal-title">Seleccionar Imagen del Producto</h3>
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={() => setShowImageModal(false)}
           aria-label="Cerrar"
@@ -188,7 +205,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={handleClose}
           aria-label="Cerrar"
@@ -202,7 +219,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
           className="uk-form-stacked"
           onSubmit={handleSubmit(handleFormSubmit)}
         >
-          {/* Nombre */}
           <div className="uk-margin">
             <label className="uk-form-label">Nombre</label>
             <input
@@ -216,7 +232,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Categoría */}
           <div className="uk-margin">
             <label className="uk-form-label">Categoría</label>
             <div className="uk-flex">
@@ -241,7 +256,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Imagen */}
           <div className="uk-margin">
             <label className="uk-form-label">Imagen</label>
             <div className="uk-flex uk-flex-middle">
@@ -263,14 +277,8 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
               {selectedImage && (
                 <img
                   src={imagesMenu.find((src) => src.includes(selectedImage))}
-                  className="uk-margin-left"
+                  className="uk-margin-left product-preview-small"
                   alt="preview"
-                  style={{
-                    width: "60px",
-                    height: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
                 />
               )}
             </div>
@@ -279,7 +287,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Descripción */}
           <div className="uk-margin">
             <label className="uk-form-label">Descripción</label>
             <textarea
@@ -292,7 +299,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Roast Level */}
           <div className="uk-margin">
             <label className="uk-form-label">Nivel de Tostado</label>
             <input
@@ -306,7 +312,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Precio */}
           <div className="uk-margin">
             <label className="uk-form-label">Precio</label>
             <input
@@ -321,7 +326,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Stock */}
           <div className="uk-margin">
             <label className="uk-form-label">Stock</label>
             <input
@@ -337,7 +341,23 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* País de origen */}
+          <div className="uk-margin">
+            <label className="uk-flex uk-flex-middle">
+              <input
+                className="uk-checkbox uk-margin-small-right"
+                type="checkbox"
+                {...register("enabled")}
+                defaultChecked={true}
+              />
+              <span className="uk-form-label checkbox-label-no-margin">
+                Producto habilitado (visible en el menú)
+              </span>
+            </label>
+            {errors.enabled && (
+              <p className="uk-text-danger">{errors.enabled.message}</p>
+            )}
+          </div>
+
           <div className="uk-margin">
             <label className="uk-form-label">País de origen</label>
             <input
@@ -351,7 +371,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Recomendaciones */}
           <div className="uk-margin">
             <label className="uk-form-label">Recomendaciones</label>
             <textarea
@@ -364,7 +383,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Beneficios dinámicos */}
           <div className="uk-margin">
             <label className="uk-form-label">Beneficios</label>
 
@@ -381,7 +399,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
                 />
                 <button
                   type="button"
-                  className="uk-button-primary uk-button-danger"
+                  className="btn-delete-benefit"
                   onClick={() => remove(index)}
                 >
                   Eliminar
@@ -391,7 +409,7 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
 
             <button
               type="button"
-              className="uk-button-primary uk-button"
+              className="btn-add-benefit"
               onClick={() => append()}
             >
               + Añadir Beneficio
@@ -402,7 +420,6 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             )}
           </div>
 
-          {/* Errores del backend */}
           {productErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
               {productErrors.map((err, idx) => (
@@ -411,13 +428,12 @@ const CreateProductModal = ({ isOpen, onClose, mode = "create", product }) => {
             </div>
           )}
 
-          {/* Botones */}
-          <div className="uk-flex uk-flex-between uk-flex-middle">
-            <button className="uk-button uk-button-primary" type="submit">
+          <div className="uk-flex uk-flex-between uk-flex-middle uk-margin-top">
+            <button className="btn-golden-primary" type="submit">
               {isModifying ? "Guardar cambios" : "Registrar"}
             </button>
             <button
-              className="uk-button uk-button-danger"
+              className="btn-cancel-product"
               type="button"
               onClick={handleClose}
             >

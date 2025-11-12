@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
-    createProductRequest,
-    modifyProductRequest,
-    searchAllProductCategoriesRequest,
-    searchProductsRequest
+  createProductRequest,
+  modifyProductRequest,
+  searchAllProductCategoriesRequest,
+  searchProductsRequest,
 } from "../api/requests/products.request";
 
 const ProductContext = createContext();
 
 export const useProducts = () => {
   const context = useContext(ProductContext);
-  if (!context) throw new Error("useProducts must be used within an ProductsProvider");
+  if (!context)
+    throw new Error("useProducts must be used within an ProductsProvider");
   return context;
 };
 
@@ -20,7 +21,6 @@ export const ProductProvider = ({ children }) => {
   const [modifiedProducts, setModifiedProducts] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  // Refresh Products
   useEffect(() => {
     searchProducts();
     searchAllCategories();
@@ -28,7 +28,6 @@ export const ProductProvider = ({ children }) => {
     setErrors([]);
   }, [modifiedProducts]);
 
-  // Create
   const createProduct = async (productData) => {
     try {
       const res = await createProductRequest(productData);
@@ -46,7 +45,7 @@ export const ProductProvider = ({ children }) => {
   const modifyProduct = async (productId, productData) => {
     try {
       const res = await modifyProductRequest(productId, productData);
-      if (res.status === 204 && res.data) {
+      if (res.status === 200 || res.status === 204) {
         setModifiedProducts(true);
         return true;
       }
@@ -81,7 +80,7 @@ export const ProductProvider = ({ children }) => {
       setErrors([error.response.data.message]);
       return false;
     }
-  }
+  };
 
   return (
     <ProductContext.Provider
@@ -93,7 +92,7 @@ export const ProductProvider = ({ children }) => {
         modifyProduct,
         setModifiedProducts,
         searchProducts,
-        searchAllCategories
+        searchAllCategories,
       }}
     >
       {children}

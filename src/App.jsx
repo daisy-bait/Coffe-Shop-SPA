@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar/Navbar";
 import Footer from "./components/layout/Footer/Footer";
 import Home from "./pages/Home/Home";
@@ -8,12 +9,11 @@ import Blog from "./pages/Blog/Blog";
 import Nosotros from "./pages/Nosotros/Nosotros";
 import { useLogin } from "./context/LoginContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
-import { CartPopup } from "./components/layout/OrderPopUp/CartPopup";
+import { CartPopup } from "./components/features/OrderPopUp/CartPopup";
 import AdminProducts from "./pages/Admin/AdminProducts";
 import LoginModal from "./components/modals/CreationModals/LoginModal";
 import { ProtectedRoute } from "./routesControl/routes";
 import { useAuth } from "./context/AuthContext";
-import { useEffect } from "react";
 import { setupAxiosResponseInterceptors } from "./api/axios.instance";
 
 function App() {

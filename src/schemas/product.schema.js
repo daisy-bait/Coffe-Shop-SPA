@@ -28,9 +28,7 @@ export const productSchema = z.object({
         "El Nivel de Tostado debe comenzar con mayúscula y solo puede contener letras y espacios",
     }),
 
-  image: z
-    .string()
-    .optional(),
+  image: z.string().optional(),
 
   category: z
     .string({
@@ -54,6 +52,13 @@ export const productSchema = z.object({
     .min(0, { message: "El stock no puede ser negativo" })
     .max(100, { message: "El stock máximo permitido es 100" })
     .optional(),
+
+  enabled: z
+    .boolean({
+      invalid_type_error: "El campo habilitado debe ser verdadero o falso",
+    })
+    .optional()
+    .default(true),
 
   origin: z
     .string({
@@ -84,10 +89,9 @@ export const productSchema = z.object({
 
   ingredients: z
     .array(
-      z
-        .string({
-          invalid_type_error: "Cada imagen debe ser parte de una URL",
-        })
+      z.string({
+        invalid_type_error: "Cada imagen debe ser parte de una URL",
+      })
     )
     .max(1, { message: "Máximo 10 beneficios permitidos" })
     .optional(),

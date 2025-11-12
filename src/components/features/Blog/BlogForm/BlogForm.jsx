@@ -67,9 +67,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
             />
           </div>
           <div className="uk-width-1-2@s">
-            <label className="uk-form-label blog-form-label">
-              Autor
-            </label>
+            <label className="uk-form-label blog-form-label">Autor</label>
             <input
               className="uk-input blog-login-input"
               type="text"
@@ -165,7 +163,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
           <div className="uk-width-1-1">
             <button
               type="submit"
-              className="uk-button blog-button-primary uk-width-1-1"
+              className="uk-button btn-golden-primary uk-width-1-1"
             >
               <span
                 uk-icon="icon: file-edit"

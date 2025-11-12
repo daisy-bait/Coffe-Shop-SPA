@@ -46,6 +46,39 @@
   border-color: rgba(212, 167, 98, 0.5) !important;
 }
 
+/* Mensaje de login para usuarios no autenticados */
+.blog-login-message {
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  );
+  border: 2px solid rgba(212, 167, 98, 0.4);
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 40px;
+  margin-top: 80px;
+  animation: slide-up 0.6s ease;
+  transition: all 0.3s ease;
+}
+
+.blog-login-message:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 45px rgba(212, 167, 98, 0.4);
+  border-color: rgba(212, 167, 98, 0.6);
+}
+
+.blog-login-message p {
+  color: #d4a762;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .blog-form-card h3 {
   color: #d4a762 !important;
   font-weight: 700 !important;
@@ -352,51 +385,6 @@
    BOTONES DEL BLOG
    ======================================== */
 
-.blog-button-primary {
-  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  color: #2c1608 !important;
-  border-radius: 12px !important;
-  border: none !important;
-  font-weight: 700 !important;
-  padding: 12px 24px !important;
-  font-size: 1rem !important;
-  transition: all 0.3s ease !important;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(212, 167, 98, 0.4);
-}
-
-.blog-button-primary::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.4s, height 0.4s;
-  z-index: 0;
-}
-
-.blog-button-primary:hover::before {
-  width: 400px;
-  height: 400px;
-}
-
-.blog-button-primary:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(212, 167, 98, 0.6);
-  color: #2c1608 !important;
-}
-
-.blog-button-primary span {
-  position: relative;
-  z-index: 1;
-}
-
 .blog-button-secondary,
 .uk-button-primary.blog-button-comment {
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
@@ -486,60 +474,146 @@
   display: block;
 }
 
-.blog-image-modal-close {
-  position: absolute !important;
-  top: 20px !important;
-  right: 20px !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: rgba(212, 167, 98, 0.9) !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 50% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  z-index: 100 !important;
-  padding: 0 !important;
-}
-
-.blog-image-modal-close::before,
-.blog-image-modal-close::after {
-  content: "" !important;
-  position: absolute !important;
-  width: 20px !important;
-  height: 3px !important;
-  background: #2c1608 !important;
-  border-radius: 2px !important;
-}
-
-.blog-image-modal-close::before {
-  transform: rotate(45deg) !important;
-}
-
-.blog-image-modal-close::after {
-  transform: rotate(-45deg) !important;
-}
-
-.blog-image-modal-close:hover {
-  background: linear-gradient(135deg, #f5d98d, #d4a762) !important;
-  transform: rotate(90deg) scale(1.1) !important;
-  box-shadow: 0 6px 16px rgba(212, 167, 98, 0.6);
-}
-
 /* ========================================
    ANIMACIONES
    ======================================== */
 
-@keyframes slide-up {
+/* ========================================
+   ESTILOS DE ESTADO VACIO
+   ======================================== */
+.blog-empty-state {
+  padding: 70px 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 44, 44, 0.95),
+    rgba(30, 30, 30, 0.95)
+  );
+  border-radius: 20px;
+  border: 2px solid rgba(212, 167, 98, 0.3);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  animation: emptyStateSlideUp 0.8s ease-out;
+  transition: all 0.3s ease;
+}
+
+.blog-empty-state:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(212, 167, 98, 0.4);
+  border-color: rgba(212, 167, 98, 0.6);
+}
+
+@keyframes emptyStateSlideUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.blog-empty-state::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(212, 167, 98, 0.08) 0%,
+    transparent 60%
+  );
+  animation: emptyStateRotate 15s linear infinite;
+}
+
+@keyframes emptyStateRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.blog-empty-icon {
+  position: relative;
+  z-index: 2;
+  animation: emptyStateFloat 3s ease-in-out infinite;
+}
+
+@keyframes emptyStateFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.blog-empty-icon span {
+  color: #d4a762 !important;
+  filter: drop-shadow(0 6px 16px rgba(212, 167, 98, 0.5));
+  animation: emptyStatePulse 2s ease-in-out infinite;
+}
+
+@keyframes emptyStatePulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.blog-empty-title {
+  color: #d4a762;
+  margin-top: 25px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+  animation: emptyStateTitleSlide 1s ease-out 0.3s both;
+}
+
+@keyframes emptyStateTitleSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.blog-empty-message {
+  color: rgba(245, 245, 245, 0.7);
+  margin-top: 15px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
+  animation: emptyStateMessageFade 1s ease-out 0.5s both;
+}
+
+@keyframes emptyStateMessageFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -563,20 +637,5 @@
 
   .blog-image-container {
     height: 250px;
-  }
-
-  .blog-image-modal-close {
-    width: 38px !important;
-    height: 38px !important;
-  }
-
-  .blog-image-modal-close::before,
-  .blog-image-modal-close::after {
-    width: 18px !important;
-  }
-
-  .blog-button-primary {
-    padding: 10px 20px !important;
-    font-size: 0.95rem !important;
   }
 }

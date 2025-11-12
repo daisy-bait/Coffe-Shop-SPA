@@ -197,21 +197,6 @@
 }
 
 /* ========================================
-   UTILIDADES DE FLEXBOX
-   ======================================== */
-.flex-center-all {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-}
-
-.flex-column-full {
-  display: flex !important;
-  flex-direction: column !important;
-  height: 100% !important;
-}
-
-/* ========================================
    BORDES DECORATIVOS
    ======================================== */
 .border-bottom-golden {
@@ -226,121 +211,18 @@
   border: 1px solid rgba(212, 167, 98, 0.1) !important;
 }
 
-.border-left-golden {
-  border-left: 5px solid #d4a762 !important;
-}
-
-/* ========================================
-   LETTER SPACING
-   ======================================== */
-.letter-spacing-sm {
-  letter-spacing: 2px !important;
-}
-
-.letter-spacing-md {
-  letter-spacing: 3px !important;
-}
-
-/* ========================================
-   FONT WEIGHT
-   ======================================== */
-.font-light {
-  font-weight: 300 !important;
-}
-
-.font-bold {
-  font-weight: 700 !important;
-}
-
-/* ========================================
-   MÁRGENES
-   ======================================== */
-.margin-bottom-sm {
-  margin-bottom: 10px !important;
-}
-
-.margin-top-lg {
-  margin-top: 40px !important;
-}
-
-/* ========================================
-   ANCHOS
-   ======================================== */
-.width-full {
-  width: 100% !important;
-}
-
-.max-width-container {
-  max-width: 960px !important;
-}
-
-/* ========================================
-   HEIGHTS
-   ======================================== */
-.height-full {
-  height: 100% !important;
-}
-
-.min-height-card {
-  min-height: 350px !important;
-}
-
-.min-height-card-team {
-  min-height: 450px !important;
-}
-
-/* ========================================
-   Z-INDEX
-   ======================================== */
-.z-10 {
-  z-index: 10 !important;
-}
-
-/* ========================================
-   OVERFLOW
-   ======================================== */
-.overflow-hidden-rounded {
-  overflow: hidden !important;
-  border-radius: 8px !important;
-}
-
 /* ========================================
    TRANSICIONES Y ANIMACIONES
    ======================================== */
-.transition-smooth {
-  transition: var(--transition-smooth) !important;
-}
-
 .transition-default {
   transition: var(--transition-default) !important;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-  transition: transform 0.3s ease;
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
 }
 
 /* ========================================
    SOMBRAS
    ======================================== */
-.shadow-card {
-  box-shadow: var(--box-shadow-card) !important;
-}
-
 .shadow-hover {
   box-shadow: var(--box-shadow-hover) !important;
-}
-
-/* ========================================
-   BACKGROUNDS FIJOS
-   ======================================== */
-.bg-fixed {
-  background-attachment: fixed !important;
 }
 
 /* ========================================
@@ -383,13 +265,18 @@
 }
 
 /* ========================================
-   POSICIONES
+   INPUTS NUMÉRICOS
    ======================================== */
-.position-center-right {
-  max-width: 50% !important;
-  padding: 20px !important;
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
 
-.position-relative {
-  position: relative !important;
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
 }

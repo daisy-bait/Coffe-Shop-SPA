@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
-  // Register
   const signUp = async (userData) => {
     try {
       const res = await registerRequest(userData);

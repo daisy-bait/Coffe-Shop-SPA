@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import "./FormModal.css";
-import { useAuth } from "../../../context/AuthContext";
-import { userSchema, loginSchema } from "../../../schemas/user.schema";
+import "../FormModal.css";
+import { useAuth } from "../../../../context/AuthContext";
+import { userSchema, loginSchema } from "../../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -24,7 +24,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
 
   useEffect(() => {
     setErrors([]);
-  }, [isRegistering, setErrors])
+  }, [isRegistering, setErrors]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -71,7 +71,7 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          className="login-modal-close"
+          className="modal-close-golden"
           type="button"
           onClick={handleClose}
           aria-label="Cerrar"
@@ -141,7 +141,6 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
             )}
           </div>
 
-          {/* Errores del backend */}
           {authErrors?.length > 0 && (
             <div className="uk-text-danger uk-margin-small-bottom">
               {authErrors.map((err, idx) => (

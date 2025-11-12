@@ -53,15 +53,28 @@ const Navbar = () => {
                     API
                   </NavLink>
                 </div>
-                <div className="uk-navbar-item uk-light">
-                  <NavLink
-                    className="uk-text-capitalize uk-button uk-button-text uk-light"
-                    to="/menu"
-                    end
-                  >
-                    Menú
-                  </NavLink>
-                </div>
+                {isAuth && roles.includes("ADMIN") && (
+                  <div className="uk-navbar-item uk-light">
+                    <NavLink
+                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      to="/admin"
+                      end
+                    >
+                      Admin
+                    </NavLink>
+                  </div>
+                )}
+                {(!isAuth || !roles.includes("ADMIN")) && (
+                  <div className="uk-navbar-item uk-light">
+                    <NavLink
+                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      to="/menu"
+                      end
+                    >
+                      Menú
+                    </NavLink>
+                  </div>
+                )}
                 <div className="uk-navbar-item uk-light">
                   <NavLink
                     className="uk-text-capitalize uk-button uk-button-text"
@@ -95,15 +108,13 @@ const Navbar = () => {
                   <div className="uk-navbar-item uk-light">
                     {roles.includes("CUSTOMER") && (
                       <button
-                        className="uk-icon-button uk-margin-small-right"
+                        className="uk-icon-button uk-margin-small-right cart-button"
                         uk-tooltip="Ver carrito"
                         uk-icon="cart"
                         onClick={() => setIsCartOpen(true)}
                       >
                         {totalItems > 0 && (
-                          <span className="uk-badge uk-position-absolute uk-position-top-right">
-                            {totalItems}
-                          </span>
+                          <span className="cart-counter">{totalItems}</span>
                         )}
                       </button>
                     )}
@@ -148,7 +159,7 @@ const Navbar = () => {
                 >
                   <div className="uk-offcanvas-bar">
                     <button
-                      className="navbar-offcanvas-close"
+                      className="modal-close-golden"
                       type="button"
                       onClick={handleCloseOffcanvas}
                       aria-label="Cerrar menú"
@@ -158,7 +169,7 @@ const Navbar = () => {
                       className="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
                       data-uk-grid=""
                     >
-                      <div className="uk-flex-left">
+                      <div>
                         <NavLink
                           className="uk-button uk-button-secondary uk-border-rounded"
                           to="/api"
@@ -167,16 +178,29 @@ const Navbar = () => {
                           <strong>API</strong>
                         </NavLink>
                       </div>
-                      <div className="uk-flex-left uk-margin-small-left">
-                        <NavLink
-                          className="uk-text-capitalize uk-button uk-button-text uk-light"
-                          to="/menu"
-                          end
-                        >
-                          Menú
-                        </NavLink>
-                      </div>
-                      <div className="uk-flex-left uk-margin-small-left">
+                      {isAuth && roles.includes("ADMIN") && (
+                        <div>
+                          <NavLink
+                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            to="/admin"
+                            end
+                          >
+                            Admin
+                          </NavLink>
+                        </div>
+                      )}
+                      {(!isAuth || !roles.includes("ADMIN")) && (
+                        <div>
+                          <NavLink
+                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            to="/menu"
+                            end
+                          >
+                            Menú
+                          </NavLink>
+                        </div>
+                      )}
+                      <div>
                         <NavLink
                           className="uk-text-capitalize uk-button uk-button-text"
                           to="/suggest"
@@ -185,7 +209,7 @@ const Navbar = () => {
                           Recomendado
                         </NavLink>
                       </div>
-                      <div className="uk-flex-left uk-margin-small-left">
+                      <div>
                         <NavLink
                           className="uk-text-capitalize uk-button uk-button-text uk-light"
                           to="/blog"
@@ -194,7 +218,7 @@ const Navbar = () => {
                           Blog
                         </NavLink>
                       </div>
-                      <div className="uk-flex-left uk-margin-small-left">
+                      <div>
                         <NavLink
                           className="uk-text-capitalize uk-button uk-button-text uk-light"
                           to="/about"
@@ -204,6 +228,19 @@ const Navbar = () => {
                         </NavLink>
                       </div>
                       <hr className="uk-divider-icon" />
+                      {isAuth && roles.includes("CUSTOMER") && (
+                        <div className="uk-light">
+                          <button
+                            className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
+                            onClick={() => {
+                              setIsCartOpen(true);
+                              handleCloseOffcanvas();
+                            }}
+                          >
+                            Ver Carrito {totalItems > 0 && `(${totalItems})`}
+                          </button>
+                        </div>
+                      )}
                       {isAuth ? (
                         <div className="uk-light">
                           <button

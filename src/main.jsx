@@ -6,6 +6,7 @@ import { ProductProvider } from "./context/ProductsContext";
 import { OrdersProvider } from "./context/OrdersContext";
 import App from "./App.jsx";
 import "./assets/styles/global/index.css";
+import { BlogProvider } from "./context/BlogsContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ProductProvider>
           <OrdersProvider>
-            <App />
+            <BlogProvider>
+              <App />
+            </BlogProvider>
           </OrdersProvider>
         </ProductProvider>
       </AuthProvider>

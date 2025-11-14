@@ -64,8 +64,7 @@ export const ProductProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response.data.message]);
-      return false;
+      setErrors([error.response?.data?.message || "Error al cargar los productos"]);
     }
   };
 

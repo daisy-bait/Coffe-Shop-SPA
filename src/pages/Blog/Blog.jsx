@@ -1,32 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useBlogs } from "../../context/BlogsContext";
-import LoginModal from "../../components/modals/CreationModals/LoginModal/LoginModal";
 import BlogForm from "../../components/features/Blog/BlogForm/BlogForm";
 import BlogPostCard from "../../components/features/Blog/BlogPostCard/BlogPostCard";
 import CommentSection from "../../components/features/Blog/CommentSection/CommentSection";
 import avatarDefault from "../../assets/img/avatars/default.jpg";
 import blogDefault from "../../assets/img/blog/blogDefault.jpg";
 import "./Blog.css";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { blogSchema } from "../../schemas/blog.schema";
 
 const Blog = () => {
-  const { currentUser, login, isAuth, user } = useAuth();
-  const { blogs, createBlog, createComment, fetchCommentsByBlog } = useBlogs();
-  const [modalOpen, setModalOpen] = useState(false);
+  const { currentUser, isAuth, user } = useAuth();
+  const {
+    blogs,
+    errors: serverErrors,
+    setErrors: setServerErrors,
+    createBlog,
+    createComment,
+    fetchCommentsByBlog,
+  } = useBlogs();
   const [visibleComments, setVisibleComments] = useState({});
   const [commentInputs, setCommentInputs] = useState({});
   const [commentsByBlog, setCommentsByBlog] = useState({});
-  const [newBlog, setNewBlog] = useState({
-    title: "",
-    author: "",
-    excerpt: "",
-    image: null,
+
+  console.log("Blogs:", blogs);
+
+  const [newImage, setNewImage] = useState({
+    source: null,
   });
 
-  const handleLogin = (username) => {
-    login(username);
-    setModalOpen(false);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(blogSchema),
+  });
+
+  useEffect(() => {
+    reset({
+      title: "",
+      content: "",
+      enabled: true,
+    });
+  }, [reset]);
+
+  useEffect(() => {
+    if (serverErrors && serverErrors.length > 0) {
+      serverErrors.forEach((error) => {
+        if (window.UIkit)
+          window.UIkit.notification({
+            message: "Error en el Servidor: " + error,
+            status: "danger",
+            pos: "top-center",
+          });
+      });
+      setServerErrors([]);
+    }
+  }, [serverErrors, setServerErrors]);
 
   const toggleComments = async (blogId) => {
     const isVisible = !visibleComments[blogId];
@@ -52,7 +86,6 @@ const Blog = () => {
           status: "warning",
           pos: "top-center",
         });
-      setModalOpen(true);
       return;
     }
 
@@ -76,35 +109,33 @@ const Blog = () => {
     }
   };
 
-  const handleBlogSubmit = async (e) => {
-    e.preventDefault();
-    if (!isAuth) {
-      if (window.UIkit)
-        window.UIkit.notification({
-          message: "Debes iniciar sesión para publicar un blog.",
-          status: "warning",
-          pos: "top-center",
-        });
-      setModalOpen(true);
-      return;
-    }
+  const handleBlogSubmit = async (data) => {
+    try {
+      const parsedData = {
+        title: data.title,
+        content: data.content,
+        userId: user._id,
+      };
 
-    const blogData = {
-      title: newBlog.title,
-      author: user?.username || currentUser || "Usuario",
-      excerpt: newBlog.excerpt,
-      imageUrl: newBlog.image || blogDefault,
-    };
+      if (newImage.source) {
+        parsedData.image = {
+          source: newImage.source,
+        };
+      }
 
-    const success = await createBlog(blogData);
-    if (success) {
-      setNewBlog({ title: "", author: "", excerpt: "", image: null });
-      if (window.UIkit)
-        window.UIkit.notification({
-          message: "Blog publicado exitosamente.",
-          status: "success",
-          pos: "top-center",
-        });
+      const success = await createBlog(parsedData);
+      if (success) {
+        reset();
+        setNewImage({ source: null });
+        if (window.UIkit)
+          window.UIkit.notification({
+            message: "Blog publicado exitosamente.",
+            status: "success",
+            pos: "top-center",
+          });
+      }
+    } catch (error) {
+      console.error("Error al validar los datos del blog:", error);
     }
   };
 
@@ -114,9 +145,11 @@ const Blog = () => {
         <div className="blog-form-wrapper">
           {isAuth ? (
             <BlogForm
-              newBlog={newBlog}
-              setNewBlog={setNewBlog}
-              onSubmit={handleBlogSubmit}
+              newImage={newImage}
+              setNewImage={setNewImage}
+              errors={errors}
+              register={register}
+              onSubmit={handleSubmit(handleBlogSubmit)}
             />
           ) : (
             <div className="blog-login-message">
@@ -127,7 +160,8 @@ const Blog = () => {
 
         {Array.isArray(blogs) && blogs.length > 0 ? (
           <div
-            className="uk-child-width-1-2@s"
+            className="uk-child-width-1-2@s uk-grid-match uk-margin-top"
+            uk-grid="true"
             data-uk-grid="masonry: pack"
             data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 200; repeat: true"
           >
@@ -137,7 +171,7 @@ const Blog = () => {
                   blog={{
                     ...blog,
                     id: blog._id || blog.id,
-                    imageUrl: blog.imageUrl || blog.image || blogDefault,
+                    imageUrl: blog.image ? blog.image.source : blogDefault,
                     avatarUrl: avatarDefault,
                   }}
                   onToggleComments={() => toggleComments(blog._id || blog.id)}
@@ -145,7 +179,7 @@ const Blog = () => {
                     visibleComments[blog._id || blog.id] || false
                   }
                 >
-                  <CommentSection
+                  {/**<CommentSection
                     currentUser={user?.username || currentUser}
                     commentInput={commentInputs[blog._id || blog.id] || ""}
                     onCommentChange={(value) =>
@@ -155,7 +189,7 @@ const Blog = () => {
                       handleCommentSubmit(blog._id || blog.id)
                     }
                     comments={commentsByBlog[blog._id || blog.id] || []}
-                  />
+                  />**/}
                 </BlogPostCard>
               </div>
             ))}
@@ -176,11 +210,6 @@ const Blog = () => {
           </div>
         )}
       </div>
-      <LoginModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onLogin={handleLogin}
-      />
     </div>
   );
 };

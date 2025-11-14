@@ -3,11 +3,10 @@ import axiosInstance from "../axios.instance";
 export const createBlogRequest = async (blog) =>
   axiosInstance.post("/blogs/create", blog);
 
-export const getAllBlogsRequest = async () =>
-  axiosInstance.get("/blogs/search");
+export const searchBlogsRequest = async (requestParams) =>
+  axiosInstance.get("/blogs/search", { params: requestParams });
 
-export const getBlogRequest = async (blogId) =>
-  axiosInstance.get(`/blogs/${blogId}`);
+//
 
 export const updateBlogRequest = async (blogId, blog) =>
   axiosInstance.put(`/blogs/update/${blogId}`, blog);

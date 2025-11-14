@@ -11,7 +11,7 @@ import { useLogin } from "./context/LoginContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { CartPopup } from "./components/features/OrderPopUp/CartPopup";
 import AdminProducts from "./pages/Admin/AdminProducts";
-import LoginModal from "./components/modals/CreationModals/LoginModal";
+import LoginModal from "./components/modals/CreationModals/LoginModal/LoginModal";
 import { ProtectedRoute } from "./routesControl/routes";
 import { useAuth } from "./context/AuthContext";
 import { setupAxiosResponseInterceptors } from "./api/axios.instance";
@@ -36,7 +36,7 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/about" element={<Nosotros />} />
         <Route element={<ProtectedRoute requiredRoles={["ADMIN"]} />}>
-          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin" element={<AdminProducts />} />
         </Route>
       </Routes>
       <Footer />

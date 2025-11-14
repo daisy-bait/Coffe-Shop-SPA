@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
+const BlogForm = ({ newImage, setNewImage, errors, register, onSubmit }) => {
   const [dragOver, setDragOver] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -33,15 +32,13 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageUrl = e.target.result;
-      setImagePreview(imageUrl);
-      setNewBlog({ ...newBlog, image: imageUrl });
+      setNewImage({ ...newImage, source: imageUrl });
     };
     reader.readAsDataURL(file);
   };
 
   const removeImage = () => {
-    setImagePreview(null);
-    setNewBlog({ ...newBlog, image: null });
+    setNewImage({ ...newImage, source: null });
     const fileInput = document.getElementById("blog-file-input");
     if (fileInput) fileInput.value = "";
   };
@@ -51,48 +48,34 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
       <h3 className="uk-card-title">Agregar nuevo blog</h3>
       <form onSubmit={onSubmit}>
         <div className="uk-grid-small" data-uk-grid>
-          <div className="uk-width-1-2@s">
+          <div className="uk-width-1-1">
             <label className="uk-form-label blog-form-label">
               Título del blog
             </label>
             <input
               className="uk-input blog-login-input"
               type="text"
+              {...register("title")}
               placeholder="Título del blog"
-              value={newBlog.title}
-              onChange={(e) =>
-                setNewBlog({ ...newBlog, title: e.target.value })
-              }
-              required
             />
+            {errors.title && (
+              <p className="uk-text-danger">{errors.title.message}</p>
+            )}
           </div>
-          <div className="uk-width-1-2@s">
-            <label className="uk-form-label blog-form-label">Autor</label>
-            <input
-              className="uk-input blog-login-input"
-              type="text"
-              placeholder="Autor"
-              value={newBlog.author}
-              onChange={(e) =>
-                setNewBlog({ ...newBlog, author: e.target.value })
-              }
-              required
-            />
-          </div>
+
           <div className="uk-width-1-1">
             <label className="uk-form-label blog-form-label">
-              Resumen o introducción
+              Resumen o Introducción
             </label>
             <textarea
               className="uk-textarea blog-login-input"
               rows="3"
+              {...register("content")}
               placeholder="Resumen o introducción"
-              value={newBlog.excerpt}
-              onChange={(e) =>
-                setNewBlog({ ...newBlog, excerpt: e.target.value })
-              }
-              required
             ></textarea>
+            {errors.content && (
+              <p className="uk-text-danger">{errors.content.message}</p>
+            )}
           </div>
 
           <div className="uk-width-1-1">
@@ -100,7 +83,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
               Imagen del Artículo
             </label>
             <div className="blog-uploader">
-              {!imagePreview ? (
+              {!newImage.source ? (
                 <div
                   className={`blog-upload-zone ${dragOver ? "drag-over" : ""}`}
                   onDragOver={handleDragOver}
@@ -138,7 +121,7 @@ const BlogForm = ({ newBlog, setNewBlog, onSubmit }) => {
               ) : (
                 <div className="blog-preview-image-container">
                   <img
-                    src={imagePreview}
+                    src={newImage.source}
                     alt="Preview"
                     className="blog-preview-img"
                   />

@@ -26,30 +26,35 @@ const BlogPostCard = ({
           onClick={handleImageClick}
         >
           <img src={blog.imageUrl} alt={blog.title} />
-          <div className="blog-image-overlay">
-            <span data-uk-icon="icon: eye; ratio: 2.5"></span>
-          </div>
         </div>
 
-        <div className="uk-card-body">
-          <h3 className="uk-card-title">{blog.title}</h3>
-          <p>{blog.excerpt}</p>
-          <div className="uk-flex uk-flex-middle uk-margin-small-top">
-            <img
-              src={blog.avatarUrl}
-              alt={blog.author}
-              className="uk-border-circle"
-              width="40"
-              height="40"
-            />
-            <span className="uk-margin-small-left">{blog.author}</span>
+        <div
+          className="uk-card-body uk-child-width-1-1"
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <h3 className="uk-card-title uk-flex-row blog-title">{blog.title}</h3>
+          <div className="uk-child-width-1-1 uk-margin-small-top">
+            <div className="uk-flex uk-flex-middle">
+              <img
+                src={blog.avatarUrl}
+                alt={blog.author}
+                className="uk-border-circle"
+                width="40"
+                height="40"
+              />
+              <span className="uk-margin-small-left">{blog.user.username}</span>
+            </div>
+            <button
+              className="uk-button blog-button-secondary uk-margin-small-top blog-container-round"
+              onClick={onToggleComments}
+            >
+              {isCommentsVisible ? "Cerrar comentarios" : "Ver comentarios"}
+            </button>
           </div>
-          <button
-            className="uk-button blog-button-secondary uk-margin-small-top blog-container-round"
-            onClick={onToggleComments}
-          >
-            {isCommentsVisible ? "Cerrar comentarios" : "Ver comentarios"}
-          </button>
           {isCommentsVisible && children}
         </div>
       </div>

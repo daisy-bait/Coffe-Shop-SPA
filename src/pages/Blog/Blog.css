@@ -97,7 +97,6 @@
   background-color: rgba(255, 255, 255, 0.05) !important;
   padding: 10px !important;
   border: 2px solid rgba(212, 167, 98, 0.3) !important;
-  transition: all 0.3s ease !important;
 }
 
 .blog-login-input::placeholder {

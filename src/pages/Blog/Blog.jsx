@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useBlogs } from "../../context/BlogsContext";
 import BlogForm from "../../components/features/Blog/BlogForm/BlogForm";
 import BlogPostCard from "../../components/features/Blog/BlogPostCard/BlogPostCard";
-import CommentSection from "../../components/features/Blog/CommentSection/CommentSection";
+import BlogSection from "../../components/modals/BlogSection/BlogSection";
 import avatarDefault from "../../assets/img/avatars/default.jpg";
 import blogDefault from "../../assets/img/blog/blogDefault.jpg";
 import "./Blog.css";
@@ -12,24 +12,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { blogSchema } from "../../schemas/blog.schema";
 
 const Blog = () => {
-  const { currentUser, isAuth, user } = useAuth();
+  const { user, isAuth } = useAuth();
   const {
     blogs,
     errors: serverErrors,
     setErrors: setServerErrors,
     createBlog,
-    createComment,
-    fetchCommentsByBlog,
   } = useBlogs();
-  const [visibleComments, setVisibleComments] = useState({});
-  const [commentInputs, setCommentInputs] = useState({});
-  const [commentsByBlog, setCommentsByBlog] = useState({});
-
-  console.log("Blogs:", blogs);
 
   const [newImage, setNewImage] = useState({
     source: null,
   });
+
+  const [showBlogSection, setShowBlogSection] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState(null);
+
+  const handleOpenInfoBlog = (blog) => {
+    setSelectedBlog(blog);
+    setShowBlogSection(true);
+    const offcanvas = document.getElementById("burger-menu");
+    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
+  };
 
   const {
     register,
@@ -61,53 +64,6 @@ const Blog = () => {
       setServerErrors([]);
     }
   }, [serverErrors, setServerErrors]);
-
-  const toggleComments = async (blogId) => {
-    const isVisible = !visibleComments[blogId];
-    setVisibleComments((prev) => ({ ...prev, [blogId]: isVisible }));
-
-    if (isVisible && !commentsByBlog[blogId]) {
-      const comments = await fetchCommentsByBlog(blogId);
-      if (comments) {
-        setCommentsByBlog((prev) => ({ ...prev, [blogId]: comments }));
-      }
-    }
-  };
-
-  const handleCommentChange = (id, value) => {
-    setCommentInputs((prev) => ({ ...prev, [id]: value }));
-  };
-
-  const handleCommentSubmit = async (blogId) => {
-    if (!isAuth) {
-      if (window.UIkit)
-        window.UIkit.notification({
-          message: "Debes iniciar sesión para comentar.",
-          status: "warning",
-          pos: "top-center",
-        });
-      return;
-    }
-
-    const commentData = {
-      text: commentInputs[blogId],
-      author: user?.username || currentUser || "Usuario",
-      blogId: blogId,
-    };
-
-    const success = await createComment(commentData);
-    if (success) {
-      const updatedComments = await fetchCommentsByBlog(blogId);
-      setCommentsByBlog((prev) => ({ ...prev, [blogId]: updatedComments }));
-      setCommentInputs((prev) => ({ ...prev, [blogId]: "" }));
-      if (window.UIkit)
-        window.UIkit.notification({
-          message: "Comentario publicado.",
-          status: "success",
-          pos: "top-center",
-        });
-    }
-  };
 
   const handleBlogSubmit = async (data) => {
     try {
@@ -166,31 +122,16 @@ const Blog = () => {
             data-uk-scrollspy="cls: uk-animation-scale-up; target: > div; delay: 200; repeat: true"
           >
             {blogs.map((blog) => (
-              <div key={blog._id || blog.id}>
+              <div key={blog._id}>
                 <BlogPostCard
                   blog={{
                     ...blog,
-                    id: blog._id || blog.id,
+                    id: blog._id,
                     imageUrl: blog.image ? blog.image.source : blogDefault,
                     avatarUrl: avatarDefault,
                   }}
-                  onToggleComments={() => toggleComments(blog._id || blog.id)}
-                  isCommentsVisible={
-                    visibleComments[blog._id || blog.id] || false
-                  }
-                >
-                  {/**<CommentSection
-                    currentUser={user?.username || currentUser}
-                    commentInput={commentInputs[blog._id || blog.id] || ""}
-                    onCommentChange={(value) =>
-                      handleCommentChange(blog._id || blog.id, value)
-                    }
-                    onCommentSubmit={() =>
-                      handleCommentSubmit(blog._id || blog.id)
-                    }
-                    comments={commentsByBlog[blog._id || blog.id] || []}
-                  />**/}
-                </BlogPostCard>
+                  onToggleBlogInfo={() => handleOpenInfoBlog(blog)}
+                />
               </div>
             ))}
           </div>
@@ -210,6 +151,16 @@ const Blog = () => {
           </div>
         )}
       </div>
+      {selectedBlog && (
+        <BlogSection
+          blog={selectedBlog}
+          isOpen={showBlogSection}
+          onClose={() => {
+            setSelectedBlog(null);
+            setShowBlogSection(false);
+          }}
+        />
+      )}
     </div>
   );
 };

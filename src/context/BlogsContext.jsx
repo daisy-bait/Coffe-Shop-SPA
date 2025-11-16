@@ -91,6 +91,7 @@ export const BlogProvider = ({ children }) => {
         blogs,
         comments,
         errors,
+        modifiedBlogs,
         setErrors,
         setModifiedBlogs,
         createBlog,

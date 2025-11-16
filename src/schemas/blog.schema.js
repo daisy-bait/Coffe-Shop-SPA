@@ -12,7 +12,7 @@ export const blogSchema = z.object({
     }),
   content: z
     .string({
-      required_error: "El nombre es obligatorio",
+      required_error: "El contenido de tu blog es obligatorio",
     })
     .min(10, { message: "Debe tener al menos 10 caracteres" })
     .max(10000, { message: "No debe superar los 2000 caracteres" })

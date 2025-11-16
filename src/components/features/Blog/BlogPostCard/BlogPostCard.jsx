@@ -1,11 +1,6 @@
 import "./BlogPostCard.css";
 
-const BlogPostCard = ({
-  blog,
-  onToggleComments,
-  isCommentsVisible,
-  children,
-}) => {
+const BlogPostCard = ({ blog, onToggleBlogInfo }) => {
   const handleImageClick = (e) => {
     e.stopPropagation();
     const modalElement = document.getElementById(
@@ -50,12 +45,11 @@ const BlogPostCard = ({
             </div>
             <button
               className="uk-button blog-button-secondary uk-margin-small-top blog-container-round"
-              onClick={onToggleComments}
+              onClick={onToggleBlogInfo}
             >
-              {isCommentsVisible ? "Cerrar comentarios" : "Ver comentarios"}
+              Ver Blog
             </button>
           </div>
-          {isCommentsVisible && children}
         </div>
       </div>
 

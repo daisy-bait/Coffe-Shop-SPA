@@ -10,8 +10,6 @@ const CoffeeModal = ({ isOpen, onClose, item }) => {
 
   if (!item) return null;
 
-  console.log(item);
-
   const handleClose = () => onClose();
 
   const handleBackdropClick = (e) => {

@@ -98,22 +98,6 @@ const Blog = () => {
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
-        <div className="blog-form-wrapper">
-          {isAuth ? (
-            <BlogForm
-              newImage={newImage}
-              setNewImage={setNewImage}
-              errors={errors}
-              register={register}
-              onSubmit={handleSubmit(handleBlogSubmit)}
-            />
-          ) : (
-            <div className="blog-login-message">
-              <p>Inicia sesión para publicar tu propio blog</p>
-            </div>
-          )}
-        </div>
-
         {Array.isArray(blogs) && blogs.length > 0 ? (
           <div
             className="uk-child-width-1-2@s uk-grid-match uk-margin-top"
@@ -150,6 +134,22 @@ const Blog = () => {
             </div>
           </div>
         )}
+
+        <div className="blog-form-wrapper">
+          {isAuth ? (
+            <BlogForm
+              newImage={newImage}
+              setNewImage={setNewImage}
+              errors={errors}
+              register={register}
+              onSubmit={handleSubmit(handleBlogSubmit)}
+            />
+          ) : (
+            <div className="blog-login-message">
+              <p>Inicia sesión para publicar tu propio blog</p>
+            </div>
+          )}
+        </div>
       </div>
       {selectedBlog && (
         <BlogSection

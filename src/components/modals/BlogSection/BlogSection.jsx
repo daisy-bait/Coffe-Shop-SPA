@@ -7,6 +7,7 @@ import { commentSchema } from "../../../schemas/comment.schema";
 import { useAuth } from "../../../context/AuthContext";
 import "../modals.css";
 import { timeAgo } from "../../../assets/scripts/timeAgo";
+import blogDefault from "../../../assets/img/blog/blogDefault.jpg";
 
 const BlogSection = ({ isOpen, blog, onClose }) => {
   const { user, isAuth, roles } = useAuth();
@@ -18,7 +19,7 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
     setModifiedBlogs,
   } = useBlogs();
 
-  console.log(comments);
+  console.log(blog);
 
   const {
     register,
@@ -56,7 +57,7 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
         reset();
         if (window.UIkit)
           window.UIkit.notification({
-            message: "Blog publicado exitosamente.",
+            message: "Comentario publicado exitosamente.",
             status: "success",
             pos: "top-center",
           });
@@ -83,9 +84,10 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
         isOpen ? "uk-open visible" : "hidden"
       }`}
       onClick={handleBackdropClick}
+      uk-modal="true"
     >
       <div
-        className="uk-modal-dialog uk-modal-body uk-light uk-margin-large-top coffee-modal-body"
+        className="uk-modal-dialog uk-modal-body uk-light coffee-modal-body"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -93,72 +95,101 @@ const BlogSection = ({ isOpen, blog, onClose }) => {
           type="button"
           onClick={handleClose}
         ></button>
-        <div className="uk-margin-top">
-          {isAuth && roles.includes("CUSTOMER") && (
-            <form onSubmit={handleSubmit(handleCommentSubmit)}>
-              <div className="uk-flex uk-flex-middle">
-                <img
-                  src={avatarDefault}
-                  width="40"
-                  height="40"
-                  className="uk-border-circle"
-                  alt="Usuario"
-                />
-                <span className="uk-comment-title uk-margin-left blog-user-text">
-                  {user.username || "Invitado"}
+        <div className="modal-scrollable">
+          <div className="uk-margin-top">
+            <div className="uk-text-center uk-margin-large-bottom">
+              <h2 className="uk-heading-small uk-text-uppercase menu-header-title">
+                <span className="uk-display-inline-block uk-padding-small menu-header-underline">
+                  {blog.title}
                 </span>
-              </div>
-              <textarea
-                className="uk-textarea uk-margin-top blog-login-input"
-                rows="3"
-                {...register("content")}
-                placeholder="Escribe tu comentario..."
-              ></textarea>
-              {errors.content && (
-                <p className="uk-text-danger">{errors.content.message}</p>
-              )}
-              <button
-                className={"uk-button uk-button-primary blog-button-comment".concat(!errors.content ? " uk-margin-top" : "")}
-                type="submit"
-              >
-                Comentar
-              </button>
-            </form>
-          )}
-          {Array.isArray(comments) && comments.length > 0 ? (
-            <>
-              {comments.map((comment, index) => (
-                <article className="uk-comment uk-margin-top" key={index}>
-                  <header className="uk-comment-header uk-margin-remove uk-flex uk-flex-middle">
-                    <img
-                      className="uk-comment-avatar uk-border-circle"
-                      src={avatarDefault}
-                      width="40"
-                      height="40"
-                      alt={comment.user.username}
-                    />
-                    <div className="uk-margin-small-left">
-                      <h4 className="uk-comment-title uk-margin-remove">
-                        {comment.user.username}
-                      </h4>
-                      <ul className="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-                        <li>
-                          <span className="uk-text-capitalize">{timeAgo(comment.updatedAt)}</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </header>
-                  <div className="uk-comment-body uk-margin-medium-left">
-                    <p className="uk-margin-small-left">{comment.content}</p>
-                  </div>
-                </article>
-              ))}
-            </>
-          ) : (
-            <div className="uk-text-center uk-margin-large-top uk-margin-large-bottom">
-              No hay comentarios para mostrar
+              </h2>
             </div>
-          )}
+            <p className="blog-content">{blog.content}</p>
+            <p className="uk-text-lead menu-header-subtitle">
+              Autor: {blog.user.username}
+            </p>
+            <p className="uk-text-lead menu-header-subtitle">
+              {timeAgo(blog.updatedAt)}
+            </p>
+            <div className="blog-preview-image-container">
+              <img
+                src={blog.image ? blog.image.source : blogDefault}
+                alt="Preview"
+                className="blog-preview-img"
+              />
+            </div>
+            <hr />
+            <h3>Comentarios</h3>
+            {isAuth && roles.includes("CUSTOMER") && (
+              <form onSubmit={handleSubmit(handleCommentSubmit)}>
+                <div className="uk-flex uk-flex-middle">
+                  <img
+                    src={avatarDefault}
+                    width="40"
+                    height="40"
+                    className="uk-border-circle"
+                    alt="Usuario"
+                  />
+                  <span className="uk-comment-title uk-margin-left blog-user-text">
+                    {user.username || "Invitado"}
+                  </span>
+                </div>
+                <textarea
+                  className="uk-textarea uk-margin-top blog-login-input"
+                  rows="3"
+                  {...register("content")}
+                  placeholder="Escribe tu comentario..."
+                ></textarea>
+                {errors.content && (
+                  <p className="uk-text-danger">{errors.content.message}</p>
+                )}
+                <button
+                  className={"uk-button uk-button-primary blog-button-comment".concat(
+                    !errors.content ? " uk-margin-top" : ""
+                  )}
+                  type="submit"
+                >
+                  Comentar
+                </button>
+              </form>
+            )}
+            {Array.isArray(comments) && comments.length > 0 ? (
+              <>
+                {comments.map((comment, index) => (
+                  <article className="uk-comment uk-margin-top" key={index}>
+                    <header className="uk-comment-header uk-margin-remove uk-flex uk-flex-middle">
+                      <img
+                        className="uk-comment-avatar uk-border-circle"
+                        src={avatarDefault}
+                        width="40"
+                        height="40"
+                        alt={comment.user.username}
+                      />
+                      <div className="uk-margin-small-left">
+                        <h4 className="uk-comment-title uk-margin-remove">
+                          {comment.user.username}
+                        </h4>
+                        <ul className="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
+                          <li>
+                            <span className="uk-text-capitalize">
+                              {timeAgo(comment.updatedAt)}
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </header>
+                    <div className="uk-comment-body uk-margin-medium-left">
+                      <p className="uk-margin-small-left">{comment.content}</p>
+                    </div>
+                  </article>
+                ))}
+              </>
+            ) : (
+              <div className="uk-text-center uk-margin-large-top uk-margin-large-bottom">
+                No hay comentarios para mostrar
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

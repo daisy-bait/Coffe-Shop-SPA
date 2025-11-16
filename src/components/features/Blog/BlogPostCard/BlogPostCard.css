@@ -18,9 +18,13 @@
 
 .blog-title {
   display: -webkit-box;
-  -webkit-line-clamp: 2; 
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   min-height: 68px;
+}
+
+.blog-content {
+  white-space: pre-line;
 }

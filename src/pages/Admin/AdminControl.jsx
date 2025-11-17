@@ -8,7 +8,6 @@ import ProductSearchForm from "../../components/features/ProductSearchForm/Produ
 import "./Admin.css";
 
 const AdminControl = () => {
-  const { products, setModifiedProducts } = useProducts();
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
   const {
     users,
@@ -42,6 +41,10 @@ const AdminControl = () => {
     setShowModal(true);
   };
 
+  // PRODUCTOS
+
+  const { products, modifyProductStatus, setModifiedProducts } = useProducts();
+
   const handleCreateClick = () => {
     setSelectedProduct(null);
     setModalMode("create");
@@ -67,9 +70,7 @@ const AdminControl = () => {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     const success = await modifyOrderStatus(orderId, newStatus);
-    if (newStatus === "CANCELADA") {
-      setModifiedProducts(true);
-    }
+    setModifiedProducts(true);
     if (success && window.UIkit) {
       window.UIkit.notification({
         message: `Estado actualizado a ${newStatus}`,
@@ -208,7 +209,7 @@ const AdminControl = () => {
         {activeTab === "products" && (
           <>
             <div className="uk-margin-medium-bottom">
-              <ProductSearchForm />
+              <ProductSearchForm enabled={null} />
             </div>
 
             <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
@@ -240,7 +241,7 @@ const AdminControl = () => {
                         {item.category?.name || "Sin categoría"}
                       </p>
                       <p className="admin-card-info">
-                        <strong>Precio:</strong> ${item.price}
+                        <strong>Precio:</strong> $ {item.price.toLocaleString("es-CO")}
                       </p>
                       <p className="admin-card-info">
                         <strong>Stock:</strong> {item.stock}
@@ -255,6 +256,18 @@ const AdminControl = () => {
                       >
                         Modificar
                       </button>
+                      <div className="uk-margin-small-top uk-width-1-1">
+                        <div className="admin-button-column">
+                          <button
+                            className={`${!item.enabled ? 'admin-order-completed-btn' : 'admin-order-cancelled-btn'}`}
+                            onClick={() =>
+                            modifyProductStatus(item._id, item.enabled ? false : true)
+                            }
+                          >
+                            {!item.enabled ? 'Activar Producto' : 'Desactivar Producto'}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -298,7 +311,8 @@ const AdminControl = () => {
                         </p>
                         <p className="admin-card-info">
                           <strong>Creada:</strong>{" "}
-                          {new Date(order.createdAt).toLocaleString("es-ES")}<br />
+                          {new Date(order.createdAt).toLocaleString("es-ES")}
+                          <br />
                           <strong>Modificada:</strong>{" "}
                           {new Date(order.updatedAt).toLocaleString("es-ES")}
                         </p>

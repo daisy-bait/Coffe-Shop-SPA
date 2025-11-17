@@ -57,11 +57,11 @@ const Navbar = () => {
               <div className="uk-navbar-center uk-visible@l">
                 <div className="uk-navbar-item uk-dark">
                   <NavLink
-                    className="uk-button uk-button-secondary uk-border-rounded"
+                    className="uk-button uk-text-capitalize uk-button-secondary uk-border-rounded"
                     to="/api"
                     end
                   >
-                    API
+                    Explora
                   </NavLink>
                 </div>
                 {isAuth && roles.includes("ADMIN") && (

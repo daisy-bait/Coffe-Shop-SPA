@@ -20,6 +20,7 @@ export const useOrders = () => {
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const [actualOrder, setActualOrder] = useState({
+    userOrder: null,
     orderDetails: [],
     totalPrice: 0,
   });
@@ -31,17 +32,22 @@ export const OrdersProvider = ({ children }) => {
   const { setModifiedProducts } = useProducts();
 
   useEffect(() => {
-    setActualOrder({
-      orderDetails: [],
-      totalPrice: 0,
-    });
+    if (actualOrder.userOrder && user._id !== actualOrder.userOrder._id) {
+      setActualOrder({
+        userOrder: isAuth ? user._id : null,
+        orderDetails: [],
+        totalPrice: 0,
+      });
+    }
   }, [isAuth]);
 
   useEffect(() => {
-    searchOrders();
-    setModifiedOrders(false);
-    setErrors([]);
-  }, [modifiedOrders])
+    if (isAuth) {
+      searchOrders();
+      setModifiedOrders(false);
+      setErrors([]);
+    }
+  }, [modifiedOrders]);
 
   const addToCart = (product, quantity = 1) => {
     if (quantity <= 0) {
@@ -60,12 +66,12 @@ export const OrdersProvider = ({ children }) => {
 
     let updatedDetails;
 
-    if (existing.quantity === 1 && quantity < 0) {
-      removeFromCart(product._id);
-      return;
-    }
-
     if (existing) {
+      if (existing.quantity === 1 && quantity < 0) {
+        removeFromCart(product._id);
+        return;
+      }
+
       const newQuantity = existing.quantity + quantity;
 
       if (newQuantity > product.stock) {
@@ -209,7 +215,9 @@ export const OrdersProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al cargar las órdenes"]);
+      setErrors([
+        error.response?.data?.message || "Error al cargar las órdenes",
+      ]);
     }
   };
 

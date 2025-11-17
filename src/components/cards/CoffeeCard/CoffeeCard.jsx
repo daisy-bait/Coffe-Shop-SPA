@@ -43,7 +43,11 @@ const CoffeeCard = ({ item, onViewDetails }) => {
   };
 
   return (
-    <div className="uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1 menu-product-card">
+    <div
+      className={`uk-card uk-card-default uk-card-hover uk-flex uk-flex-column uk-height-1-1 menu-product-card ${
+        item.stock <= 0 ? "out-of-stock" : ""
+      }`}
+    >
       <div
         className="uk-flex uk-flex-middle uk-flex-wrap uk-child-width-expand@m uk-grid-small"
         data-uk-grid
@@ -98,22 +102,33 @@ const CoffeeCard = ({ item, onViewDetails }) => {
       </div>
 
       {/* Botón Ver Más */}
-      <div className="uk-text-center uk-padding-small menu-product-buttons">
-        <button
-          className="uk-button uk-button-default menu-details-button"
-          onClick={onViewDetails}
-        >
-          Ver más detalles
-        </button>
-        {roles.includes("CUSTOMER") && (
+      {item.stock > 0 ? (
+        <div className="uk-text-center uk-padding-small menu-product-buttons">
           <button
             className="uk-button uk-button-default menu-details-button"
-            onClick={handleAddToCart}
+            onClick={onViewDetails}
           >
-            Añadir al carrito
+            Ver más detalles
           </button>
-        )}
-      </div>
+          {roles.includes("CUSTOMER") && (
+            <button
+              className="uk-button uk-button-default menu-details-button"
+              onClick={handleAddToCart}
+            >
+              Añadir al carrito
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="uk-text-center uk-padding-small menu-product-buttons">
+          <div
+            className="uk-button uk-button-default menu-details-button"
+            onClick={onViewDetails}
+          >
+            Producto No Disponible
+          </div>
+        </div>
+      )}
     </div>
   );
 };

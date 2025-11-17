@@ -8,7 +8,7 @@ import ProductSearchForm from "../../components/features/ProductSearchForm/Produ
 import "./Admin.css";
 
 const AdminControl = () => {
-  const { products } = useProducts();
+  const { products, setModifiedProducts } = useProducts();
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
   const {
     users,
@@ -67,6 +67,9 @@ const AdminControl = () => {
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
     const success = await modifyOrderStatus(orderId, newStatus);
+    if (newStatus === "CANCELADA") {
+      setModifiedProducts(true);
+    }
     if (success && window.UIkit) {
       window.UIkit.notification({
         message: `Estado actualizado a ${newStatus}`,

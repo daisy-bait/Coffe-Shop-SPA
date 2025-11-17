@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useAuth } from "../../context/AuthContext";
-import { useOrders } from "../../context/OrdersContext";
+import { useAuth } from "../../../context/AuthContext";
+import { useOrders } from "../../../context/OrdersContext";
 
 const UserOrders = () => {
   const { user } = useAuth();

@@ -22,3 +22,16 @@ export const activateUserRequest = async (userId) =>
 
 export const disableUserRequest = async (userId) =>
   axiosInstance.delete(`/users/disable/${userId}`);
+
+// Verificaciones de Usuario
+export const requestVerificationCodeRequest = async (requestData) =>
+  axiosInstance.post("/users/request-code", requestData);
+
+export const verifyCodeRequest = async (verificationData) =>
+  axiosInstance.post("/users/verify-code", verificationData);
+
+export const resetPasswordRequest = async (recoveryData) =>
+  axiosInstance.post("/users/reset-password", recoveryData);
+
+export const confirmRegisterRequest = async (confirmationData) =>
+  axiosInstance.post("/users/confirm-email", confirmationData);

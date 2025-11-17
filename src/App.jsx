@@ -7,6 +7,7 @@ import Menu from "./pages/Menu/Menu";
 import Recomendado from "./pages/Recomendado/Recomendado";
 import Blog from "./pages/Blog/Blog";
 import Nosotros from "./pages/Nosotros/Nosotros";
+import PasswordRecovery from "./pages/User/UserVerifications/PasswordRecovery";
 import { useLogin } from "./context/LoginContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { CartPopup } from "./components/features/OrderPopUp/CartPopup";
@@ -16,7 +17,7 @@ import { ProtectedRoute } from "./routesControl/routes";
 import { useAuth } from "./context/AuthContext";
 import { setupAxiosResponseInterceptors } from "./api/axios.instance";
 import NotFound from "./pages/Errors/NotFound/NotFound";
-import UserOrders from "./pages/User/UserOrders";
+import UserOrders from "./pages/User/UserInfo/UserOrders";
 
 function App() {
   const { logout } = useAuth();
@@ -43,6 +44,7 @@ function App() {
         <Route element={<ProtectedRoute requiredRoles={["CUSTOMER"]} />}>
           <Route path="/user/orders" element={<UserOrders />} />
         </Route>
+        <Route path="/password-recovery" element={<PasswordRecovery />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Footer />

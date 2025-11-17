@@ -1,8 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import {
   activateUserRequest,
+  confirmRegisterRequest,
   disableUserRequest,
+  requestVerificationCodeRequest,
+  resetPasswordRequest,
   searchUsersRequest,
+  verifyCodeRequest,
 } from "../api/requests/users.request";
 
 const UsersContext = createContext();
@@ -51,6 +55,84 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
+  // Verification Requests
+  const requestUserCode = async (email) => {
+    try {
+      const res = await requestVerificationCodeRequest({
+        email: email
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error generando código de verificación"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error generando código de verificación"])
+      return false;
+    }
+  }
+
+  const verifyUserCode = async (email, code) => {
+    try {
+      const res = await verifyCodeRequest({
+        email: email,
+        code: code
+      });
+      console.log(res);
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error verificando el código"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error verificando el código"])
+      return false;
+    }
+  }
+
+  const resetPassword = async (email, code, newPassword) => {
+    try {
+      const res = await resetPasswordRequest({
+        email: email,
+        code: code,
+        newPassword: newPassword,
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error reestableciendo la contraseña"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error restableciendo la contraseña"])
+      return false;
+    }
+  }
+
+  const confirmEmailRegister = async (email, code) => {
+    try {
+      const res = await confirmRegisterRequest({
+        email: email,
+        code: code,
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error confirmando el correo electrónico"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error confirmando el correo electrónico"])
+      return false;
+    }
+  }
+
   return (
     <UsersContext.Provider
       value={{
@@ -59,7 +141,12 @@ export const UsersProvider = ({ children }) => {
         modifiedUsers,
         searchUsers,
         setModifiedUsers,
+        setErrors,
         modifyUserStatus,
+        requestUserCode,
+        verifyUserCode,
+        resetPassword,
+        confirmEmailRegister,
       }}
     >
       {children}

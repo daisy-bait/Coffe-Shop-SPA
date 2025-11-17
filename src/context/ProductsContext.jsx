@@ -28,7 +28,6 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
-    console.log(params);
     searchProducts(params);
     searchAllCategories();
     setModifiedProducts(false);

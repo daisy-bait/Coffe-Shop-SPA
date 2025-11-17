@@ -1,0 +1,48 @@
+.breadcrumb-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.breadcrumb-step {
+  display: flex;
+  align-items: center;
+  color: #aaa;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+
+.breadcrumb-step .circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #d4a762;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.breadcrumb-step.active .circle {
+  background: #d4a762;
+}
+
+.breadcrumb-step .inactive-step {
+  color: #999 !important;
+  background: #1e1e1e !important;
+  box-shadow: 0 0 8px #999 !important;
+}
+
+.breadcrumb-step .line {
+  height: 3px;
+  width: 40px;
+  background: #555;
+  margin: 0 10px;
+}
+
+.breadcrumb-step.completed + .line {
+  background: #4caf50 !important;
+}

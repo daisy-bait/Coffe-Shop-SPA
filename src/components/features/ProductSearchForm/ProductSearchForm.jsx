@@ -15,7 +15,7 @@ const ProductSearchForm = (enabled) => {
     minStock: "",
     maxStock: "",
     origin: "",
-    enabled: true,
+    enabled: enabled,
   });
 
   const handleChange = (e) => {

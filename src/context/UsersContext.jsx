@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import {
+  activateUserRequest,
+  disableUserRequest,
   searchUsersRequest,
 } from "../api/requests/users.request";
 
@@ -31,6 +33,24 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
+  const modifyUserStatus = async (userId, enabled) => {
+    try {
+      let res;
+      if (enabled) {
+        res = await activateUserRequest(userId);
+      } else {
+        res = await disableUserRequest(userId);
+      }
+      if (res.status === 200 || res.status === 204) {
+        setModifiedUsers(true);
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error al modificar el estado del usuario"]);
+    }
+  };
+
   return (
     <UsersContext.Provider
       value={{
@@ -39,6 +59,7 @@ export const UsersProvider = ({ children }) => {
         modifiedUsers,
         searchUsers,
         setModifiedUsers,
+        modifyUserStatus,
       }}
     >
       {children}

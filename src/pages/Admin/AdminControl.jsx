@@ -6,18 +6,11 @@ import { useUsers } from "../../context/UsersContext";
 import CreateProductModal from "../../components/modals/CreationModals/CreateProductModal/CreateProductModal";
 import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
 import "./Admin.css";
+import { useAuth } from "../../context/AuthContext";
 
 const AdminControl = () => {
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
-  const {
-    users,
-    searchUsers,
-    updateUserRole,
-    toggleUserStatus,
-    deleteUser,
-    modifiedUsers,
-    setModifiedUsers,
-  } = useUsers();
+
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalMode, setModalMode] = useState("create");
@@ -28,21 +21,7 @@ const AdminControl = () => {
     onConfirm: null,
   });
 
-  useEffect(() => {
-    if (activeTab === "users") {
-      searchUsers();
-      setModifiedUsers(false);
-    }
-  }, [activeTab, modifiedUsers]);
-
-  const handleModifyClick = (product) => {
-    setSelectedProduct(product);
-    setModalMode("modify");
-    setShowModal(true);
-  };
-
   // PRODUCTOS
-
   const { products, modifyProductStatus, setModifiedProducts } = useProducts();
 
   const handleCreateClick = () => {
@@ -51,8 +30,13 @@ const AdminControl = () => {
     setShowModal(true);
   };
 
-  // ORDENES
+  const handleModifyClick = (product) => {
+    setSelectedProduct(product);
+    setModalMode("modify");
+    setShowModal(true);
+  };
 
+  // ORDENES
   const {
     orders,
     searchOrders,
@@ -63,7 +47,7 @@ const AdminControl = () => {
 
   useEffect(() => {
     if (activeTab === "orders") {
-      searchOrders({ username: "kadanarpa" });
+      searchOrders();
       setModifiedOrders(false);
     }
   }, [activeTab, modifiedOrders]);
@@ -80,8 +64,45 @@ const AdminControl = () => {
     }
   };
 
-  // GLOBAL
+  // USUARIOS
+  const {
+    users,
+    searchUsers,
+    updateUserRole,
+    toggleUserStatus,
+    modifiedUsers,
+    setModifiedUsers,
+    modifyUserStatus,
+  } = useUsers();
 
+  const {
+    user: currentUser,
+  } = useAuth();
+
+  useEffect(() => {
+    if (activeTab === "users") {
+      searchUsers();
+      setModifiedUsers(false);
+    }
+  }, [activeTab, modifiedUsers]);
+
+  const handleModifyUserStatus = async (userId, enabled) => {
+    showConfirm(
+      `¿Estás seguro de que deseas ${enabled ? 'activar' : 'desactivar'}  este usuario?`,
+      async () => {
+        const success = await modifyUserStatus(userId, enabled);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: `Usuario ${enabled ? 'activado' : 'desactivado'} exitosamente`,
+            status: "success",
+            pos: "top-center",
+          });
+        }
+      }
+    );
+  };
+
+  // GLOBAL
   const showConfirm = (message, onConfirm) => {
     setConfirmModal({ show: true, message, onConfirm });
   };
@@ -97,43 +118,7 @@ const AdminControl = () => {
     handleConfirmClose();
   };
 
-  const handleUpdateUserRole = async (userId, newRole) => {
-    const success = await updateUserRole(userId, newRole);
-    if (success && window.UIkit) {
-      window.UIkit.notification({
-        message: `Rol actualizado a ${newRole}`,
-        status: "success",
-        pos: "top-center",
-      });
-    }
-  };
-
-  const handleToggleUserStatus = async (userId) => {
-    const success = await toggleUserStatus(userId);
-    if (success && window.UIkit) {
-      window.UIkit.notification({
-        message: "Estado del usuario actualizado",
-        status: "success",
-        pos: "top-center",
-      });
-    }
-  };
-
-  const handleDeleteUser = async (userId) => {
-    showConfirm(
-      "¿Estás seguro de que deseas eliminar este usuario?",
-      async () => {
-        const success = await deleteUser(userId);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
-            message: "Usuario eliminado exitosamente",
-            status: "success",
-            pos: "top-center",
-          });
-        }
-      }
-    );
-  };
+  //
 
   const handleDeleteBlog = async (blogId) => {
     showConfirm("¿Estás seguro de que deseas eliminar este blog?", async () => {
@@ -510,12 +495,12 @@ const AdminControl = () => {
                       <strong>Estado:</strong>{" "}
                       <span
                         className={
-                          user.isActive
+                          user.enabled
                             ? "admin-user-active"
                             : "admin-user-inactive"
                         }
                       >
-                        {user.isActive ? "Activo" : "Suspendido"}
+                        {user.enabled ? "Activo" : "Suspendido"}
                       </span>
                     </p>
                     <p className="admin-card-info">
@@ -549,19 +534,14 @@ const AdminControl = () => {
                       </button>
                       <button
                         className={`admin-toggle-status-btn ${
-                          user.isActive ? "suspend" : "activate"
+                          user._id !== currentUser._id ? user.enabled ? "suspend" : "activate" : "disabled"
                         }`}
                         onClick={() =>
-                          handleToggleUserStatus(user._id || user.id)
+                          handleModifyUserStatus(user._id, user.enabled ? false : true)
                         }
+                        disabled={user._id === currentUser._id}
                       >
-                        {user.isActive ? "Suspender" : "Activar"}
-                      </button>
-                      <button
-                        className="admin-delete-btn"
-                        onClick={() => handleDeleteUser(user._id || user.id)}
-                      >
-                        Eliminar Usuario
+                        {user._id !== currentUser._id ? user.enabled ? "Suspender" : "Activar" : "Este es tu Usuario"}
                       </button>
                     </div>
                   </div>

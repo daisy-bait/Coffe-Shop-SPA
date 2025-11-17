@@ -22,7 +22,8 @@ export const setupAxiosResponseInterceptors = (openRefresh, logout) => {
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
-      if (error.response && error.response.status === 401) {
+      const token = localStorage.getItem("token");
+      if (token && error.response && error.response.status === 401) {
         logout();
         openRefresh();
       }

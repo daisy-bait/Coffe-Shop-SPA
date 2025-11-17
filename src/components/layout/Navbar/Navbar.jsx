@@ -35,7 +35,7 @@ const Navbar = () => {
                     <img src={coffeLogo} alt="Logo" />
                     <button className="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
                       <strong>
-                        Chocolate
+                        {user ? "Bienvenid@" : "Espresso 24"}
                         <br />
                         {currentUser}
                       </strong>

@@ -7,7 +7,7 @@ import CreateProductModal from "../../components/modals/CreationModals/CreatePro
 import ProductSearchForm from "../../components/features/ProductSearchForm/ProductSearchForm";
 import "./Admin.css";
 
-const AdminProducts = () => {
+const AdminControl = () => {
   const { products } = useProducts();
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
   const {
@@ -54,7 +54,6 @@ const AdminProducts = () => {
     orders,
     searchOrders,
     modifyOrderStatus,
-    deleteOrder,
     modifiedOrders,
     setModifiedOrders,
   } = useOrders();
@@ -76,22 +75,6 @@ const AdminProducts = () => {
         pos: "top-center",
       });
     }
-  };
-
-  const handleDeleteOrder = async (orderId) => {
-    showConfirm(
-      "¿Estás seguro de que deseas eliminar este pedido?",
-      async () => {
-        const success = await deleteOrder(orderId);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
-            message: "Pedido eliminado exitosamente",
-            status: "success",
-            pos: "top-center",
-          });
-        }
-      }
-    );
   };
 
   // GLOBAL
@@ -637,4 +620,4 @@ const AdminProducts = () => {
   );
 };
 
-export default AdminProducts;
+export default AdminControl;

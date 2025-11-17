@@ -1,38 +1,23 @@
-import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { Outlet } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import Unauthorized from "../pages/Errors/Unauthorized/Unauthorized";
+import Forbidden from "../pages/Errors/Forbidden/Forbidden";
 
 export const ProtectedRoute = ({ requiredRoles = [] }) => {
   const { isAuth, loading, roles } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading) {
-      if (!isAuth) {
-        navigate("/unauthorized", { replace: true });
-      } else if (requiredRoles.length > 0) {
-        const hasRequiredRole = requiredRoles.some((role) =>
-          roles.includes(role)
-        );
-        if (!hasRequiredRole) {
-          navigate("/forbidden", { replace: true });
-        }
-      }
-    }
-  }, [isAuth, loading, roles, requiredRoles, navigate]);
 
   if (loading) {
     return null;
   }
 
   if (!isAuth) {
-    return null;
+    return <Unauthorized />;
   }
 
   if (requiredRoles.length > 0) {
-    const hasRequiredRole = requiredRoles.some((role) => roles.includes(role));
-    if (!hasRequiredRole) {
-      return null;
+    const hasRoles = requiredRoles.some((r) => roles.includes(r));
+    if (!hasRoles) {
+      return <Forbidden />;
     }
   }
 

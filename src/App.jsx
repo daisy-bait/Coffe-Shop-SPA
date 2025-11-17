@@ -10,11 +10,12 @@ import Nosotros from "./pages/Nosotros/Nosotros";
 import { useLogin } from "./context/LoginContext";
 import { BrowserRouter as Router, Route, Routes } from "react-router";
 import { CartPopup } from "./components/features/OrderPopUp/CartPopup";
-import AdminProducts from "./pages/Admin/AdminProducts";
+import AdminControl from "./pages/Admin/AdminControl";
 import LoginModal from "./components/modals/CreationModals/LoginModal/LoginModal";
 import { ProtectedRoute } from "./routesControl/routes";
 import { useAuth } from "./context/AuthContext";
 import { setupAxiosResponseInterceptors } from "./api/axios.instance";
+import NotFound from "./pages/Errors/NotFound/NotFound";
 
 function App() {
   const { logout } = useAuth();
@@ -36,8 +37,9 @@ function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/about" element={<Nosotros />} />
         <Route element={<ProtectedRoute requiredRoles={["ADMIN"]} />}>
-          <Route path="/admin" element={<AdminProducts />} />
+          <Route path="/admin" element={<AdminControl />} />
         </Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Footer />
       <LoginModal

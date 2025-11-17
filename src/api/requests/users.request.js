@@ -13,15 +13,3 @@ export const verifyToken = async () =>
 // Administración de usuarios
 export const searchUsersRequest = async (requestParams) =>
   axiosInstance.get("/users/search", { params: requestParams });
-
-export const getUserRequest = async (userId) =>
-  axiosInstance.get(`/users/${userId}`);
-
-export const updateUserRoleRequest = async (userId, roleData) =>
-  axiosInstance.put(`/users/update-role/${userId}`, roleData);
-
-export const toggleUserStatusRequest = async (userId) =>
-  axiosInstance.patch(`/users/toggle-status/${userId}`);
-
-export const deleteUserRequest = async (userId) =>
-  axiosInstance.delete(`/users/${userId}`);

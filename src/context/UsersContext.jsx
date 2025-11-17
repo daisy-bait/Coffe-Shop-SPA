@@ -1,10 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import {
   searchUsersRequest,
-  getUserRequest,
-  updateUserRoleRequest,
-  toggleUserStatusRequest,
-  deleteUserRequest,
 } from "../api/requests/users.request";
 
 const UsersContext = createContext();
@@ -35,65 +31,6 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  // Obtener un usuario específico
-  const getUser = async (userId) => {
-    try {
-      const res = await getUserRequest(userId);
-      if (res.status === 200 && res.data) {
-        return res.data;
-      }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al obtener usuario"]);
-      return null;
-    }
-  };
-
-  // Actualizar rol de usuario
-  const updateUserRole = async (userId, newRole) => {
-    try {
-      const res = await updateUserRoleRequest(userId, { roleName: newRole });
-      if (res.status === 200 || res.status === 204) {
-        setModifiedUsers(true);
-        return true;
-      }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al actualizar rol"]);
-      return false;
-    }
-  };
-
-  // Suspender/activar usuario
-  const toggleUserStatus = async (userId) => {
-    try {
-      const res = await toggleUserStatusRequest(userId);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedUsers(true);
-        return true;
-      }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al cambiar estado"]);
-      return false;
-    }
-  };
-
-  // Eliminar usuario
-  const deleteUser = async (userId) => {
-    try {
-      const res = await deleteUserRequest(userId);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedUsers(true);
-        return true;
-      }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al eliminar usuario"]);
-      return false;
-    }
-  };
-
   return (
     <UsersContext.Provider
       value={{
@@ -101,10 +38,6 @@ export const UsersProvider = ({ children }) => {
         errors,
         modifiedUsers,
         searchUsers,
-        getUser,
-        updateUserRole,
-        toggleUserStatus,
-        deleteUser,
         setModifiedUsers,
       }}
     >

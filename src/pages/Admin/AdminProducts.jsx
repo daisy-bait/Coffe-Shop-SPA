@@ -11,14 +11,6 @@ const AdminProducts = () => {
   const { products } = useProducts();
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
   const {
-    allOrders,
-    searchAllOrders,
-    updateOrderStatus,
-    deleteOrder,
-    modifiedOrders,
-    setModifiedOrders,
-  } = useOrders();
-  const {
     users,
     searchUsers,
     updateUserRole,
@@ -36,13 +28,6 @@ const AdminProducts = () => {
     message: "",
     onConfirm: null,
   });
-
-  useEffect(() => {
-    if (activeTab === "orders") {
-      searchAllOrders();
-      setModifiedOrders(false);
-    }
-  }, [activeTab, modifiedOrders]);
 
   useEffect(() => {
     if (activeTab === "users") {
@@ -63,52 +48,27 @@ const AdminProducts = () => {
     setShowModal(true);
   };
 
-  const showConfirm = (message, onConfirm) => {
-    setConfirmModal({ show: true, message, onConfirm });
-  };
+  // ORDENES
 
-  const handleConfirmClose = () => {
-    setConfirmModal({ show: false, message: "", onConfirm: null });
-  };
+  const {
+    orders,
+    searchOrders,
+    modifyOrderStatus,
+    deleteOrder,
+    modifiedOrders,
+    setModifiedOrders,
+  } = useOrders();
 
-  const handleConfirmAccept = () => {
-    if (confirmModal.onConfirm) {
-      confirmModal.onConfirm();
+  useEffect(() => {
+    if (activeTab === "orders") {
+      searchOrders({ username: "kadanarpa" });
+      setModifiedOrders(false);
+      console.log(orders);
     }
-    handleConfirmClose();
-  };
-
-  const handleDeleteBlog = async (blogId) => {
-    showConfirm("¿Estás seguro de que deseas eliminar este blog?", async () => {
-      const success = await deleteBlog(blogId);
-      if (success && window.UIkit) {
-        window.UIkit.notification({
-          message: "Blog eliminado exitosamente",
-          status: "success",
-          pos: "top-center",
-        });
-      }
-    });
-  };
-
-  const handleDeleteComment = async (commentId) => {
-    showConfirm(
-      "¿Estás seguro de que deseas eliminar este comentario?",
-      async () => {
-        const success = await deleteComment(commentId);
-        if (success && window.UIkit) {
-          window.UIkit.notification({
-            message: "Comentario eliminado exitosamente",
-            status: "success",
-            pos: "top-center",
-          });
-        }
-      }
-    );
-  };
+  }, [activeTab, modifiedOrders]);
 
   const handleUpdateOrderStatus = async (orderId, newStatus) => {
-    const success = await updateOrderStatus(orderId, newStatus);
+    const success = await modifyOrderStatus(orderId, newStatus);
     if (success && window.UIkit) {
       window.UIkit.notification({
         message: `Estado actualizado a ${newStatus}`,
@@ -132,6 +92,23 @@ const AdminProducts = () => {
         }
       }
     );
+  };
+
+  // GLOBAL
+
+  const showConfirm = (message, onConfirm) => {
+    setConfirmModal({ show: true, message, onConfirm });
+  };
+
+  const handleConfirmClose = () => {
+    setConfirmModal({ show: false, message: "", onConfirm: null });
+  };
+
+  const handleConfirmAccept = () => {
+    if (confirmModal.onConfirm) {
+      confirmModal.onConfirm();
+    }
+    handleConfirmClose();
   };
 
   const handleUpdateUserRole = async (userId, newRole) => {
@@ -164,6 +141,35 @@ const AdminProducts = () => {
         if (success && window.UIkit) {
           window.UIkit.notification({
             message: "Usuario eliminado exitosamente",
+            status: "success",
+            pos: "top-center",
+          });
+        }
+      }
+    );
+  };
+
+  const handleDeleteBlog = async (blogId) => {
+    showConfirm("¿Estás seguro de que deseas eliminar este blog?", async () => {
+      const success = await deleteBlog(blogId);
+      if (success && window.UIkit) {
+        window.UIkit.notification({
+          message: "Blog eliminado exitosamente",
+          status: "success",
+          pos: "top-center",
+        });
+      }
+    });
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    showConfirm(
+      "¿Estás seguro de que deseas eliminar este comentario?",
+      async () => {
+        const success = await deleteComment(commentId);
+        if (success && window.UIkit) {
+          window.UIkit.notification({
+            message: "Comentario eliminado exitosamente",
             status: "success",
             pos: "top-center",
           });
@@ -273,24 +279,21 @@ const AdminProducts = () => {
 
         {activeTab === "orders" && (
           <div
-            className="uk-grid-small uk-child-width-1-1@s"
+            className="uk-grid-small uk-grid-match uk-child-width-1-3@s"
             data-uk-grid
             data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > div; delay: 150; repeat: true"
           >
-            {Array.isArray(allOrders) && allOrders.length > 0 ? (
-              allOrders.map((order) => (
+            {Array.isArray(orders) && orders.length > 0 ? (
+              orders.map((order) => (
                 <div key={order._id || order.id}>
                   <div className="admin-blog-card">
                     <div className="uk-grid-small" data-uk-grid>
-                      <div className="uk-width-2-3@m uk-width-1-1">
+                      <div className="uk-width-1-1">
                         <h4 className="admin-card-title">
-                          Pedido #{order._id?.slice(-6) || order.id}
+                          Pedido #{order._id?.slice(-6)}
                         </h4>
                         <p className="admin-card-info">
-                          <strong>Cliente:</strong>{" "}
-                          {order.clientId?.username ||
-                            order.clientId?.email ||
-                            "N/A"}
+                          <strong>Cliente:</strong> {order.client.username}
                         </p>
                         <p className="admin-card-info">
                           <strong>Estado:</strong>{" "}
@@ -300,7 +303,7 @@ const AdminProducts = () => {
                                 ? "admin-status-completed"
                                 : order.status === "PENDIENTE"
                                 ? "admin-status-pending"
-                                : order.status === "CANCELADO"
+                                : order.status === "CANCELADA"
                                 ? "admin-status-cancelled"
                                 : ""
                             }
@@ -309,22 +312,20 @@ const AdminProducts = () => {
                           </span>
                         </p>
                         <p className="admin-card-info">
-                          <strong>Fecha:</strong>{" "}
-                          {order.createdAt
-                            ? new Date(order.createdAt).toLocaleString("es-ES")
-                            : "N/A"}
+                          <strong>Creada:</strong>{" "}
+                          {new Date(order.createdAt).toLocaleString("es-ES")}<br />
+                          <strong>Modificada:</strong>{" "}
+                          {new Date(order.updatedAt).toLocaleString("es-ES")}
                         </p>
 
                         <div className="admin-blog-excerpt">
                           <strong>Productos:</strong>
                           <ul className="admin-product-list">
-                            {order.orderDetails?.map((detail, idx) => (
+                            {order.order_details?.map((detail, idx) => (
                               <li key={idx}>
-                                {detail.productId?.name || "Producto"} -
-                                Cantidad: {detail.quantity} - $
-                                {detail.total_price ||
-                                  detail.quantity *
-                                    (detail.productId?.price || 0)}
+                                {detail.product.name} - Cantidad:{" "}
+                                {detail.quantity} - Precio Unidad: $
+                                {detail.product.price.toLocaleString("es-CO")}
                               </li>
                             ))}
                           </ul>
@@ -332,60 +333,29 @@ const AdminProducts = () => {
 
                         <p className="admin-card-info admin-order-total">
                           <strong>Total:</strong> $
-                          {order.totalPrice ||
-                            order.orderDetails?.reduce(
-                              (acc, d) => acc + (d.total_price || 0),
-                              0
-                            ) ||
-                            0}
+                          {order.total_price.toLocaleString("es-CO")}
                         </p>
                       </div>
 
-                      <div className="uk-width-1-3@m uk-width-1-1">
+                      <div className="uk-width-1-1">
                         <div className="admin-button-column">
-                          <button
-                            className="admin-order-pending-btn"
-                            onClick={() =>
-                              handleUpdateOrderStatus(
-                                order._id || order.id,
-                                "PENDIENTE"
-                              )
-                            }
-                            disabled={order.status === "PENDIENTE"}
-                          >
-                            Marcar Pendiente
-                          </button>
                           <button
                             className="admin-order-completed-btn"
                             onClick={() =>
-                              handleUpdateOrderStatus(
-                                order._id || order.id,
-                                "COMPLETADO"
-                              )
+                              handleUpdateOrderStatus(order._id, "COMPLETADO")
                             }
-                            disabled={order.status === "COMPLETADO"}
+                            disabled={order.status !== "PENDIENTE"}
                           >
                             Marcar Completado
                           </button>
                           <button
                             className="admin-order-cancelled-btn"
                             onClick={() =>
-                              handleUpdateOrderStatus(
-                                order._id || order.id,
-                                "CANCELADO"
-                              )
+                              handleUpdateOrderStatus(order._id, "CANCELADA")
                             }
-                            disabled={order.status === "CANCELADO"}
+                            disabled={order.status !== "PENDIENTE"}
                           >
                             Marcar Cancelado
-                          </button>
-                          <button
-                            className="admin-delete-btn"
-                            onClick={() =>
-                              handleDeleteOrder(order._id || order.id)
-                            }
-                          >
-                            Eliminar Pedido
                           </button>
                         </div>
                       </div>
@@ -396,8 +366,8 @@ const AdminProducts = () => {
             ) : (
               <div className="uk-width-1-1 uk-text-center admin-empty-message">
                 <p>
-                  No hay pedidos para mostrar. Los pedidos se mostrarán aquí
-                  cuando el backend esté configurado.
+                  No hay pedidos para mostrar. Los pedidos se mostrarán aquí una
+                  vez sean registrados
                 </p>
               </div>
             )}

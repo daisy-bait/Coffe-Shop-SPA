@@ -1,9 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import {
   createOrderRequest,
+  modifyOrderStatusRequest,
   searchOrdersRequest,
-  updateOrderStatusRequest,
-  deleteOrderRequest,
 } from "../api/requests/orders.request";
 import { useAuth } from "./AuthContext";
 import { useEffect } from "react";
@@ -20,7 +19,6 @@ export const useOrders = () => {
 
 export const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
-  const [allOrders, setAllOrders] = useState([]);
   const [actualOrder, setActualOrder] = useState({
     orderDetails: [],
     totalPrice: 0,
@@ -38,6 +36,12 @@ export const OrdersProvider = ({ children }) => {
       totalPrice: 0,
     });
   }, [isAuth]);
+
+  useEffect(() => {
+    searchOrders();
+    setModifiedOrders(false);
+    setErrors([]);
+  }, [modifiedOrders])
 
   const addToCart = (product, quantity = 1) => {
     if (quantity <= 0) {
@@ -179,49 +183,34 @@ export const OrdersProvider = ({ children }) => {
     }
   };
 
-  const searchAllOrders = async (params) => {
+  const modifyOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await searchOrdersRequest(params);
-      if (res.status === 200 && res.data) {
-        setAllOrders(res.data);
-        return true;
-      }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al buscar órdenes"]);
-      return false;
-    }
-  };
-
-  const updateOrderStatus = async (orderId, newStatus) => {
-    try {
-      const res = await updateOrderStatusRequest(orderId, {
+      const res = await modifyOrderStatusRequest({
+        id: orderId,
         status: newStatus,
       });
-      if (res.status === 200 || res.status === 204) {
+      if (res.status === 200) {
         setModifiedOrders(true);
-        return true;
       }
     } catch (error) {
       console.error(error);
       setErrors([
-        error.response?.data?.message || "Error al actualizar estado",
+        error.response?.data?.message ||
+          "Error al modificar el estado de la orden",
       ]);
-      return false;
     }
   };
 
-  const deleteOrder = async (orderId) => {
+  const searchOrders = async (params) => {
     try {
-      const res = await deleteOrderRequest(orderId);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedOrders(true);
-        return true;
+      console.log(params);
+      const res = await searchOrdersRequest(params);
+      if (res.status === 200 && res.data) {
+        setOrders(res.data);
       }
     } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al eliminar orden"]);
-      return false;
+      console.log(error);
+      setErrors([error.response?.data?.message || "Error al cargar las órdenes"]);
     }
   };
 
@@ -229,11 +218,11 @@ export const OrdersProvider = ({ children }) => {
     <OrderContext.Provider
       value={{
         orders,
-        allOrders,
         actualOrder,
         isCartOpen,
         errors,
         modifiedOrders,
+        setModifiedOrders,
         addToCart,
         removeFromCart,
         updateQuantity,
@@ -241,10 +230,8 @@ export const OrdersProvider = ({ children }) => {
         decrementQuantity,
         setIsCartOpen,
         createOrder,
-        searchAllOrders,
-        updateOrderStatus,
-        deleteOrder,
-        setModifiedOrders,
+        modifyOrderStatus,
+        searchOrders,
       }}
     >
       {children}

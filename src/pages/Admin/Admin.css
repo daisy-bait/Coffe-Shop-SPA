@@ -399,8 +399,10 @@
   border-left: 4px solid #d4a762;
   border-radius: 6px;
   font-style: italic;
-  max-height: 120px;
+  height: 120px;
   overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
   text-overflow: ellipsis;
   transition: all 0.3s ease;
   position: relative;

@@ -203,7 +203,6 @@ export const OrdersProvider = ({ children }) => {
 
   const searchOrders = async (params) => {
     try {
-      console.log(params);
       const res = await searchOrdersRequest(params);
       if (res.status === 200 && res.data) {
         setOrders(res.data);

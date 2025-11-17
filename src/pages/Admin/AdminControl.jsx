@@ -62,7 +62,6 @@ const AdminControl = () => {
     if (activeTab === "orders") {
       searchOrders({ username: "kadanarpa" });
       setModifiedOrders(false);
-      console.log(orders);
     }
   }, [activeTab, modifiedOrders]);
 

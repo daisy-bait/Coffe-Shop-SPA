@@ -42,6 +42,17 @@ const Navbar = () => {
                     </button>
                   </NavLink>
                 </div>
+                {isAuth && roles.includes("CUSTOMER") && (
+                  <div className="uk-navbar-item uk-light">
+                    <NavLink
+                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      to="/user/orders"
+                      end
+                    >
+                      Mi Info
+                    </NavLink>
+                  </div>
+                )}
               </div>
               <div className="uk-navbar-center uk-visible@l">
                 <div className="uk-navbar-item uk-dark">

@@ -5,6 +5,7 @@ import {
 } from "../api/requests/blogs.request";
 import {
   createCommentRequest,
+  deleteCommentRequest,
   searchCommentsRequest,
 } from "../api/requests/comments.request";
 import { useAuth } from "./AuthContext";
@@ -90,6 +91,22 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+  const deleteComment = async (commentId) => {
+    try {
+      const res = await deleteCommentRequest(commentId);
+      if (res.status === 200) {
+        setModifiedBlogs(true);
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+      setErrors([
+        error.response?.data?.message || "Error al eliminar el comentario",
+      ]);
+      return false;
+    }
+  };
+
   return (
     <BlogContext.Provider
       value={{
@@ -102,6 +119,7 @@ export const BlogProvider = ({ children }) => {
         createBlog,
         searchBlogs,
         createComment,
+        deleteComment,
         searchComments,
       }}
     >

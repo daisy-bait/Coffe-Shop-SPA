@@ -9,7 +9,8 @@ import "./Admin.css";
 import { useAuth } from "../../context/AuthContext";
 
 const AdminControl = () => {
-  const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
+  const { blogs, comments, deleteBlog, searchComments, deleteComment } =
+    useBlogs();
 
   console.log(blogs);
 
@@ -77,7 +78,7 @@ const AdminControl = () => {
     deleteUserRole,
   } = useUsers();
 
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, logout } = useAuth();
 
   useEffect(() => {
     if (activeTab === "users") {
@@ -143,6 +144,7 @@ const AdminControl = () => {
       async () => {
         const success = await deleteComment(commentId);
         if (success && window.UIkit) {
+          searchComments();
           window.UIkit.notification({
             message: "Comentario eliminado exitosamente",
             status: "success",
@@ -518,45 +520,76 @@ const AdminControl = () => {
                     </p>
 
                     <div className="admin-button-column">
-                      <button
-                        className="admin-make-admin-btn"
-                        onClick={() => updateUserRole(user._id, "ADMIN")}
-                        disabled={user.roles?.some((r) => r.name === "ADMIN")}
-                      >
-                        Hacer Admin
-                      </button>
-                      <button
-                        className="admin-make-customer-btn"
-                        onClick={() => updateUserRole(user._id, "CUSTOMER")}
-                        disabled={
-                          user.roles?.some((r) => r.name === "CUSTOMER") &&
-                          !user.roles?.some((r) => r.name === "ADMIN")
-                        }
-                      >
-                        Hacer Customer
-                      </button>
-                      <button
-                        className={`admin-toggle-status-btn ${
-                          user._id !== currentUser._id
-                            ? user.enabled
-                              ? "suspend"
-                              : "activate"
-                            : "disabled"
-                        }`}
-                        onClick={() =>
-                          handleModifyUserStatus(
-                            user._id,
-                            user.enabled ? false : true
-                          )
-                        }
-                        disabled={user._id === currentUser._id}
-                      >
-                        {user._id !== currentUser._id
-                          ? user.enabled
-                            ? "Suspender"
-                            : "Activar"
-                          : "Este es tu Usuario"}
-                      </button>
+                      {/* Caso especial: el usuario actual */}
+                      {user._id === currentUser._id ? (
+                        <>
+                          {user.roles?.some((r) => r.name === "ADMIN") && (
+                            <button
+                              className="admin-make-admin-btn remove-role"
+                              onClick={() => {
+                                deleteUserRole(user._id, "ADMIN");
+                                logout();
+                              }}
+                            >
+                              Quitar Admin
+                            </button>
+                          )}
+                          <button
+                            className="admin-toggle-status-btn disabled"
+                            disabled
+                          >
+                            Este es tu Usuario
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {/* Botón ADMIN */}
+                          <button
+                            className="admin-make-admin-btn"
+                            onClick={() => updateUserRole(user._id, "ADMIN")}
+                            disabled={user.roles?.some(
+                              (r) => r.name === "ADMIN"
+                            )}
+                          >
+                            {user.roles?.some((r) => r.name === "ADMIN")
+                              ? "Ya es Admin"
+                              : "Hacer Admin"}
+                          </button>
+
+                          {/* Botón CUSTOMER: dinámico */}
+                          {user.roles?.some((r) => r.name === "CUSTOMER") ? (
+                            <button
+                              className="admin-make-customer-btn remove-role"
+                              onClick={() =>
+                                deleteUserRole(user._id, "CUSTOMER")
+                              }
+                            >
+                              Quitar Customer
+                            </button>
+                          ) : (
+                            <button
+                              className="admin-make-customer-btn"
+                              onClick={() =>
+                                updateUserRole(user._id, "CUSTOMER")
+                              }
+                            >
+                              Hacer Customer
+                            </button>
+                          )}
+
+                          {/* Activar / Suspender */}
+                          <button
+                            className={`admin-toggle-status-btn ${
+                              user.enabled ? "suspend" : "activate"
+                            }`}
+                            onClick={() =>
+                              handleModifyUserStatus(user._id, !user.enabled)
+                            }
+                          >
+                            {user.enabled ? "Suspender" : "Activar"}
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

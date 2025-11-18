@@ -18,6 +18,7 @@ import { useAuth } from "./context/AuthContext";
 import { setupAxiosResponseInterceptors } from "./api/axios.instance";
 import NotFound from "./pages/Errors/NotFound/NotFound";
 import UserOrders from "./pages/User/UserInfo/UserOrders";
+import ConfirmEmailRegister from "./pages/User/UserVerifications/ConfirmEmailRegister";
 
 function App() {
   const { logout } = useAuth();
@@ -45,6 +46,7 @@ function App() {
           <Route path="/user/orders" element={<UserOrders />} />
         </Route>
         <Route path="/password-recovery" element={<PasswordRecovery />}></Route>
+        <Route path="/confirm-email" element={<ConfirmEmailRegister />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Footer />

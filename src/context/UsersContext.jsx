@@ -1,13 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   activateUserRequest,
   confirmRegisterRequest,
+  deleteUserRoleRequest,
   disableUserRequest,
   requestVerificationCodeRequest,
   resetPasswordRequest,
   searchUsersRequest,
+  updateUserRoleRequest,
   verifyCodeRequest,
 } from "../api/requests/users.request";
+import { useAuth } from "./AuthContext";
 
 const UsersContext = createContext();
 
@@ -22,7 +25,16 @@ export const UsersProvider = ({ children }) => {
   const [modifiedUsers, setModifiedUsers] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  // Buscar todos los usuarios
+  const { roles } = useAuth();
+
+  // Buscar todos los usuarios habilitados por defecto si eres cliente
+  useEffect(() => {
+    const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
+    searchUsers(params);
+    setModifiedUsers(false);
+    setErrors([]);
+  }, [modifiedUsers, roles]);
+
   const searchUsers = async (params) => {
     try {
       const res = await searchUsersRequest(params);
@@ -54,6 +66,40 @@ export const UsersProvider = ({ children }) => {
       setErrors([error.response?.data?.message || "Error al modificar el estado del usuario"]);
     }
   };
+
+  const updateUserRole = async (userId, role) => {
+    try {
+      const res = await updateUserRoleRequest({
+        role: role,
+      })
+      if (res.status === 200) {
+        setModifiedUsers(true);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error al añadirle el rol al usuario"]);
+      return false;
+    }
+  }
+
+  const deleteUserRole = async (userId, role) => {
+    try {
+      const res = await deleteUserRoleRequest({
+        role: role,
+      })
+      if (res.status === 200) {
+        setModifiedUsers(true);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error al eliminarle el rol al usuario"]);
+      return false;
+    }
+  }
 
   // Verification Requests
   const requestUserCode = async (email) => {
@@ -143,6 +189,8 @@ export const UsersProvider = ({ children }) => {
         setModifiedUsers,
         setErrors,
         modifyUserStatus,
+        updateUserRole,
+        deleteUserRole,
         requestUserCode,
         verifyUserCode,
         resetPassword,

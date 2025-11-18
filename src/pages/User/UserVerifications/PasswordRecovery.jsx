@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StepEmail from "../../../components/features/UserVerifications/Steps/StepEmail";
 import Breadcrumb from "../../../components/features/UserVerifications/Breadcrumb/Breadcrumb";
-import "./PasswordRecovery.css";
+import "./UserVerifications.css";
 import { useUsers } from "../../../context/UsersContext";
 import StepCode from "../../../components/features/UserVerifications/Steps/StepCode";
 import StepResetPasswod from "../../../components/features/UserVerifications/Steps/StepResetPassword";

@@ -1,3 +1,5 @@
+import { useUsers } from "../../../../context/UsersContext";
+
 const StepCode = ({
   next,
   email,
@@ -6,10 +8,13 @@ const StepCode = ({
   action,
   retry,
   errors,
+  mode,
   setErrors,
   loading,
   setLoading,
 }) => {
+  const { confirmEmailRegister } = useUsers();
+
   const handleSubmit = async (e) => {
     setErrors([]);
     setLoading(true);
@@ -22,6 +27,10 @@ const StepCode = ({
           status: "success",
           pos: "top-center",
         });
+      }
+      if (mode === "confirm-email") {
+        console.log(mode);
+        confirmEmailRegister(email, code);
       }
       next();
     }
@@ -48,20 +57,18 @@ const StepCode = ({
         ))}
 
       {!loading ? (
-        <div className="uk-flex uk-flex-center">
-          <button
-            className="uk-width-1-3@s uk-margin-right uk-width-1-1 btn-golden-primary"
-            type="submit"
-          >
+        <div className="step-actions">
+          <button className="btn-golden-primary" type="submit">
             Verificar Código
           </button>
           <button
-            className="uk-width-1-3@s uk-margin-left uk-width-1-1 btn-golden-primary"
+            type="button"
+            className="btn-golden-primary"
             onClick={() => {
               retry();
               if (window.UIkit) {
                 window.UIkit.notification({
-                  message: `Código reenviado al correo <strong>${email}</strong>.`,
+                  message: `Código enviado al correo <strong>${email}</strong>.`,
                   status: "success",
                   pos: "top-center",
                 });
@@ -69,7 +76,7 @@ const StepCode = ({
               setErrors([]);
             }}
           >
-            Reenviar Código
+            Enviar Código
           </button>
         </div>
       ) : (

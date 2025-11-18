@@ -24,7 +24,7 @@ export const ProductProvider = ({ children }) => {
   const [modifiedProducts, setModifiedProducts] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  const { roles } = useAuth()
+  const { roles } = useAuth();
 
   useEffect(() => {
     const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};

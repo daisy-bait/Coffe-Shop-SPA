@@ -7,6 +7,7 @@ import {
   createCommentRequest,
   searchCommentsRequest,
 } from "../api/requests/comments.request";
+import { useAuth } from "./AuthContext";
 
 const BlogContext = createContext();
 
@@ -22,11 +23,14 @@ export const BlogProvider = ({ children }) => {
   const [modifiedBlogs, setModifiedBlogs] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  const { roles } = useAuth();
+
   useEffect(() => {
-    searchBlogs();
+    const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
+    searchBlogs(params);
     setModifiedBlogs(false);
     setErrors([]);
-  }, [modifiedBlogs]);
+  }, [modifiedBlogs, roles]);
 
   const createBlog = async (blogData) => {
     try {

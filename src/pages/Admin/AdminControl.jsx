@@ -68,16 +68,14 @@ const AdminControl = () => {
   const {
     users,
     searchUsers,
-    updateUserRole,
-    toggleUserStatus,
     modifiedUsers,
     setModifiedUsers,
     modifyUserStatus,
+    updateUserRole,
+    deleteUserRole,
   } = useUsers();
 
-  const {
-    user: currentUser,
-  } = useAuth();
+  const { user: currentUser } = useAuth();
 
   useEffect(() => {
     if (activeTab === "users") {
@@ -88,12 +86,16 @@ const AdminControl = () => {
 
   const handleModifyUserStatus = async (userId, enabled) => {
     showConfirm(
-      `¿Estás seguro de que deseas ${enabled ? 'activar' : 'desactivar'}  este usuario?`,
+      `¿Estás seguro de que deseas ${
+        enabled ? "activar" : "desactivar"
+      }  este usuario?`,
       async () => {
         const success = await modifyUserStatus(userId, enabled);
         if (success && window.UIkit) {
           window.UIkit.notification({
-            message: `Usuario ${enabled ? 'activado' : 'desactivado'} exitosamente`,
+            message: `Usuario ${
+              enabled ? "activado" : "desactivado"
+            } exitosamente`,
             status: "success",
             pos: "top-center",
           });
@@ -226,7 +228,8 @@ const AdminControl = () => {
                         {item.category?.name || "Sin categoría"}
                       </p>
                       <p className="admin-card-info">
-                        <strong>Precio:</strong> $ {item.price.toLocaleString("es-CO")}
+                        <strong>Precio:</strong> ${" "}
+                        {item.price.toLocaleString("es-CO")}
                       </p>
                       <p className="admin-card-info">
                         <strong>Stock:</strong> {item.stock}
@@ -244,12 +247,21 @@ const AdminControl = () => {
                       <div className="uk-margin-small-top uk-width-1-1">
                         <div className="admin-button-column">
                           <button
-                            className={`${!item.enabled ? 'admin-order-completed-btn' : 'admin-order-cancelled-btn'}`}
+                            className={`${
+                              !item.enabled
+                                ? "admin-order-completed-btn"
+                                : "admin-order-cancelled-btn"
+                            }`}
                             onClick={() =>
-                            modifyProductStatus(item._id, item.enabled ? false : true)
+                              modifyProductStatus(
+                                item._id,
+                                item.enabled ? false : true
+                              )
                             }
                           >
-                            {!item.enabled ? 'Activar Producto' : 'Desactivar Producto'}
+                            {!item.enabled
+                              ? "Activar Producto"
+                              : "Desactivar Producto"}
                           </button>
                         </div>
                       </div>
@@ -513,9 +525,7 @@ const AdminControl = () => {
                     <div className="admin-button-column">
                       <button
                         className="admin-make-admin-btn"
-                        onClick={() =>
-                          handleUpdateUserRole(user._id || user.id, "ADMIN")
-                        }
+                        onClick={() => updateUserRole(user._id, "ADMIN")}
                         disabled={user.roles?.some((r) => r.name === "ADMIN")}
                       >
                         Hacer Admin
@@ -523,7 +533,7 @@ const AdminControl = () => {
                       <button
                         className="admin-make-customer-btn"
                         onClick={() =>
-                          handleUpdateUserRole(user._id || user.id, "CUSTOMER")
+                          updateUserRole(user._id, "CUSTOMER")
                         }
                         disabled={
                           user.roles?.some((r) => r.name === "CUSTOMER") &&
@@ -534,14 +544,25 @@ const AdminControl = () => {
                       </button>
                       <button
                         className={`admin-toggle-status-btn ${
-                          user._id !== currentUser._id ? user.enabled ? "suspend" : "activate" : "disabled"
+                          user._id !== currentUser._id
+                            ? user.enabled
+                              ? "suspend"
+                              : "activate"
+                            : "disabled"
                         }`}
                         onClick={() =>
-                          handleModifyUserStatus(user._id, user.enabled ? false : true)
+                          handleModifyUserStatus(
+                            user._id,
+                            user.enabled ? false : true
+                          )
                         }
                         disabled={user._id === currentUser._id}
                       >
-                        {user._id !== currentUser._id ? user.enabled ? "Suspender" : "Activar" : "Este es tu Usuario"}
+                        {user._id !== currentUser._id
+                          ? user.enabled
+                            ? "Suspender"
+                            : "Activar"
+                          : "Este es tu Usuario"}
                       </button>
                     </div>
                   </div>

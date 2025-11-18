@@ -2,59 +2,72 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 30px;
 }
 
 .breadcrumb-step {
   display: flex;
   align-items: center;
-  color: #aaa;
   font-weight: 600;
-  text-transform: capitalize;
-  letter-spacing: 1px;
-}
-
-.breadcrumb-step .circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid #d4a762;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-}
-
-.breadcrumb-step.active .circle {
-  background: #d4a762;
-}
-
-.breadcrumb-step .step-badge {
+  color: #bbb;
+  letter-spacing: .7px;
   position: relative;
+}
+
+.breadcrumb-step span {
+  font-size: 14px;
+}
+
+.step-badge {
   border: none !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.25s ease !important;
 }
 
-.breadcrumb-step .inactive-step {
+.inactive-step {
   color: #999 !important;
-  background: #1e1e1e !important;
-  box-shadow: 0 0 8px #999 !important;
+  box-shadow: 0 0 6px #666 !important;
 }
 
-.breadcrumb-step .active-step {
+.active-step {
   color: #2c1608 !important;
   background: linear-gradient(135deg, #d4a762, #b8935a) !important;
-  box-shadow: 0 2px 8px rgba(212, 167, 98, 0.3);
+  box-shadow: 0 0 8px rgba(212, 167, 98, 0.3);
 }
 
-.breadcrumb-step .line {
+.step-actions {
+  display: flex;
+  gap: 15px; /* Espacio entre botones en desktop */
+  width: 100%;
+}
+
+.step-actions button {
+  flex: 1; /* Cada botón ocupa la mitad */
+}
+
+@media (max-width: 640px) {
+  .step-actions {
+    flex-direction: column; /* Apila botones verticalmente */
+  }
+
+  .step-actions button {
+    width: 100%; /* Ocupan toda la fila */
+  }
+}
+
+.line {
   height: 3px;
-  width: 40px;
+  width: 35px;
   background: #555;
-  margin: 0 10px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 5px;
 }
 
-.breadcrumb-step.completed + .line {
-  background: #4caf50 !important;
+/* Responsive */
+@media (max-width: 480px) {
+  .line {
+    display: none; /* sin líneas para móviles */
+  }
 }

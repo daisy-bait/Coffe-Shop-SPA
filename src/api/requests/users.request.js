@@ -23,6 +23,12 @@ export const activateUserRequest = async (userId) =>
 export const disableUserRequest = async (userId) =>
   axiosInstance.delete(`/users/disable/${userId}`);
 
+export const updateUserRoleRequest = async (userId, data) =>
+  axiosInstance.patch(`/users/update-role/${userId}`, data);
+
+export const deleteUserRoleRequest = async (userId, data) =>
+  axiosInstance.patch(`/users/delete-role/${userId}`, data);
+
 // Verificaciones de Usuario
 export const requestVerificationCodeRequest = async (requestData) =>
   axiosInstance.post("/users/request-code", requestData);

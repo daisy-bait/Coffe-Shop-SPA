@@ -43,7 +43,7 @@ const Navbar = () => {
                   </NavLink>
                 </div>
                 {isAuth && roles.includes("CUSTOMER") && (
-                  <div className="uk-navbar-item uk-light">
+                  <div className="uk-navbar-item uk-visible@l uk-light">
                     <NavLink
                       className="uk-text-capitalize uk-button uk-button-text uk-light"
                       to="/user/orders"
@@ -75,7 +75,7 @@ const Navbar = () => {
                     </NavLink>
                   </div>
                 )}
-                {(!isAuth || !roles.includes("ADMIN")) && (
+                {(!isAuth || roles.includes("CUSTOMER")) && (
                   <div className="uk-navbar-item uk-light">
                     <NavLink
                       className="uk-text-capitalize uk-button uk-button-text uk-light"
@@ -180,6 +180,17 @@ const Navbar = () => {
                       className="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
                       data-uk-grid=""
                     >
+                      {isAuth && roles.includes("CUSTOMER") && (
+                        <div>
+                          <NavLink
+                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            to="/user/orders"
+                            end
+                          >
+                            Mi Info
+                          </NavLink>
+                        </div>
+                      )}
                       <div>
                         <NavLink
                           className="uk-button uk-button-secondary uk-border-rounded"

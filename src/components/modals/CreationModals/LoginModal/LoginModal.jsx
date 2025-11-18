@@ -4,10 +4,12 @@ import { useAuth } from "../../../../context/AuthContext";
 import { userSchema, loginSchema } from "../../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 
 const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [isRegistering, setIsRegistering] = useState(mode === "register");
   const { signIn, signUp, errors: authErrors, setErrors } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -40,7 +42,13 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
       let success = false;
       if (isRegistering) {
         success = await signUp({ username, password, email, name });
-        if (success) setIsRegistering(false);
+        if (success) {
+          setIsRegistering(false);
+          handleClose();
+          navigate("confirm-email", {
+            state: { email },
+          });
+        }
       } else {
         success = await signIn({ username, password });
         if (success) handleClose();

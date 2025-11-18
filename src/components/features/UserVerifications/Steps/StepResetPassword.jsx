@@ -1,5 +1,11 @@
 import { useState } from "react";
+import PasswordInput from "../../../common/PasswordInput/PasswordInput";
+import { showNotification } from "../../../../utils/notifications";
 
+/**
+ * Componente para el paso de reseteo de contraseña
+ * Aplica validación de regex: 7-30 caracteres, mayúsculas, minúsculas, número y símbolo
+ */
 const StepResetPasswod = ({
   next,
   email,
@@ -13,24 +19,41 @@ const StepResetPasswod = ({
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  /**
+   * Regex de validación de contraseña del sistema de login
+   * Debe tener: 7-30 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo
+   */
+  const passwordRegex = /^(?=.*\d+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[^a-zA-Z\d]+)[\w\d\W]{7,30}$/;
+
   const handleSubmit = async (e) => {
     setErrors([]);
     setLoading(true);
     e.preventDefault();
+
+    // Validar que las contraseñas coincidan
     if (newPassword !== confirmPassword) {
       setErrors(["Las contraseñas no coinciden"]);
-    } else {
-      const res = await action(email, code, newPassword);
-      if (res) {
-      if (window.UIkit) {
-        window.UIkit.notification({
-          message: `Contraseña Actualizada con éxito`,
-          status: "success",
-          pos: "top-center",
-        });
-      }
-        next();
-      }
+      setLoading(false);
+      return;
+    }
+
+    // Validar el formato de la contraseña
+    if (!passwordRegex.test(newPassword)) {
+      setErrors([
+        "La contraseña debe tener entre 7 y 30 caracteres, incluir mayúsculas, minúsculas, un número y un símbolo."
+      ]);
+      setLoading(false);
+      return;
+    }
+
+    // Si todas las validaciones pasan, proceder con el cambio
+    const res = await action(email, code, newPassword);
+    if (res) {
+      showNotification({
+        message: "Contraseña actualizada con éxito",
+        status: "success",
+      });
+      next();
     }
     setLoading(false);
   };
@@ -42,8 +65,7 @@ const StepResetPasswod = ({
         Ingresa el código enviado a <strong>{email}</strong>.
       </p>
 
-      <input
-        type="password"
+      <PasswordInput
         className="uk-width-1-1"
         placeholder="Nueva contraseña"
         value={newPassword}
@@ -51,8 +73,7 @@ const StepResetPasswod = ({
         required
       />
 
-      <input
-        type="password"
+      <PasswordInput
         className="uk-width-1-1"
         placeholder="Confirmar contraseña"
         value={confirmPassword}

@@ -5,6 +5,7 @@ import { userSchema, loginSchema } from "../../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router";
+import PasswordInput from "../../../common/PasswordInput/PasswordInput";
 
 const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [isRegistering, setIsRegistering] = useState(mode === "register");
@@ -142,14 +143,14 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
 
           <div className="uk-margin">
             <label className="uk-form-label">Contraseña</label>
-            <input
-              className="uk-input login-modal-input"
-              type="password"
-              {...register("password")}
+            <PasswordInput
+              className="login-modal-input"
+              register={register}
+              name="password"
               placeholder="Ingresa tu contraseña"
             />
             <button
-              className="uk-button uk-button-link"
+              className="uk-button uk-button-link uk-margin-small-top"
               type="button"
               onClick={() => {
                 handleClose();

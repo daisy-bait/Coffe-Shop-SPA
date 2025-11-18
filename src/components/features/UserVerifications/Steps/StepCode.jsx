@@ -4,6 +4,7 @@ const StepCode = ({
   code,
   setCode,
   action,
+  retry,
   errors,
   setErrors,
   loading,
@@ -15,6 +16,13 @@ const StepCode = ({
     e.preventDefault();
     const res = await action(email, code);
     if (res) {
+      if (window.UIkit) {
+        window.UIkit.notification({
+          message: `Código verificado con éxito`,
+          status: "success",
+          pos: "top-center",
+        });
+      }
       next();
     }
     setLoading(false);
@@ -29,17 +37,41 @@ const StepCode = ({
 
       <input
         type="text"
+        className="uk-width-1-1"
         placeholder="Código"
         value={code}
         onChange={(e) => setCode(e.target.value)}
-        required
       />
-      {errors && errors.map((error) => <>{error}</>)}
+      {errors &&
+        errors.map((error) => (
+          <p className="uk-text-danger uk-margin-remove-top">{error}</p>
+        ))}
 
       {!loading ? (
-        <button className="uk-button btn-golden-primary" type="submit">
-          Verificar Código
-        </button>
+        <div className="uk-flex uk-flex-center">
+          <button
+            className="uk-width-1-3@s uk-margin-right uk-width-1-1 btn-golden-primary"
+            type="submit"
+          >
+            Verificar Código
+          </button>
+          <button
+            className="uk-width-1-3@s uk-margin-left uk-width-1-1 btn-golden-primary"
+            onClick={() => {
+              retry();
+              if (window.UIkit) {
+                window.UIkit.notification({
+                  message: `Código reenviado al correo <strong>${email}</strong>.`,
+                  status: "success",
+                  pos: "top-center",
+                });
+              }
+              setErrors([]);
+            }}
+          >
+            Reenviar Código
+          </button>
+        </div>
       ) : (
         <p>Cargando...</p>
       )}

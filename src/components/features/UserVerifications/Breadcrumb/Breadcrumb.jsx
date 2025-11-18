@@ -13,7 +13,7 @@ const Breadcrumb = ({ current }) => {
           }`}
         >
           <div
-            className={`uk-icon-button uk-margin-small-right cart-button ${index === current ? '' : 'inactive-step'}`}
+            className={`uk-icon-button uk-margin-small-right step-badge ${index === current ? 'active-step' : 'inactive-step'}`}
             uk-tooltip={`${index === 0 ? 'Solicitar Correo' : index === 1 ? 'Verificar Código' : 'Reestablecer contraseña'}`}
             uk-icon={`${index === 0 ? 'mail' : index === 1 ? 'eye' : 'lock'}`}
           />

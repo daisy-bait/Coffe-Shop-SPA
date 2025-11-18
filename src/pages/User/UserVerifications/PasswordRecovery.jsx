@@ -18,52 +18,58 @@ const PasswordRecovery = () => {
   const next = () => setStep((old) => old + 1);
 
   return (
-    <div className="recovery-page-container">
-      <div className="recovery-card">
-        {step !== 3 && <Breadcrumb current={step} />}
+    <div className="uk-section first-child-adjustment uk-background-secondary uk-light uk-padding-small">
+      <div className="uk-container uk-container-xlarge uk-padding-small">
+        <h2 className="uk-heading-line uk-text-center">
+          <span>Recuperar Contraseña</span>
+        </h2>
+            <div className="uk-margin-medium-bottom uk-flex uk-flex-center">
+        <div className="recovery-card">
+          {step !== 3 && <Breadcrumb current={step} />}
 
-        {step === 0 && (
-          <StepEmail
-            next={next}
-            setEmail={setEmail}
-            action={(email) => requestUserCode(email)}
-            errors={errors}
-            setErrors={setErrors}
-            loading={loading}
-            setLoading={setLoading}
-          />
-        )}
-        {step === 1 && (
-          <StepCode
-            next={next}
-            email={email}
-            code={code}
-            setCode={setCode}
-            action={(email, code) => verifyUserCode(email, code)}
-            errors={errors}
-            setErrors={setErrors}
-            loading={loading}
-            setLoading={setLoading}
-          />
-        )}
-        {step === 2 && (
-          <StepResetPasswod
-            next={next}
-            email={email}
-            code={code}
-            action={(email, code, newPassword) =>
-              resetPassword(email, code, newPassword)
-            }
-            errors={errors}
-            setErrors={setErrors}
-            loading={loading}
-            setLoading={setLoading}
-          />
-        )}
-        {step === 3 && (
-          <StepSuccess />
-        )}
+          {step === 0 && (
+            <StepEmail
+              next={next}
+              setEmail={setEmail}
+              action={(email) => requestUserCode(email)}
+              errors={errors}
+              setErrors={setErrors}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          )}
+          {step === 1 && (
+            <StepCode
+              next={next}
+              email={email}
+              code={code}
+              setCode={setCode}
+              action={(email, code) => verifyUserCode(email, code)}
+              retry={() => requestUserCode(email)}
+              errors={errors}
+              setErrors={setErrors}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          )}
+          {step === 2 && (
+            <StepResetPasswod
+              next={next}
+              email={email}
+              code={code}
+              action={(email, code, newPassword) =>
+                resetPassword(email, code, newPassword)
+              }
+              errors={errors}
+              setErrors={setErrors}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          )}
+          {step === 3 && <StepSuccess />}
+        </div>
       </div>
+    </div>
     </div>
   );
 };

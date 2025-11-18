@@ -30,15 +30,19 @@ const StepEmail = ({
 
       <input
         type="email"
+        className="uk-width-1-1"
         placeholder="Correo electrónico"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         required
       />
-      {errors && errors.map((error) => <>{error}</>)}
+      {errors &&
+        errors.map((error) => (
+          <p className="uk-text-danger uk-margin-remove-top">{error}</p>
+        ))}
 
       {!loading ? (
-        <button className="uk-button btn-golden-primary" type="submit">
+        <button className="uk-width-1-1 btn-golden-primary" type="submit">
           Enviar Código
         </button>
       ) : (

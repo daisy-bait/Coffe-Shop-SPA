@@ -22,6 +22,13 @@ const StepResetPasswod = ({
     } else {
       const res = await action(email, code, newPassword);
       if (res) {
+      if (window.UIkit) {
+        window.UIkit.notification({
+          message: `Contraseña Actualizada con éxito`,
+          status: "success",
+          pos: "top-center",
+        });
+      }
         next();
       }
     }
@@ -37,6 +44,7 @@ const StepResetPasswod = ({
 
       <input
         type="password"
+        className="uk-width-1-1"
         placeholder="Nueva contraseña"
         value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)}
@@ -45,19 +53,22 @@ const StepResetPasswod = ({
 
       <input
         type="password"
+        className="uk-width-1-1"
         placeholder="Confirmar contraseña"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         required
       />
+        {errors.map((error) => (
+          <p className="uk-text-danger uk-margin-remove-top">{error}</p>
+        ))}
       {!loading ? (
-        <button className="uk-button btn-golden-primary" type="submit">
+        <button className="uk-width-1-1 btn-golden-primary" type="submit">
           Actualizar Contraseña
         </button>
       ) : (
         <p>Cargando...</p>
       )}
-      {errors && errors.map((error) => <>{error}</>)}
     </form>
   );
 };

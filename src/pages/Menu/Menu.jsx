@@ -22,14 +22,14 @@ const Menu = () => {
     <div className="first-child-adjustment uk-section uk-background-secondary uk-light uk-padding-small menu-section">
       <div className="uk-container uk-container-xlarge uk-padding-small uk-light">
         <MenuHeader />
-        <ProductSearchForm />
+        <ProductSearchForm enabled={true} />
         <div
           className="uk-grid-small uk-child-width-1-3@m uk-child-width-1-2@s uk-child-width-1-1@s menu-grid"
           data-uk-grid
           data-uk-height-match="target: > div > .uk-card"
           data-uk-scrollspy="cls: uk-animation-slide-left-medium; target: > div; delay: 150; repeat: true"
         >
-          {Array.isArray(products) &&
+          {Array.isArray(products) && products.length > 0 ? (
             products.map((item, index) => (
               <div key={index}>
                 <CoffeeCard
@@ -37,7 +37,12 @@ const Menu = () => {
                   onViewDetails={() => handleOpenInfoModal(item)}
                 />
               </div>
-            ))}
+            ))
+          ) : (
+              <div className="uk-width-1-1 uk-text-center admin-empty-message">
+                <p>No se encontraron Productos disponibles.</p>
+              </div>
+          )}
         </div>
       </div>
       {selectedProduct && (

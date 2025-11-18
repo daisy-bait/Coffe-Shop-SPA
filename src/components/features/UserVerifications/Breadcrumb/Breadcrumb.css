@@ -1,0 +1,73 @@
+.breadcrumb-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-bottom: 30px;
+}
+
+.breadcrumb-step {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #bbb;
+  letter-spacing: .7px;
+  position: relative;
+}
+
+.breadcrumb-step span {
+  font-size: 14px;
+}
+
+.step-badge {
+  border: none !important;
+  transition: all 0.25s ease !important;
+}
+
+.inactive-step {
+  color: #999 !important;
+  box-shadow: 0 0 6px #666 !important;
+}
+
+.active-step {
+  color: #2c1608 !important;
+  background: linear-gradient(135deg, #d4a762, #b8935a) !important;
+  box-shadow: 0 0 8px rgba(212, 167, 98, 0.3);
+}
+
+.step-actions {
+  display: flex;
+  gap: 15px; /* Espacio entre botones en desktop */
+  width: 100%;
+}
+
+.step-actions button {
+  flex: 1; /* Cada botón ocupa la mitad */
+}
+
+@media (max-width: 640px) {
+  .step-actions {
+    flex-direction: column; /* Apila botones verticalmente */
+  }
+
+  .step-actions button {
+    width: 100%; /* Ocupan toda la fila */
+  }
+}
+
+.line {
+  height: 3px;
+  width: 35px;
+  background: #555;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 5px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .line {
+    display: none; /* sin líneas para móviles */
+  }
+}

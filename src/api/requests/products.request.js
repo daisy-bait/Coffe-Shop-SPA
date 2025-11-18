@@ -11,3 +11,9 @@ export const searchAllProductCategoriesRequest = async () =>
 
 export const searchProductsRequest = async (requestParams) =>
   axiosInstance.get("/products/search", { params: requestParams });
+
+export const activateProductRequest = async (productId) =>
+  axiosInstance.patch(`/products/activate/${productId}`);
+
+export const disableProductRequest = async (productId) =>
+  axiosInstance.delete(`/products/disable/${productId}`);

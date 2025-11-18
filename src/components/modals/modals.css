@@ -6,3 +6,9 @@
 .modal-close-golden {
   color: #d4a762 !important;
 }
+
+.modal-scrollable {
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}

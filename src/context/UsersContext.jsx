@@ -1,11 +1,16 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
+  activateUserRequest,
+  confirmRegisterRequest,
+  deleteUserRoleRequest,
+  disableUserRequest,
+  requestVerificationCodeRequest,
+  resetPasswordRequest,
   searchUsersRequest,
-  getUserRequest,
   updateUserRoleRequest,
-  toggleUserStatusRequest,
-  deleteUserRequest,
+  verifyCodeRequest,
 } from "../api/requests/users.request";
+import { useAuth } from "./AuthContext";
 
 const UsersContext = createContext();
 
@@ -20,7 +25,16 @@ export const UsersProvider = ({ children }) => {
   const [modifiedUsers, setModifiedUsers] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  // Buscar todos los usuarios
+  const { roles } = useAuth();
+
+  // Buscar todos los usuarios habilitados por defecto si eres cliente
+  useEffect(() => {
+    const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
+    searchUsers(params);
+    setModifiedUsers(false);
+    setErrors([]);
+  }, [modifiedUsers, roles]);
+
   const searchUsers = async (params) => {
     try {
       const res = await searchUsersRequest(params);
@@ -35,64 +49,135 @@ export const UsersProvider = ({ children }) => {
     }
   };
 
-  // Obtener un usuario específico
-  const getUser = async (userId) => {
+  const modifyUserStatus = async (userId, enabled) => {
     try {
-      const res = await getUserRequest(userId);
-      if (res.status === 200 && res.data) {
-        return res.data;
+      let res;
+      if (enabled) {
+        res = await activateUserRequest(userId);
+      } else {
+        res = await disableUserRequest(userId);
       }
-    } catch (error) {
-      console.error(error);
-      setErrors([error.response?.data?.message || "Error al obtener usuario"]);
-      return null;
-    }
-  };
-
-  // Actualizar rol de usuario
-  const updateUserRole = async (userId, newRole) => {
-    try {
-      const res = await updateUserRoleRequest(userId, { roleName: newRole });
       if (res.status === 200 || res.status === 204) {
         setModifiedUsers(true);
         return true;
       }
     } catch (error) {
       console.error(error);
-      setErrors([error.response?.data?.message || "Error al actualizar rol"]);
-      return false;
+      setErrors([error.response?.data?.message || "Error al modificar el estado del usuario"]);
     }
   };
 
-  // Suspender/activar usuario
-  const toggleUserStatus = async (userId) => {
+  const updateUserRole = async (userId, role) => {
     try {
-      const res = await toggleUserStatusRequest(userId);
-      if (res.status === 200 || res.status === 204) {
+      const res = await updateUserRoleRequest({
+        role: role,
+      })
+      if (res.status === 200) {
         setModifiedUsers(true);
         return true;
       }
+      return false;
     } catch (error) {
       console.error(error);
-      setErrors([error.response?.data?.message || "Error al cambiar estado"]);
+      setErrors([error.response?.data?.message || "Error al añadirle el rol al usuario"]);
       return false;
     }
-  };
+  }
 
-  // Eliminar usuario
-  const deleteUser = async (userId) => {
+  const deleteUserRole = async (userId, role) => {
     try {
-      const res = await deleteUserRequest(userId);
-      if (res.status === 200 || res.status === 204) {
+      const res = await deleteUserRoleRequest({
+        role: role,
+      })
+      if (res.status === 200) {
         setModifiedUsers(true);
         return true;
       }
+      return false;
     } catch (error) {
       console.error(error);
-      setErrors([error.response?.data?.message || "Error al eliminar usuario"]);
+      setErrors([error.response?.data?.message || "Error al eliminarle el rol al usuario"]);
       return false;
     }
-  };
+  }
+
+  // Verification Requests
+  const requestUserCode = async (email) => {
+    try {
+      const res = await requestVerificationCodeRequest({
+        email: email
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error generando código de verificación"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error generando código de verificación"])
+      return false;
+    }
+  }
+
+  const verifyUserCode = async (email, code) => {
+    try {
+      const res = await verifyCodeRequest({
+        email: email,
+        code: code
+      });
+      console.log(res);
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error verificando el código"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error verificando el código"])
+      return false;
+    }
+  }
+
+  const resetPassword = async (email, code, newPassword) => {
+    try {
+      const res = await resetPasswordRequest({
+        email: email,
+        code: code,
+        newPassword: newPassword,
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error reestableciendo la contraseña"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error restableciendo la contraseña"])
+      return false;
+    }
+  }
+
+  const confirmEmailRegister = async (email, code) => {
+    try {
+      const res = await confirmRegisterRequest({
+        email: email,
+        code: code,
+      });
+      if (res.status === 200) {
+        return true;
+      } else {
+        setErrors([res.data?.message || "Error confirmando el correo electrónico"])
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      setErrors([error.response?.data?.message || "Error confirmando el correo electrónico"])
+      return false;
+    }
+  }
 
   return (
     <UsersContext.Provider
@@ -101,11 +186,15 @@ export const UsersProvider = ({ children }) => {
         errors,
         modifiedUsers,
         searchUsers,
-        getUser,
-        updateUserRole,
-        toggleUserStatus,
-        deleteUser,
         setModifiedUsers,
+        setErrors,
+        modifyUserStatus,
+        updateUserRole,
+        deleteUserRole,
+        requestUserCode,
+        verifyUserCode,
+        resetPassword,
+        confirmEmailRegister,
       }}
     >
       {children}

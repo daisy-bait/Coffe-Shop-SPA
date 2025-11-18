@@ -1,14 +1,12 @@
-import { useState } from "react";
 import { NavLink } from "react-router";
 import { useAuth } from "../../../context/AuthContext";
 import { useOrders } from "../../../context/OrdersContext";
-import LoginModal from "../../modals/CreationModals/LoginModal/LoginModal";
 import coffeLogo from "../../../assets/img/coffe-user-logo.svg";
 import "./Navbar.css";
+import { useLogin } from "../../../context/LoginContext";
 
 const Navbar = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const { openLogin, openRegister } = useLogin();
   const { user, isAuth, logout, roles, loading } = useAuth();
 
   const { actualOrder, setIsCartOpen } = useOrders();
@@ -17,18 +15,6 @@ const Navbar = () => {
     (acc, item) => acc + item.quantity,
     0
   );
-
-  const handleOpenLogin = () => {
-    setShowLoginModal(true);
-    const offcanvas = document.getElementById("burger-menu");
-    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
-  };
-
-  const handleOpenRegister = () => {
-    setShowRegisterModal(true);
-    const offcanvas = document.getElementById("burger-menu");
-    if (offcanvas && window.UIkit) window.UIkit.offcanvas(offcanvas).hide();
-  };
 
   const handleCloseOffcanvas = () => {
     const offcanvas = document.getElementById("burger-menu");
@@ -49,22 +35,33 @@ const Navbar = () => {
                     <img src={coffeLogo} alt="Logo" />
                     <button className="uk-margin-left uk-text-capitalize uk-text-left uk-text-small uk-button uk-button-link">
                       <strong>
-                        Chocolate
+                        {user ? "Bienvenid@" : "Espresso 24"}
                         <br />
                         {currentUser}
                       </strong>
                     </button>
                   </NavLink>
                 </div>
+                {isAuth && roles.includes("CUSTOMER") && (
+                  <div className="uk-navbar-item uk-visible@l uk-light">
+                    <NavLink
+                      className="uk-text-capitalize uk-button uk-button-text uk-light"
+                      to="/user/orders"
+                      end
+                    >
+                      Mi Info
+                    </NavLink>
+                  </div>
+                )}
               </div>
               <div className="uk-navbar-center uk-visible@l">
                 <div className="uk-navbar-item uk-dark">
                   <NavLink
-                    className="uk-button uk-button-secondary uk-border-rounded"
+                    className="uk-button uk-text-capitalize uk-button-secondary uk-border-rounded"
                     to="/api"
                     end
                   >
-                    API
+                    Explora
                   </NavLink>
                 </div>
                 {isAuth && roles.includes("ADMIN") && (
@@ -78,7 +75,7 @@ const Navbar = () => {
                     </NavLink>
                   </div>
                 )}
-                {(!isAuth || !roles.includes("ADMIN")) && (
+                {(!isAuth || roles.includes("CUSTOMER")) && (
                   <div className="uk-navbar-item uk-light">
                     <NavLink
                       className="uk-text-capitalize uk-button uk-button-text uk-light"
@@ -144,7 +141,7 @@ const Navbar = () => {
                     <div className="uk-navbar-item uk-light">
                       <button
                         className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded"
-                        onClick={handleOpenLogin}
+                        onClick={openLogin}
                       >
                         Iniciar Sesión
                       </button>
@@ -152,7 +149,7 @@ const Navbar = () => {
                     <div className="uk-navbar-item uk-dark">
                       <button
                         className="uk-text-capitalize uk-button uk-button-secondary uk-border-rounded"
-                        onClick={handleOpenRegister}
+                        onClick={openRegister}
                       >
                         Registrarse
                       </button>
@@ -183,6 +180,17 @@ const Navbar = () => {
                       className="uk-flex uk-flex-column uk-grid-row-small uk-margin-medium-top"
                       data-uk-grid=""
                     >
+                      {isAuth && roles.includes("CUSTOMER") && (
+                        <div>
+                          <NavLink
+                            className="uk-text-capitalize uk-button uk-button-text uk-light"
+                            to="/user/orders"
+                            end
+                          >
+                            Mi Info
+                          </NavLink>
+                        </div>
+                      )}
                       <div>
                         <NavLink
                           className="uk-button uk-button-secondary uk-border-rounded"
@@ -269,7 +277,7 @@ const Navbar = () => {
                           <div className="uk-light">
                             <button
                               className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                              onClick={handleOpenLogin}
+                              onClick={openLogin}
                             >
                               Iniciar Sesión
                             </button>
@@ -277,7 +285,7 @@ const Navbar = () => {
                           <div className="uk-dark">
                             <button
                               className="uk-text-capitalize uk-text-normal uk-button uk-button-secondary uk-border-rounded uk-width-1-1"
-                              onClick={handleOpenRegister}
+                              onClick={openRegister}
                             >
                               Registrarse
                             </button>
@@ -291,14 +299,6 @@ const Navbar = () => {
             </div>
           </div>
         </nav>
-        <LoginModal
-          isOpen={showLoginModal || showRegisterModal}
-          mode={showRegisterModal ? "register" : "login"}
-          onClose={() => {
-            setShowLoginModal(false);
-            setShowRegisterModal(false);
-          }}
-        />
       </div>
     );
 };

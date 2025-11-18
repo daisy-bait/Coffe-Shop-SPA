@@ -7,6 +7,9 @@ export const loginRequest = async (login) =>
 export const registerRequest = async (user) =>
   axiosInstance.post("/users/register", user);
 
+export const modifyUserRequest = async (userId, userData) =>
+  axiosInstance.put(`/users/modify/${userId}`, userData);
+
 export const verifyToken = async () =>
   axiosInstance.get("/users/verify-session");
 
@@ -14,14 +17,27 @@ export const verifyToken = async () =>
 export const searchUsersRequest = async (requestParams) =>
   axiosInstance.get("/users/search", { params: requestParams });
 
-export const getUserRequest = async (userId) =>
-  axiosInstance.get(`/users/${userId}`);
+export const activateUserRequest = async (userId) =>
+  axiosInstance.patch(`/users/activate/${userId}`);
 
-export const updateUserRoleRequest = async (userId, roleData) =>
-  axiosInstance.put(`/users/update-role/${userId}`, roleData);
+export const disableUserRequest = async (userId) =>
+  axiosInstance.delete(`/users/disable/${userId}`);
 
-export const toggleUserStatusRequest = async (userId) =>
-  axiosInstance.patch(`/users/toggle-status/${userId}`);
+export const updateUserRoleRequest = async (userId, data) =>
+  axiosInstance.patch(`/users/update-role/${userId}`, data);
 
-export const deleteUserRequest = async (userId) =>
-  axiosInstance.delete(`/users/${userId}`);
+export const deleteUserRoleRequest = async (userId, data) =>
+  axiosInstance.patch(`/users/delete-role/${userId}`, data);
+
+// Verificaciones de Usuario
+export const requestVerificationCodeRequest = async (requestData) =>
+  axiosInstance.post("/users/request-code", requestData);
+
+export const verifyCodeRequest = async (verificationData) =>
+  axiosInstance.post("/users/verify-code", verificationData);
+
+export const resetPasswordRequest = async (recoveryData) =>
+  axiosInstance.post("/users/reset-password", recoveryData);
+
+export const confirmRegisterRequest = async (confirmationData) =>
+  axiosInstance.post("/users/confirm-email", confirmationData);

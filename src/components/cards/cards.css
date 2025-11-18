@@ -100,6 +100,21 @@
   border-color: #d4a762 !important;
 }
 
+.out-of-stock {
+  filter: grayscale(100%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.out-of-stock img {
+  filter: grayscale(100%);
+}
+
+.out-of-stock:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* ========================================
    CARD HOVER CON SHADOW GRANDE
    ======================================== */

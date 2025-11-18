@@ -4,6 +4,7 @@ import {
   registerRequest,
   verifyToken,
 } from "../api/requests/users.request";
+import { useLogin } from "./LoginContext";
 
 const AuthContext = createContext();
 
@@ -20,6 +21,9 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const { openRefresh } = useLogin();
+
+  // Clear Errors after 5 seconds
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => setErrors([]), 5000);
@@ -49,8 +53,8 @@ export const AuthProvider = ({ children }) => {
         return true;
       }
     } catch (error) {
-      console.log(error.response.data.message);
-      setErrors([error.response.data.message]);
+      console.log(error.response.data.message || error);
+      setErrors([error.response.data.message || error.message]);
       return false;
     }
   };
@@ -58,9 +62,11 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
+    setRoles([]);
     setIsAuth(false);
   };
 
+  // Verify Token at App Start || at Token Expiration
   useEffect(() => {
     const checkAuth = async () => {
       const token = localStorage.getItem("token");
@@ -73,6 +79,12 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const res = await verifyToken();
+        if (!res.data) {
+          localStorage.removeItem("token");
+          setIsAuth(false);
+          openRefresh();
+          return;
+        }
         setUser(res.data);
         setRoles(
           res.data.roles.map((role) => {
@@ -80,18 +92,16 @@ export const AuthProvider = ({ children }) => {
           })
         );
         setIsAuth(true);
-        setLoading(false);
       } catch (error) {
-        console.log("Invalid or Expired Token: ", error);
-        localStorage.removeItem("token");
-        setIsAuth(false);
+        console.log(error);
+        setLoading(false);
       } finally {
         setLoading(false);
       }
     };
 
     checkAuth();
-  }, [isAuth]);
+  }, [isAuth, openRefresh]);
 
   return (
     <AuthContext.Provider

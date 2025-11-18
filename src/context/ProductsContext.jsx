@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
+  activateProductRequest,
   createProductRequest,
+  disableProductRequest,
   modifyProductRequest,
   searchAllProductCategoriesRequest,
   searchProductsRequest,
 } from "../api/requests/products.request";
+import { useAuth } from "./AuthContext";
 
 const ProductContext = createContext();
 
@@ -21,12 +24,15 @@ export const ProductProvider = ({ children }) => {
   const [modifiedProducts, setModifiedProducts] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  const { roles } = useAuth();
+
   useEffect(() => {
-    searchProducts();
+    const params =  !roles.includes("ADMIN") ? { enabled: true } : {};
+    searchProducts(params);
     searchAllCategories();
     setModifiedProducts(false);
     setErrors([]);
-  }, [modifiedProducts]);
+  }, [modifiedProducts, roles]);
 
   const createProduct = async (productData) => {
     try {
@@ -56,6 +62,25 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const modifyProductStatus = async (productId, enabled) => {
+    try {
+      let res;
+      if (enabled === true) {
+        res = await activateProductRequest(productId);
+      } else {
+        res = await disableProductRequest(productId);
+      }
+      if (res.status === 200 || res.status === 204) {
+        setModifiedProducts(true);
+        return true;
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      setErrors([error.response.data.message]);
+      return false;
+    }
+  };
+
   const searchProducts = async (params) => {
     try {
       const res = await searchProductsRequest(params);
@@ -64,8 +89,9 @@ export const ProductProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response.data.message]);
-      return false;
+      setErrors([
+        error.response?.data?.message || "Error al cargar los productos",
+      ]);
     }
   };
 
@@ -90,6 +116,7 @@ export const ProductProvider = ({ children }) => {
         errors,
         createProduct,
         modifyProduct,
+        modifyProductStatus,
         setModifiedProducts,
         searchProducts,
         searchAllCategories,

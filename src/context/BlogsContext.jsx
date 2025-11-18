@@ -1,16 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createBlogRequest,
-  getAllBlogsRequest,
-  deleteBlogRequest,
-  updateBlogRequest,
+  searchBlogsRequest,
 } from "../api/requests/blogs.request";
 import {
   createCommentRequest,
-  getCommentsByBlogRequest,
-  deleteCommentRequest,
-  getAllCommentsRequest,
+  searchCommentsRequest,
 } from "../api/requests/comments.request";
+import { useAuth } from "./AuthContext";
 
 const BlogContext = createContext();
 
@@ -26,12 +23,15 @@ export const BlogProvider = ({ children }) => {
   const [modifiedBlogs, setModifiedBlogs] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  const { roles } = useAuth();
+
   useEffect(() => {
-    fetchAllBlogs();
-    fetchAllComments();
+    const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
+    searchBlogs(params);
+    searchComments(params);
     setModifiedBlogs(false);
     setErrors([]);
-  }, [modifiedBlogs]);
+  }, [modifiedBlogs, roles]);
 
   const createBlog = async (blogData) => {
     try {
@@ -47,48 +47,18 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-  const updateBlog = async (blogId, blogData) => {
+  const searchBlogs = async (params) => {
     try {
-      const res = await updateBlogRequest(blogId, blogData);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedBlogs(true);
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
-      setErrors([
-        error.response?.data?.message || "Error al actualizar el blog",
-      ]);
-      return false;
-    }
-  };
-
-  const deleteBlog = async (blogId) => {
-    try {
-      const res = await deleteBlogRequest(blogId);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedBlogs(true);
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
-      setErrors([error.response?.data?.message || "Error al eliminar el blog"]);
-      return false;
-    }
-  };
-
-  const fetchAllBlogs = async () => {
-    try {
-      const res = await getAllBlogsRequest();
+      const res = await searchBlogsRequest(params);
       if (res.status === 200 && res.data) {
         setBlogs(res.data);
       }
     } catch (error) {
       console.log(error);
-      setErrors([error.response?.data?.message || "Error al cargar blogs"]);
-      return false;
+      setErrors([error.response?.data?.message || "Error al cargar los blogs"]);
     }
   };
+
 
   const createComment = async (commentData) => {
     try {
@@ -106,49 +76,17 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
-  const deleteComment = async (commentId) => {
+  const searchComments = async (params) => {
     try {
-      const res = await deleteCommentRequest(commentId);
-      if (res.status === 200 || res.status === 204) {
-        setModifiedBlogs(true);
-        return true;
-      }
-    } catch (error) {
-      console.log(error);
-      setErrors([
-        error.response?.data?.message || "Error al eliminar el comentario",
-      ]);
-      return false;
-    }
-  };
-
-  const fetchCommentsByBlog = async (blogId) => {
-    try {
-      const res = await getCommentsByBlogRequest(blogId);
-      if (res.status === 200 && res.data) {
-        return res.data;
-      }
-    } catch (error) {
-      console.log(error);
-      setErrors([
-        error.response?.data?.message || "Error al cargar comentarios",
-      ]);
-      return [];
-    }
-  };
-
-  const fetchAllComments = async () => {
-    try {
-      const res = await getAllCommentsRequest();
+      const res = await searchCommentsRequest(params);
       if (res.status === 200 && res.data) {
         setComments(res.data);
       }
     } catch (error) {
       console.log(error);
       setErrors([
-        error.response?.data?.message || "Error al cargar comentarios",
+        error.response?.data?.message || "Error al cargar los comentarios",
       ]);
-      return false;
     }
   };
 
@@ -158,15 +96,13 @@ export const BlogProvider = ({ children }) => {
         blogs,
         comments,
         errors,
-        createBlog,
-        updateBlog,
-        deleteBlog,
-        fetchAllBlogs,
-        createComment,
-        deleteComment,
-        fetchCommentsByBlog,
-        fetchAllComments,
+        modifiedBlogs,
+        setErrors,
         setModifiedBlogs,
+        createBlog,
+        searchBlogs,
+        createComment,
+        searchComments,
       }}
     >
       {children}

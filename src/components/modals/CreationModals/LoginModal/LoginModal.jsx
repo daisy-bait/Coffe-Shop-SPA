@@ -4,10 +4,12 @@ import { useAuth } from "../../../../context/AuthContext";
 import { userSchema, loginSchema } from "../../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 
 const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
   const [isRegistering, setIsRegistering] = useState(mode === "register");
   const { signIn, signUp, errors: authErrors, setErrors } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -40,7 +42,13 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
       let success = false;
       if (isRegistering) {
         success = await signUp({ username, password, email, name });
-        if (success) setIsRegistering(false);
+        if (success) {
+          setIsRegistering(false);
+          handleClose();
+          navigate("confirm-email", {
+            state: { email },
+          });
+        }
       } else {
         success = await signIn({ username, password });
         if (success) handleClose();
@@ -78,7 +86,11 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
         ></button>
 
         <h2 className="uk-modal-title">
-          {isRegistering ? "Registrarse" : "Iniciar Sesión"}
+          {isRegistering
+            ? "Registrarse"
+            : mode === "login"
+            ? "Iniciar Sesión"
+            : "Vuelve a Iniciar Sesión"}
         </h2>
 
         <form
@@ -136,6 +148,16 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
               {...register("password")}
               placeholder="Ingresa tu contraseña"
             />
+            <button
+              className="uk-button uk-button-link"
+              type="button"
+              onClick={() => {
+                handleClose();
+                navigate("/password-recovery")
+              }}
+            >
+              {"¿Olvidaste tu contraseña?"}{" "}
+            </button>
             {errors.password?.message && (
               <p className="uk-text-danger">{errors.password.message}</p>
             )}
@@ -159,9 +181,11 @@ const LoginModal = ({ isOpen, onClose, mode = "login" }) => {
               type="button"
               onClick={() => setIsRegistering(!isRegistering)}
             >
-              {isRegistering
-                ? "¿Ya tienes cuenta?"
-                : "¿No tienes cuenta? Regístrate"}
+              {mode !== "refresh"
+                ? isRegistering
+                  ? "¿Ya tienes cuenta?"
+                  : "¿No tienes cuenta? Regístrate"
+                : ""}
             </button>
           </div>
         </form>

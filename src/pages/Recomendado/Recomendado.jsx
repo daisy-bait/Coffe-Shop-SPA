@@ -1,17 +1,18 @@
-import { useState, useMemo } from "react";
-import coffeeItems from "../../data/coffeeItems";
+import { useMemo } from "react";
 import RecommendedCard from "../../components/cards/RecommendedCard/RecommendedCard";
 import "./Recomendado.css";
+import { useProducts } from "../../context/ProductsContext";
 
 const Recomendado = () => {
-  const [imageError, setImageError] = useState(false);
+  const { products } = useProducts();
+
   const productoRecomendado = useMemo(() => {
     const now = new Date();
     const start = new Date(now.getFullYear(), 0, 0);
     const diff = now - start;
     const oneDay = 1000 * 60 * 60 * 24;
     const dayOfYear = Math.floor(diff / oneDay);
-    return coffeeItems[dayOfYear % coffeeItems.length];
+    return products[dayOfYear % products.length];
   }, []);
 
   return (
@@ -28,8 +29,6 @@ const Recomendado = () => {
         <div data-uk-scrollspy="cls: uk-animation-scale-up; delay: 200; repeat: true">
           <RecommendedCard
             product={productoRecomendado}
-            imageError={imageError}
-            onImageError={() => setImageError(true)}
           />
         </div>
       </div>

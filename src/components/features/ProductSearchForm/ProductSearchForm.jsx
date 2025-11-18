@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useProducts } from "../../../context/ProductsContext";
 import { useAuth } from "../../../context/AuthContext";
 import "./ProductSearchForm.css";
 
-const ProductSearchForm = () => {
+const ProductSearchForm = (enabled) => {
   const { searchProducts, categories } = useProducts();
   const { roles } = useAuth();
 
@@ -15,7 +15,7 @@ const ProductSearchForm = () => {
     minStock: "",
     maxStock: "",
     origin: "",
-    enabled: true,
+    enabled: enabled,
   });
 
   const handleChange = (e) => {
@@ -33,7 +33,7 @@ const ProductSearchForm = () => {
   };
 
   const handleClear = async () => {
-    setFilters({
+    const clearedFilters = {
       name: "",
       category: "",
       minPrice: "",
@@ -41,11 +41,15 @@ const ProductSearchForm = () => {
       minStock: "",
       maxStock: "",
       origin: "",
-      enabled: true,
-    });
-    const res = await searchProducts();
-    console.log(res);
+      enabled: enabled,
+    };
+    setFilters(clearedFilters);
+    await searchProducts(filters);
   };
+
+  useEffect(() => {
+    searchProducts(filters);
+  }, [filters]);
 
   return (
     <form onSubmit={handleSubmit} className="product-search-form">
@@ -147,7 +151,7 @@ const ProductSearchForm = () => {
               <input
                 type="checkbox"
                 name="enabled"
-                checked={filters.enabled}
+                checked={enabled === null ? false : filters.enabled}
                 onChange={handleChange}
                 className="search-checkbox-input"
                 id="enabled-checkbox"
@@ -166,7 +170,7 @@ const ProductSearchForm = () => {
         </button>
         <button
           type="button"
-          onClick={handleClear}
+          onClick={() => handleClear()}
           className="search-btn-clear"
         >
           Limpiar filtros

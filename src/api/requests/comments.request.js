@@ -3,8 +3,10 @@ import axiosInstance from "../axios.instance";
 export const createCommentRequest = async (comment) =>
   axiosInstance.post("/comments/create", comment);
 
-export const getAllCommentsRequest = async () =>
-  axiosInstance.get("/comments/search");
+export const searchCommentsRequest = async (requestParams) =>
+  axiosInstance.get("/comments/search", { params: requestParams });
+
+//
 
 export const getCommentsByBlogRequest = async (blogId) =>
   axiosInstance.get(`/comments/blog/${blogId}`);

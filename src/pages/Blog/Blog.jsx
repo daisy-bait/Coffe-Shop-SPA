@@ -4,6 +4,7 @@ import { useBlogs } from "../../context/BlogsContext";
 import BlogForm from "../../components/features/Blog/BlogForm/BlogForm";
 import BlogPostCard from "../../components/features/Blog/BlogPostCard/BlogPostCard";
 import BlogSection from "../../components/modals/BlogSection/BlogSection";
+import { showNotification } from "../../utils/notifications";
 import avatarDefault from "../../assets/img/avatars/default.jpg";
 import blogDefault from "../../assets/img/blog/blogDefault.jpg";
 import "./Blog.css";
@@ -54,12 +55,10 @@ const Blog = () => {
   useEffect(() => {
     if (serverErrors && serverErrors.length > 0) {
       serverErrors.forEach((error) => {
-        if (window.UIkit)
-          window.UIkit.notification({
-            message: "Error en el Servidor: " + error,
-            status: "danger",
-            pos: "top-center",
-          });
+        showNotification({
+          message: "Error en el Servidor: " + error,
+          status: "danger",
+        });
       });
       setServerErrors([]);
     }
@@ -83,12 +82,10 @@ const Blog = () => {
       if (success) {
         reset();
         setNewImage({ source: null });
-        if (window.UIkit)
-          window.UIkit.notification({
-            message: "Blog publicado exitosamente.",
-            status: "success",
-            pos: "top-center",
-          });
+        showNotification({
+          message: "Blog publicado exitosamente.",
+          status: "success",
+        });
       }
     } catch (error) {
       console.error("Error al validar los datos del blog:", error);
@@ -98,6 +95,9 @@ const Blog = () => {
   return (
     <div className="uk-section first-child-adjustment uk-dark blog-background">
       <div className="uk-container uk-text-default">
+        <h2 className="uk-heading-line uk-text-center blog-page-heading">
+          <span>Nuestro Blog</span>
+        </h2>
         {Array.isArray(blogs) && blogs.length > 0 ? (
           <div
             className="uk-child-width-1-2@s uk-grid-match uk-margin-top"

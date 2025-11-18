@@ -28,6 +28,7 @@ export const BlogProvider = ({ children }) => {
   useEffect(() => {
     const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
     searchBlogs(params);
+    searchComments(params);
     setModifiedBlogs(false);
     setErrors([]);
   }, [modifiedBlogs, roles]);

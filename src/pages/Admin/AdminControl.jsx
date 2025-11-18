@@ -11,6 +11,8 @@ import { useAuth } from "../../context/AuthContext";
 const AdminControl = () => {
   const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
 
+  console.log(blogs);
+
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [modalMode, setModalMode] = useState("create");
@@ -372,19 +374,14 @@ const AdminControl = () => {
 
         {activeTab === "blogs" && (
           <div
-            className="uk-grid-small uk-child-width-1-1@s"
+            className="uk-grid-small uk-child-width-1-3@m"
             data-uk-grid
             data-uk-scrollspy="cls: uk-animation-slide-top-medium; target: > div; delay: 130; repeat: true"
           >
             {Array.isArray(blogs) && blogs.length > 0 ? (
               blogs.map((blog) => {
                 const blogComments = Array.isArray(comments)
-                  ? comments.filter(
-                      (c) =>
-                        c.blogId === blog._id ||
-                        c.blogId === blog.id ||
-                        c.blogId?.title === blog.title
-                    )
+                  ? comments.filter((c) => c.blog._id === blog._id)
                   : [];
 
                 return (
@@ -392,7 +389,7 @@ const AdminControl = () => {
                     <div className="admin-blog-card">
                       <h4 className="admin-card-title">{blog.title}</h4>
                       <p className="admin-card-info">
-                        <strong>Autor:</strong> {blog.author}
+                        <strong>Autor:</strong> {blog.user.username}
                       </p>
                       <p className="admin-card-info">
                         <strong>Fecha:</strong>{" "}
@@ -400,7 +397,7 @@ const AdminControl = () => {
                           ? new Date(blog.createdAt).toLocaleDateString("es-ES")
                           : blog.date || "N/A"}
                       </p>
-                      <p className="admin-blog-excerpt">{blog.excerpt}</p>
+                      <p className="admin-blog-excerpt">{blog.content}</p>
                       <div className="admin-button-column">
                         <button
                           className="btn-golden-primary"
@@ -430,29 +427,27 @@ const AdminControl = () => {
                           </h5>
                           {blogComments.map((comment) => (
                             <div
-                              key={comment._id || comment.id}
+                              key={comment._id}
                               className="admin-comment-card"
                             >
                               <div className="admin-comment-container">
-                                <div className="admin-comment-content">
-                                  <p className="admin-comment-info">
-                                    <strong>{comment.author}</strong> -{" "}
-                                    {comment.createdAt
-                                      ? new Date(
-                                          comment.createdAt
-                                        ).toLocaleDateString("es-ES")
-                                      : "N/A"}
-                                  </p>
-                                  <div className="admin-comment-text">
-                                    {comment.text || comment.content}
-                                  </div>
+                                <p className="admin-comment-info">
+                                  <strong>{comment.user.username}</strong> -{" "}
+                                  {comment.createdAt
+                                    ? new Date(
+                                        comment.createdAt
+                                      ).toLocaleDateString("es-CO")
+                                    : "N/A"}
+                                </p>
+
+                                <div className="admin-comment-text uk-padding-left">
+                                  {comment.content}
                                 </div>
+
                                 <button
                                   className="admin-delete-btn admin-delete-btn-small"
                                   onClick={() =>
-                                    handleDeleteComment(
-                                      comment._id || comment.id
-                                    )
+                                    handleDeleteComment(comment._id)
                                   }
                                 >
                                   Eliminar
@@ -532,9 +527,7 @@ const AdminControl = () => {
                       </button>
                       <button
                         className="admin-make-customer-btn"
-                        onClick={() =>
-                          updateUserRole(user._id, "CUSTOMER")
-                        }
+                        onClick={() => updateUserRole(user._id, "CUSTOMER")}
                         disabled={
                           user.roles?.some((r) => r.name === "CUSTOMER") &&
                           !user.roles?.some((r) => r.name === "ADMIN")

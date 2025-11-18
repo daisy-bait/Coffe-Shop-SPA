@@ -27,7 +27,7 @@ export const ProductProvider = ({ children }) => {
   const { roles } = useAuth();
 
   useEffect(() => {
-    const params = roles.length === 1 && roles.includes("CUSTOMER") ? { enabled: true } : {};
+    const params =  !roles.includes("ADMIN") ? { enabled: true } : {};
     searchProducts(params);
     searchAllCategories();
     setModifiedProducts(false);

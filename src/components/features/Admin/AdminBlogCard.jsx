@@ -20,18 +20,6 @@ const AdminBlogCard = ({ blog, comments, onDeleteBlog, onDeleteComment }) => {
       <p className="admin-blog-excerpt">{blog.content}</p>
       <div className="admin-button-column">
         <button
-          className="btn-golden-primary"
-          onClick={() => {
-            showNotification({
-              message:
-                "Funcionalidad de edición lista para conectar con backend",
-              status: "primary",
-            });
-          }}
-        >
-          Editar Blog
-        </button>
-        <button
           className="admin-delete-btn"
           onClick={() => onDeleteBlog(blog._id || blog.id)}
         >

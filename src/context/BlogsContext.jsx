@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   createBlogRequest,
+  deleteBlogRequest,
   searchBlogsRequest,
 } from "../api/requests/blogs.request";
 import {
@@ -91,6 +92,22 @@ export const BlogProvider = ({ children }) => {
     }
   };
 
+  const deleteBlog = async (blogId) => {
+    try {
+      const res = await deleteBlogRequest(blogId);
+      if (res.status === 200) {
+        setModifiedBlogs(true);
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+      setErrors([
+        error.response?.data?.message || "Error al eliminar el blog",
+      ]);
+      return false;
+    }
+  };
+
   const deleteComment = async (commentId) => {
     try {
       const res = await deleteCommentRequest(commentId);
@@ -120,6 +137,7 @@ export const BlogProvider = ({ children }) => {
         searchBlogs,
         createComment,
         deleteComment,
+        deleteBlog,
         searchComments,
       }}
     >

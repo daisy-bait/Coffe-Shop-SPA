@@ -25,7 +25,8 @@ import { showNotification } from "../../utils/notifications";
 import "./Admin.css";
 
 const AdminControl = () => {
-  const { blogs, comments, deleteBlog, deleteComment } = useBlogs();
+  const { blogs, comments, deleteBlog, searchComments, deleteComment } =
+    useBlogs();
 
   console.log(blogs);
 
@@ -101,7 +102,7 @@ const AdminControl = () => {
     deleteUserRole,
   } = useUsers();
 
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, logout } = useAuth();
 
   useEffect(() => {
     if (activeTab === "users") {
@@ -129,21 +130,6 @@ const AdminControl = () => {
     );
   };
 
-  const handleUpdateUserRole = (userId, role) => {
-    const roleLabel = role === "ADMIN" ? "Administrador" : "Cliente";
-    showConfirm(
-      `¿Deseas asignar el rol ${roleLabel} a este usuario?`,
-      async () => {
-        const success = await updateUserRole(userId, role);
-        if (success) {
-          showNotification({
-            message: `Rol actualizado a ${roleLabel}`,
-            status: "success",
-          });
-        }
-      }
-    );
-  };
 
   // GLOBAL
   const showConfirm = (message, onConfirm) => {
@@ -181,6 +167,7 @@ const AdminControl = () => {
       async () => {
         const success = await deleteComment(commentId);
         if (success) {
+          searchComments();
           showNotification({
             message: "Comentario eliminado exitosamente",
             status: "success",
@@ -459,12 +446,115 @@ const AdminControl = () => {
               {filteredUsers.length > 0 ? (
                 filteredUsers.map((user) => (
                 <div key={user._id || user.id}>
-                  <AdminUserCard
-                    user={user}
-                    currentUserId={currentUser._id}
-                    onUpdateRole={handleUpdateUserRole}
-                    onModifyStatus={handleModifyUserStatus}
-                  />
+                  <div className="admin-blog-card">
+                    <h4 className="admin-card-title">{user.username}</h4>
+                    <p className="admin-card-info">
+                      <strong>Email:</strong> {user.email}
+                    </p>
+                    <p className="admin-card-info">
+                      <strong>Rol:</strong>{" "}
+                      <span
+                        className={
+                          user.roles?.some((r) => r.name === "ADMIN")
+                            ? "admin-role-admin"
+                            : "admin-role-customer"
+                        }
+                      >
+                        {user.roles?.map((r) => r.name).join(", ") || "N/A"}
+                      </span>
+                    </p>
+                    <p className="admin-card-info">
+                      <strong>Estado:</strong>{" "}
+                      <span
+                        className={
+                          user.enabled
+                            ? "admin-user-active"
+                            : "admin-user-inactive"
+                        }
+                      >
+                        {user.enabled ? "Activo" : "Suspendido"}
+                      </span>
+                    </p>
+                    <p className="admin-card-info">
+                      <strong>Fecha de registro:</strong>{" "}
+                      {user.createdAt
+                        ? new Date(user.createdAt).toLocaleDateString("es-ES")
+                        : "N/A"}
+                    </p>
+
+                    <div className="admin-button-column">
+                      {/* Caso especial: el usuario actual */}
+                      {user._id === currentUser._id ? (
+                        <>
+                          {user.roles?.some((r) => r.name === "ADMIN") && (
+                            <button
+                              className="admin-make-admin-btn remove-role"
+                              onClick={() => {
+                                deleteUserRole(user._id, "ADMIN");
+                                logout();
+                              }}
+                            >
+                              Quitar Admin
+                            </button>
+                          )}
+                          <button
+                            className="admin-toggle-status-btn disabled"
+                            disabled
+                          >
+                            Este es tu Usuario
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {/* Botón ADMIN */}
+                          <button
+                            className="admin-make-admin-btn"
+                            onClick={() => updateUserRole(user._id, "ADMIN")}
+                            disabled={user.roles?.some(
+                              (r) => r.name === "ADMIN"
+                            )}
+                          >
+                            {user.roles?.some((r) => r.name === "ADMIN")
+                              ? "Ya es Admin"
+                              : "Hacer Admin"}
+                          </button>
+
+                          {/* Botón CUSTOMER: dinámico */}
+                          {user.roles?.some((r) => r.name === "CUSTOMER") ? (
+                            <button
+                              className="admin-make-customer-btn remove-role"
+                              onClick={() =>
+                                deleteUserRole(user._id, "CUSTOMER")
+                              }
+                            >
+                              Quitar Customer
+                            </button>
+                          ) : (
+                            <button
+                              className="admin-make-customer-btn"
+                              onClick={() =>
+                                updateUserRole(user._id, "CUSTOMER")
+                              }
+                            >
+                              Hacer Customer
+                            </button>
+                          )}
+
+                          {/* Activar / Suspender */}
+                          <button
+                            className={`admin-toggle-status-btn ${
+                              user.enabled ? "suspend" : "activate"
+                            }`}
+                            onClick={() =>
+                              handleModifyUserStatus(user._id, !user.enabled)
+                            }
+                          >
+                            {user.enabled ? "Suspender" : "Activar"}
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ))
             ) : (

@@ -69,7 +69,7 @@ export const UsersProvider = ({ children }) => {
 
   const updateUserRole = async (userId, role) => {
     try {
-      const res = await updateUserRoleRequest({
+      const res = await updateUserRoleRequest(userId, {
         role: role,
       })
       if (res.status === 200) {
@@ -86,7 +86,7 @@ export const UsersProvider = ({ children }) => {
 
   const deleteUserRole = async (userId, role) => {
     try {
-      const res = await deleteUserRoleRequest({
+      const res = await deleteUserRoleRequest(userId, {
         role: role,
       })
       if (res.status === 200) {
